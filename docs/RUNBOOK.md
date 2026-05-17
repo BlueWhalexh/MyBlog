@@ -76,12 +76,32 @@ ssh -i C:\Users\xuehang\.ssh\do_digitalocean_ed25519 xuehang@146.190.97.62 "df -
 
 如果普通用户看不到 80 端口进程，使用 sudo 前先确认权限和影响。
 
-## 部署草案
+## 部署草案 ✅ 已上线
 
-- 目标目录：`/opt/tech-blog`
-- 内部端口：`127.0.0.1:3010`
-- 反向代理：确认 80 端口归属后再改。
-- PaiFlow：`/opt/PaiFlow` 只读确认，不清理。
+- **访问地址**：`http://146.190.97.62:3010/`
+- **目标目录**：`/opt/tech-blog`
+- **服务端口**：`0.0.0.0:3010`（UFW 已开放）
+- **进程管理**：`screen -S blog node serve.mjs`（`serve.mjs` 是项目内的精简静态文件服务器）
+- **反向代理**：确认 80 端口归属后再改。
+- **PaiFlow**：`/opt/PaiFlow` 只读确认，不清理。
+
+### 首次部署记录 (2026-05-17)
+
+```bash
+# 服务器上：
+cd /opt/tech-blog
+git pull
+rm -rf public && mkdir public
+npx quartz build
+screen -S blog node serve.mjs
+```
+
+### 日常更新
+
+```bash
+ssh xuehang@146.190.97.62 "cd /opt/tech-blog && git pull"
+ssh xuehang@146.190.97.62 "cd /opt/tech-blog && rm -rf public && mkdir public && npx quartz build"
+# 服务自动从 public/ 读取，无需重启
 
 ## 回滚
 
