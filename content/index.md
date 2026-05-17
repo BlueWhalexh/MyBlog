@@ -3,13 +3,13 @@ title: 首页
 date: 2026-05-17
 tags:
   - home
-description: 个人技术博客与知识库 — 记录学习、项目和面试准备。
+description: hxue 技术花园 — 记录学习、项目和面试准备。
 ---
 
 <div class="home-hero">
-  <img class="home-avatar" src="/static/avatar.png" alt="xuehang avatar" width="80" height="80" />
-  <h1>xuehang 的技术花园</h1>
-  <p class="home-lede">把学习、项目和面试准备，整理成可搜索、可探索的知识网络。</p>
+  <img class="home-avatar" src="/static/avatar.png" alt="hxue avatar" width="80" height="80" />
+  <h1>hxue 技术花园</h1>
+  <p class="home-lede">薛煌的技术笔记 — 把学习、项目和面试准备，整理成可搜索、可探索的知识网络。</p>
 </div>
 
 <div class="home-zones">

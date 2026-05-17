@@ -1,9 +1,9 @@
 {
-  "name": "xuehang-tech-blog",
-  "version": "0.2.0",
+  "name": "hxue-tech-garden",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "个人技术博客与 Obsidian 笔记公开站，基于 Quartz 4。",
+  "description": "hxue 技术花园 — 个人技术博客与 Obsidian 笔记公开站，基于 Quartz 4。",
   "scripts": {
     "build": "npx quartz build",
     "dev": "npx quartz build --watch",
