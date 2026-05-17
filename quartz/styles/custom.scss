@@ -7,25 +7,25 @@
 
 // ── 根变量覆盖 ──────────────────────────────────────────────
 :root[saved-theme="light"] {
-  --page-bg: #eef2f6;
+  --page-bg: #f0f2f5;
   --card-bg: #ffffff;
-  --card-border: #e2e5ea;
+  --card-border: #e5e7eb;
   --accent: #1a7f6f;
   --accent-warm: #c7861f;
-  --accent-soft: rgba(26, 127, 111, 0.08);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --window-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --accent-soft: rgba(26, 127, 111, 0.07);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --window-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 :root[saved-theme="dark"] {
-  --page-bg: #1a1d24;
-  --card-bg: #23262d;
-  --card-border: #2e323b;
+  --page-bg: #1c1e24;
+  --card-bg: #252830;
+  --card-border: #31343d;
   --accent: #5fc2b0;
   --accent-warm: #e8b44f;
-  --accent-soft: rgba(95, 194, 176, 0.1);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --window-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --accent-soft: rgba(95, 194, 176, 0.08);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --window-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 // ── 全局 ────────────────────────────────────────────────────
@@ -93,10 +93,9 @@ body {
 // ── 中间内容区 — macOS 窗口卡 ──────────────────────────────
 .center {
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid var(--card-border);
   box-shadow: var(--window-shadow);
-  overflow: hidden;
   padding: 1.5rem 2rem;
 
   // macOS 窗口标题点 (伪元素)
@@ -171,10 +170,10 @@ article {
   > *,
   .panel {
     background: var(--card-bg);
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid var(--card-border);
     box-shadow: var(--card-shadow);
-    padding: 1rem;
+    padding: 0.9rem;
 
     h2 {
       font-size: 0.85rem;
@@ -319,13 +318,12 @@ article {
   z-index: 100;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 0%;
   height: 2.5px;
   background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.1s linear;
+  transition: width 0.1s linear;
   border-radius: 0 2px 2px 0;
+  pointer-events: none;
 }
 
 // ── 代码块 ──────────────────────────────────────────────────

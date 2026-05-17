@@ -56,5 +56,6 @@
 - **修复首次 SPA 访问页面缩放**：移除 custom.scss 中对侧栏 `position: relative; height: auto;` 的覆盖，恢复 base.scss 的 `position: sticky; height: 100vh;`。SPA micromorph 后 grid 重算依赖侧栏有稳定高度，否则首次布局异常。
 - **修复右侧栏 TOC 重叠**：TOC 链接添加 `overflow: hidden; text-overflow: ellipsis;`，TOC 容器添加 `max-height: 40vh; overflow-y: auto`。
 - **重写 UXTweaks 为幂等**：进度条、工具按钮、代码复制均添加 DOM 查询守卫，防止 SPA 导航后重复创建。进度条改用 `requestAnimationFrame` 降低重绘成本。
-- **缩小 macOS 窗口标题点**：box-shadow spread 从 5.5px 缩小到 4px，间距从 18px/36px 缩小到 14px/28px。
+- **进度条改用 width 百分比**：`transform: scaleX()` → `style.width = X%`。消除 transform 合成层问题，彻底避免 scaleX 值意外传播到其他 DOM 元素。
+- **UI 细化**：减淡阴影、统一圆角、缩小 macOS 窗口点、TOC overflow 约束、进度条 pointer-events: none。
 - 更新 SSD、Hermes、progress 文档反映 Renderer 迁移完成。

@@ -17,7 +17,7 @@ function bootUXTweaks() {
         requestAnimationFrame(() => {
           const max = document.documentElement.scrollHeight - window.innerHeight
           const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
-          progress!.style.transform = `scaleX(${ratio})`
+          progress!.style.width = `${ratio * 100}%`
           ticking = false
         })
       },
