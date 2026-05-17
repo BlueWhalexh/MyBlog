@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 排查与优化, JVM, 面试]
 source: "[[todoList_detail#Day 29]]"
 date: 2026-03-14
@@ -40,4 +40,3 @@ $ jmap -dump:format=b,file=heap.hprof <pid>
 
 ## 来源
 原始记录：[[todoList_detail#Day 29 (03-14)]]
-

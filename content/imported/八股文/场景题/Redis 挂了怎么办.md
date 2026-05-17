@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 场景题, 面试]
 source: "Java面试准备"
 date: 2026-04-30
@@ -382,4 +382,3 @@ redis-server /etc/redis/redis.conf
 - [[Redis 热key排查与高可用]]
 - [[Redis 缓存与 MySQL 数据一致性]]
 - [[缓存穿透击穿与雪崩]]
-

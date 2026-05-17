@@ -43,6 +43,39 @@ content/imported/
 public/obsidian-assets/
 ```
 
+## 新增笔记规则
+
+这个项目的长期写作入口是本地 Obsidian 笔记库，而不是项目目录。
+
+```text
+Vault: D:\Document\Notes
+当前公开源目录: 知识库
+同步目标: content/imported
+```
+
+新增技术博客、项目复盘、AI Coding 实战、面试路线等内容时，先在 `D:\Document\Notes` 中按笔记库规则创建或整理 Markdown，再放入可公开的源目录。确认可以公开后，再通过 `sync-config.json` 同步进入项目。
+
+标准流程：
+
+1. 在 Obsidian vault 写作和维护双链、标签、frontmatter。
+2. 确认笔记不含私密信息、公司资料、账号、密钥、token。
+3. 将可公开内容放在当前公开源目录 `知识库` 下，或后续约定的公开子目录。
+4. 先执行 dry-run 检查将要同步的文件。
+5. 正式同步到项目，再执行构建和验证。
+6. 通过 Git commit/push 发布，不手工散传文件到服务器。
+
+常用命令：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\sync-obsidian.ps1 -Config sync-config.json -Incremental -DryRun
+npm.cmd run sync
+npm.cmd run check
+npm.cmd run build
+npm.cmd run verify
+```
+
+如果未来需要让某类 Obsidian 文章进入 `/posts/` 聚合页，应优先调整公开源目录、同步目标或增加受控的 promotion 流程；不要绕过 Obsidian 直接在项目 `content/posts/` 长期起草。
+
 ## 性能影响
 
 内容多本身不是问题，主要看三个点：

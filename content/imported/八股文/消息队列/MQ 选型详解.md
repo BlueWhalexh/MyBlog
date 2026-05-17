@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 消息队列, 面试]
 source: "[[todoList_detail#Day 29]]"
 date: 2026-03-14
@@ -30,4 +30,3 @@ Kafka、RocketMQ、RabbitMQ 各有什么特点？如何选型？
 
 ## 来源
 原始记录：[[todoList_detail#Day 29 (03-14)]]
-

@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [学习, AI, RAG, 知识管理, Obsidian]
 date: 2026-05-03
 source: "[[待学清单]]"
@@ -123,4 +123,3 @@ CLAUDE.md + SKILL.md     →    CLAUDE.md
 - [[八股文索引]] — 你的 MOC 索引示例
 - [[场景题索引]] — 你的 MOC 索引示例
 - [[待学清单]] — 学习计划
-

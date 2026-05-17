@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 网络, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -221,4 +221,3 @@ Content-Length: 1024
 
 ## 来源
 来源：Java八股文PDF
-

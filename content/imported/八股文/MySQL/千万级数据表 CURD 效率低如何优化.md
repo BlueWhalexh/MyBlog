@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试, 场景题]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -24,4 +24,3 @@ date: 2026-03-31
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-

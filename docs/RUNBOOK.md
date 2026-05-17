@@ -60,13 +60,19 @@ npm.cmd run preview
 
 ## 写作与发布
 
-1. 在 Obsidian 私人 vault 写作。
-2. 只选择可以公开的笔记。
-3. 复制或整理到本项目 `content/`。
-4. 本地构建检查。
-5. Git 发布：
+新增技术博客和公开笔记默认走 Obsidian-first 流程：先落库到 `D:\Document\Notes`，再同步到项目，最后通过 Git 发布。不要直接在项目 `content/` 里长期起草，除非用户明确要求临时 hotfix。
+
+1. 在 Obsidian 私人 vault `D:\Document\Notes` 写作。
+2. 按笔记库规则维护双链、标签和 frontmatter。
+3. 只把可以公开的笔记放入公开源目录（当前 `知识库`）。
+4. 发布前确认不含私密笔记、公司资料、账号、密钥、token。
+5. 先 dry-run 检查同步范围。
+6. 正式同步到本项目并本地验证。
+7. Git 发布：
 
 ```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\sync-obsidian.ps1 -Config sync-config.json -Incremental -DryRun
+npm.cmd run sync
 npm.cmd run check
 npm.cmd run build
 npm.cmd run verify
@@ -77,7 +83,7 @@ git commit -m "更新博客笔记"
 git push origin main
 ```
 
-发布原则：不要手工把零散文件复制到服务器。服务器只从 GitHub 拉取已验证提交，保证线上状态可追踪、可回滚。
+发布原则：不要手工把零散文件复制到服务器，也不要绕过 Obsidian 直接把长期内容写进项目。服务器只从 GitHub 拉取已验证提交，保证线上状态可追踪、可回滚。
 
 ## 写作模板
 

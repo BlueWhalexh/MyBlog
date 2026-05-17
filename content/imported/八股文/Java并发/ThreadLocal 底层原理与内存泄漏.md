@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java并发, 面试]
 source: "[[todoList_detail#Day 39]]"
 date: 2026-03-24
@@ -31,4 +31,3 @@ ThreadLocal 的底层存储结构是什么？内存泄漏是如何产生的？
 
 ## 来源
 原始记录：[[todoList_detail#Day 39 (03-24)]]
-

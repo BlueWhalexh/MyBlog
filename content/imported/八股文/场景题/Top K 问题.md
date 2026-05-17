@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 场景题, 面试]
 source: "Java面试准备"
 date: 2026-04-30
@@ -273,4 +273,3 @@ public int findKthLargest(int[] nums, int k) {
 ## 相关笔记
 - [[集合框架基础 — ArrayList 与 HashMap]]
 - [[大文件排序]]
-

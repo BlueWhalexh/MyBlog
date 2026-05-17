@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Redis, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -87,4 +87,3 @@ Redis 4.0 推出 RDB-AOF 混合持久化，以 AOF 为基础：
 
 ## 来源
 来源：Java八股文PDF
-

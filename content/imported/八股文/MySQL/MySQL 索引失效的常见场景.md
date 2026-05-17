@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -77,4 +77,3 @@ SELECT * FROM user WHERE id = 9;
 
 ## 来源
 来源：Java八股文PDF
-

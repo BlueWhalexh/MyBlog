@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java基础, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -123,4 +123,3 @@ Spring AOP 默认策略：
 
 ## 来源
 来源：Java八股文PDF
-

@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -188,4 +188,3 @@ redo log 和 binlog 是两个独立的日志，如果不用两阶段提交，可
 
 ## 来源
 来源：Java八股文PDF
-

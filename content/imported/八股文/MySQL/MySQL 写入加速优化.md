@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -24,4 +24,3 @@ MySQL 在写入性能方面做了哪些优化？
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-

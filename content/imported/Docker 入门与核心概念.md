@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [学习, DevOps, Docker, 部署]
 date: 2026-05-03
 source: "[[待学清单]]"
@@ -98,4 +98,3 @@ docker run -v ./data:/var/lib/mysql mysql
 
 - [[GitHub Actions Docker 部署流程]] — 学完基础后看部署
 - [[待学清单]] — 学习计划
-

@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -162,4 +162,3 @@ ReadView（读视图）是 MVCC 的核心，包含以下关键字段：
 
 ## 来源
 来源：Java八股文PDF
-

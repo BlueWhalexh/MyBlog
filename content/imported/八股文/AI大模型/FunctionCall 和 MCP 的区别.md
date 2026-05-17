@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, AI/大模型, 面试, DeepSeek, RAG, Transformer]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -309,4 +309,3 @@ Function Call 和 MCP（Model Context Protocol）有什么区别？
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-

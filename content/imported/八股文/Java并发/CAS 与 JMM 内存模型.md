@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java 并发, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -85,4 +85,3 @@ happens-before 是 JMM 中判断数据是否存在竞争、是否线程安全的
 
 ## 来源
 来源：Java八股文PDF
-

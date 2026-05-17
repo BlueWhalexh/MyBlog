@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Spring, 面试]
 source: "[[todoList_detail#Day 39]]"
 date: 2026-03-24
@@ -295,4 +295,3 @@ Spring中`BeanWrapper`对Bean属性的访问就是装饰器模式的应用。`Ht
 
 ## 来源
 原始记录：[[todoList_detail#Day 39 (03-24)]]
-

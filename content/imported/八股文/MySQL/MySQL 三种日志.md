@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -101,4 +101,3 @@ MySQL 的 binlog、redo log、undo log 分别是什么？有什么作用？
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-

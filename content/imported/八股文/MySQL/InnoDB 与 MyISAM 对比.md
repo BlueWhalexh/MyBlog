@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -59,4 +59,3 @@ InnoDB 和 MyISAM 有什么区别？各自适用于什么场景？
 
 ## 来源
 来源：Java八股文PDF
-

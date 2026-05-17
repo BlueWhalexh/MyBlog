@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 操作系统, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -95,4 +95,3 @@ int nfds = epoll_wait(epfd, events, 1024, -1);
 
 ## 来源
 来源：Java八股文PDF
-

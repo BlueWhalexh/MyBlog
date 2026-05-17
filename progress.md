@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-05-17 (Session 5 - Obsidian-first 写作规则)
+
+- 固化用户新增长期规则：技术博客和公开笔记必须先写入 Obsidian 笔记库 `D:\Document\Notes`，按 vault 规则整理后再同步到项目。
+- 当前公开源目录记录为 `知识库`，同步目标为 `content/imported`；项目 `content/` 视为发布镜像和构建源，不作为长期写作入口。
+- 已把两篇此前直接写入项目的博客迁入 `D:\Document\Notes\知识库\技术博客`，并删除项目内 `content/posts/` 的直接起草版本，后续通过同步脚本生成站点内容。
+- 更新 `AGENTS.md`、`docs/PROJECT_CONTEXT.md`、`docs/OBSIDIAN_SYNC.md`、`docs/RUNBOOK.md`，把新增笔记规则、dry-run、同步、构建、Git 发布流程写入长期记忆。
+
 ## 2026-05-17 (Session 4 — hjhxh.site 反代接入)
 
 - 根据用户反馈重做首页 UI：移除四个割裂专题卡片，改为统一 macOS Finder/Workspace 面板，专题入口收束为同一条 Dock/分段入口。

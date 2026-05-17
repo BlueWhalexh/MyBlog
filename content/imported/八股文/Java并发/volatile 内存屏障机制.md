@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java并发, 面试]
 source: "[[todoList_detail#Day 30]]"
 date: 2026-03-16
@@ -34,4 +34,3 @@ volatile 关键字的底层实现原理是什么？内存屏障如何工作？
 
 ## 来源
 原始记录：[[todoList_detail#Day 30 (03-16)]]
-

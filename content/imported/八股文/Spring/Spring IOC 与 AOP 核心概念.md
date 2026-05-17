@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Spring, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -301,4 +301,3 @@ public class AppConfig {
 
 ## 来源
 来源：Java八股文PDF
-

@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Elasticsearch, 面试]
 source: "[[todoList_detail#Day 29]]"
 date: 2026-03-14
@@ -47,4 +47,3 @@ and     | Doc3
 
 ## 来源
 原始记录：[[todoList_detail#Day 29 (03-14)]]
-

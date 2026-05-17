@@ -35,8 +35,8 @@ description: hxue 技术花园 — 记录学习、项目和面试准备。
 
 ## 内容地图
 
-- [[posts/obsidian-claude-personal-knowledge-base|Obsidian + Claude 构建自我知识库]]
-- [[posts/ai-coding-with-ssd-and-hermes|AI Coding 实战：从 Prompt 到 SSD 和 Hermes 架构]]
+- [[imported/技术博客/obsidian-claude-personal-knowledge-base|Obsidian + Claude 构建自我知识库]]
+- [[imported/技术博客/ai-coding-with-ssd-and-hermes|AI Coding 实战：从 Prompt 到 SSD 和 Hermes 架构]]
 - [[posts/quartz-research|Quartz 4 技术选型]]
 - [[projects/hermes-architecture|Hermes 架构说明]]
 - [[notes/obsidian-publish-flow|Obsidian 发布流程]]
@@ -47,4 +47,4 @@ description: hxue 技术花园 — 记录学习、项目和面试准备。
 
 ## 发布原则
 
-只把可以公开的内容放进 `content/`。公司资料、账号、密钥、未整理草稿不进这个目录。
+新增博客先写入 Obsidian 笔记库 `D:\Document\Notes` 的公开源目录，再通过同步脚本进入项目。公司资料、账号、密钥、未整理草稿不进公开目录。

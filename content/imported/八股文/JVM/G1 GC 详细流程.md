@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, JVM, 面试]
 source: "[[todoList_detail#Day 29]]"
 date: 2026-03-14
@@ -33,4 +33,3 @@ G1（Garbage First）垃圾收集器的详细回收流程是什么？
 
 ## 来源
 原始记录：[[todoList_detail#Day 29 (03-14)]]
-

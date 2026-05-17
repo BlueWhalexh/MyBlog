@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java基础, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -201,4 +201,3 @@ AIO 是 Java 1.7 引入的 `java.nio` 包的升级版本（NIO 2.0）。
 
 ## 来源
 来源：Java八股文PDF
-

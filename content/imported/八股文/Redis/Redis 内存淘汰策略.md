@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Redis, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -204,4 +204,3 @@ hz 10
 
 ## 来源
 来源：Java八股文PDF
-

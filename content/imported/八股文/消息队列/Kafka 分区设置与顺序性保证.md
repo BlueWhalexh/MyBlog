@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 消息队列, 面试]
 source: "[[todoList_detail#Day 39]]"
 date: 2026-03-24
@@ -117,4 +117,3 @@ producer.send(new ProducerRecord<>("file.process", fileId, json));
 
 ## 来源
 原始记录：[[todoList_detail#Day 39 (03-24)]]
-

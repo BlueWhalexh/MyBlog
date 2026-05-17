@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, MySQL, 面试]
 source: "[[todoList_detail#Day 29]]"
 date: 2026-03-14
@@ -36,4 +36,3 @@ SELECT * FROM user WHERE create_time >= '2024-01-01' AND create_time < '2025-01-
 
 ## 来源
 原始记录：[[todoList_detail#Day 29 (03-14)]]
-

@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Spring, 面试]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -221,4 +221,3 @@ main() → SpringApplication.run()
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-

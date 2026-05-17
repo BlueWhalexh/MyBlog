@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Elasticsearch, 面试]
 source: "[[todoList_detail#Day 39]]"
 date: 2026-03-24
@@ -28,4 +28,3 @@ Elasticsearch 在实际使用中有哪些常见问题？如何解决？
 
 ## 来源
 原始记录：[[todoList_detail#Day 39 (03-24)]]
-

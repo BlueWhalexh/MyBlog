@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, 分布式, 面试]
 source: "[[Java八股PDF]]"
 date: 2026-04-30
@@ -336,4 +336,3 @@ public ReactorLoadBalancer<ServiceInstance> loadBalancer(
 
 ## 来源
 来源：Java八股文PDF
-

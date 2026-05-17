@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [八股文, Java并发, 面试]
 source: "[[todoList_detail#Day 42]]"
 date: 2026-03-31
@@ -244,4 +244,3 @@ protected final boolean tryAcquire(int acquires) {
 
 ## 来源
 原始记录：[[todoList_detail#Day 42 (03-31)]]
-
