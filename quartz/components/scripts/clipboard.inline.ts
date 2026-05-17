@@ -3,6 +3,33 @@ const svgCopy =
 const svgCheck =
   '<svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true"><path fill-rule="evenodd" fill="rgb(63, 185, 80)" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>'
 
+function copyText(text: string): Promise<void> {
+  if (navigator.clipboard?.writeText && window.isSecureContext) {
+    return navigator.clipboard.writeText(text)
+  }
+
+  return new Promise((resolve, reject) => {
+    const textarea = document.createElement("textarea")
+    textarea.value = text
+    textarea.setAttribute("readonly", "true")
+    textarea.style.position = "fixed"
+    textarea.style.top = "-9999px"
+    textarea.style.left = "-9999px"
+    document.body.appendChild(textarea)
+    textarea.select()
+    textarea.setSelectionRange(0, textarea.value.length)
+
+    try {
+      const ok = document.execCommand("copy")
+      document.body.removeChild(textarea)
+      ok ? resolve() : reject(new Error("copy command failed"))
+    } catch (error) {
+      document.body.removeChild(textarea)
+      reject(error)
+    }
+  })
+}
+
 document.addEventListener("nav", () => {
   const els = document.getElementsByTagName("pre")
   for (let i = 0; i < els.length; i++) {
@@ -26,19 +53,45 @@ document.addEventListener("nav", () => {
       button.type = "button"
       button.innerHTML = svgCopy
       button.ariaLabel = "复制代码"
+      button.title = "复制代码"
+      const label = document.createElement("span")
+      label.className = "clipboard-label"
+      label.textContent = "复制"
+      button.append(label)
+
+      function setButtonState(text: string, ok: boolean) {
+        button.blur()
+        button.innerHTML = ok ? svgCheck : svgCopy
+        const stateLabel = document.createElement("span")
+        stateLabel.className = "clipboard-label"
+        stateLabel.textContent = text
+        button.append(stateLabel)
+        button.ariaLabel = text
+        button.dataset.state = ok ? "copied" : "failed"
+      }
+
+      function resetButton() {
+        button.innerHTML = svgCopy
+        const resetLabel = document.createElement("span")
+        resetLabel.className = "clipboard-label"
+        resetLabel.textContent = "复制"
+        button.append(resetLabel)
+        button.ariaLabel = "复制代码"
+        button.title = "复制代码"
+        delete button.dataset.state
+      }
+
       function onClick() {
-        navigator.clipboard.writeText(source).then(
+        copyText(source).then(
           () => {
-            button.blur()
-            button.innerHTML = svgCheck
-            button.ariaLabel = "已复制"
-            setTimeout(() => {
-              button.innerHTML = svgCopy
-              button.ariaLabel = "复制代码"
-              button.style.borderColor = ""
-            }, 2000)
+            setButtonState("已复制", true)
+            setTimeout(resetButton, 1800)
           },
-          (error) => console.error(error),
+          (error) => {
+            console.error(error)
+            setButtonState("复制失败", false)
+            setTimeout(resetButton, 1800)
+          },
         )
       }
       button.addEventListener("click", onClick)

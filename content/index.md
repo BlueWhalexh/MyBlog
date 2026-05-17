@@ -37,6 +37,7 @@ description: hxue 技术花园 — 记录学习、项目和面试准备。
 
 - [[imported/技术博客/obsidian-claude-personal-knowledge-base|Obsidian + Claude 构建自我知识库]]
 - [[imported/技术博客/ai-coding-with-ssd-and-hermes|AI Coding 实战：从 Prompt 到 SSD 和 Hermes 架构]]
+- [[imported/课程/COMP5611M/08_零基础中英对照_高密度完整讲义|COMP5611M 零基础中英对照高密度完整讲义]]
 - [[posts/quartz-research|Quartz 4 技术选型]]
 - [[projects/hermes-architecture|Hermes 架构说明]]
 - [[notes/obsidian-publish-flow|Obsidian 发布流程]]

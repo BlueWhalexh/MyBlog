@@ -169,7 +169,7 @@ foreach ($file in $markdownFiles) {
     Write-Host "[copy] $relative"
   } else {
     New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
-    Set-Content -LiteralPath $target -Value $content -Encoding utf8
+    [System.IO.File]::WriteAllText($target, $content)
     (Get-Item -LiteralPath $target).LastWriteTimeUtc = $file.LastWriteTimeUtc
   }
   $copiedCount += 1

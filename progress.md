@@ -6,6 +6,9 @@
 - 当前公开源目录记录为 `知识库`，同步目标为 `content/imported`；项目 `content/` 视为发布镜像和构建源，不作为长期写作入口。
 - 已把两篇此前直接写入项目的博客迁入 `D:\Document\Notes\知识库\技术博客`，并删除项目内 `content/posts/` 的直接起草版本，后续通过同步脚本生成站点内容。
 - 更新 `AGENTS.md`、`docs/PROJECT_CONTEXT.md`、`docs/OBSIDIAN_SYNC.md`、`docs/RUNBOOK.md`，把新增笔记规则、dry-run、同步、构建、Git 发布流程写入长期记忆。
+- 修复代码块复制按钮：在非 HTTPS / HTTP 环境下使用 `document.execCommand("copy")` fallback，保留 Quartz `nav` + `addCleanup` 的 SPA 安全绑定，并增加复制状态反馈。
+- 优化文章页顶部 macOS 装饰：将突兀的三个浮动圆点改为克制标题栏；新增阅读进度条、回到顶部、标题锚点、外链提示等低成本体验增强。
+- 将桌面 `D:\OneDrive\Desktop\COMP5611M_revision\08_零基础中英对照_高密度完整讲义.md` 落库到 `D:\Document\Notes\知识库\课程\COMP5611M`，再同步到 `content/imported/课程/COMP5611M`，并加入首页内容地图。
 
 ## 2026-05-17 (Session 4 — hjhxh.site 反代接入)
 
