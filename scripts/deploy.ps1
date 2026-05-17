@@ -98,7 +98,8 @@ if ($DryRun) {
   Write-Host "  [DRY-RUN] Would SSH to server: git pull + rebuild" -ForegroundColor Yellow
 } else {
   $serverCmd = "cd $serverPath && git pull origin main && node quartz/bootstrap-cli.mjs build && node scripts/verify.mjs"
-  ssh -i $sshKey $sshHost $serverCmd
+  Write-Host "  Connecting to server (first time may prompt for host key)..."
+  ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=10 -i $sshKey $sshHost $serverCmd
   if ($LASTEXITCODE -eq 0) {
     Step-Ok "Server updated and verified"
   } else {
