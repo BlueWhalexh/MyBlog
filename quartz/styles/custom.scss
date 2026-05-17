@@ -1,3 +1,162 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// ============================================================
+// 自定义样式 — xuehang 技术博客
+// ============================================================
+
+// --- 首页 Hero ---
+.home-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+}
+
+.home-avatar {
+  border-radius: 50%;
+  border: 3px solid var(--tertiary);
+  margin-bottom: 1rem;
+}
+
+.home-lede {
+  color: var(--gray);
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0.5rem auto 0;
+}
+
+// --- 双区卡片 ---
+.home-zones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.zone-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  text-decoration: none;
+  color: var(--dark);
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: var(--tertiary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.25rem;
+    color: var(--dark);
+  }
+
+  p {
+    flex: 1;
+    color: var(--gray);
+    font-size: 0.92rem;
+    margin: 0 0 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+.zone-icon {
+  font-size: 1.6rem;
+}
+
+.zone-link {
+  font-weight: 600;
+  color: var(--tertiary);
+  font-size: 0.9rem;
+}
+
+.zone-blog {
+  border-top: 3px solid var(--tertiary);
+}
+
+.zone-kb {
+  border-top: 3px solid var(--secondary);
+}
+
+// --- 移动端 ---
+@media (max-width: 600px) {
+  .home-zones {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- 阅读进度条 ---
+.reading-progress {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--tertiary);
+  transform-origin: left center;
+}
+
+// --- 代码块 ---
+.code-block {
+  position: relative;
+
+  .copy-code {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.78rem;
+    background: var(--lightgray);
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    color: var(--darkgray);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover .copy-code {
+    opacity: 1;
+  }
+}
+
+// --- 回到顶部/底部 ---
+.reading-tools {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--lightgray);
+    background: var(--light);
+    color: var(--darkgray);
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: var(--tertiary);
+    }
+  }
+}
+
+// --- 适应 Quartz 的 explorer 分组 ---
+.explorer {
+  .folder-container {
+    margin-bottom: 0.25rem;
+  }
+}

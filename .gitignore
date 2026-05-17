@@ -9,6 +9,3 @@ server.err.log
 Thumbs.db
 tsconfig.tsbuildinfo
 prof/
-
-# Obsidian 同步笔记 — 本地管理，不入 GitHub
-content/imported/
