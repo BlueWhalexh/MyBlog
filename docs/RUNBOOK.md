@@ -128,9 +128,11 @@ screen -S blog node serve.mjs
 
 ```bash
 ssh xuehang@146.190.97.62 "cd /opt/tech-blog && git pull origin main"
-ssh xuehang@146.190.97.62 "cd /opt/tech-blog && npx quartz build && node scripts/verify.mjs"
+ssh xuehang@146.190.97.62 "cd /opt/tech-blog && node quartz/bootstrap-cli.mjs build && node scripts/verify.mjs"
 # 静态服务从 public/ 读取，纯内容和样式更新通常无需重启
 ```
+
+服务器上如果直接运行 `npx quartz build` 出现 `quartz: Permission denied`，使用上面的 `node quartz/bootstrap-cli.mjs build`。这是本地 Quartz CLI 的执行权限问题，不影响构建内容。
 
 如果修改了 `scripts/serve.mjs`，需要重启 screen 中的静态服务：
 

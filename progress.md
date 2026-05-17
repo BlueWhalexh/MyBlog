@@ -6,6 +6,7 @@
 - 修正正文贴边问题：为 `.center > .page-header` 和 `.center > article` 增加统一内边距，首页单独保持透明工作台布局。
 - 新增两篇技术博客：`Obsidian + Claude 构建自我知识库`、`AI Coding 实战：从 Prompt 到 SSD 和 Hermes 架构`，放入 `content/posts/` 并接入首页内容地图。
 - 更新发布流程：以后采用本地验证 → Git commit/push → 服务器 git pull/build/verify，不再手工散传文件到服务器。
+- 已将本轮改动提交并推送到 GitHub：`e9f6d6c`。服务器通过 `git pull origin main` 更新，因 `npx quartz build` 权限问题改用 `node quartz/bootstrap-cli.mjs build`，构建和验证通过。
 - 将 Quartz `baseUrl` 从 `xuehang.tech` 调整为 `hjhxh.site`，确保 canonical、OG、RSS 链接匹配当前域名。
 - 本地 `npm.cmd run build` 通过：257 文件 → 599 产物；`npm.cmd run verify` 已通过。
 - 服务器新增 nginx 独立配置 `/etc/nginx/sites-available/tech-blog`，`hjhxh.site` 与 `www.hjhxh.site` 反代到 `127.0.0.1:3010`，不修改 `work.hjhxh.site` 和 `paiflow.hjhxh.site`。
