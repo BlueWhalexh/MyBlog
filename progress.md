@@ -53,6 +53,6 @@
 - `.gitignore` 添加 `.claude/worktrees/`。
 - SCSS 修复：custom.scss 覆写侧栏 `position: sticky` → `position: relative`，与性能优化文档一致。
 - Quartz 色板刷新：light/dark 模式颜色调整为更柔和的灰阶。
-- **修复图谱滚轮缩放 Bug**：局部图谱禁用 D3 zoom（`zoom: false`），防止滚轮事件被 canvas 拦截导致页面异常缩放。全局图谱仍保留 zoom。
-- 移除全局图谱 `backdrop-filter`，添加 canvas CSS 约束防止溢出。
+- **修复首次 SPA 访问页面缩放**：移除 custom.scss 中对侧栏 `position: relative; height: auto;` 的覆盖，恢复 base.scss 的 `position: sticky; height: 100vh;`。SPA micromorph 后 grid 重算依赖侧栏有稳定高度，否则首次布局异常。
+- **修复右侧栏 TOC 重叠**：TOC 链接添加 `overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%`。
 - 更新 SSD、Hermes、progress 文档反映 Renderer 迁移完成。
