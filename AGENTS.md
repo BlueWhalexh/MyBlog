@@ -1,0 +1,45 @@
+# AGENTS.md
+
+## 项目定位
+
+这是 xuehang 的个人技术博客 / Obsidian 笔记公开站。第一版目标是稳定记录技术学习、项目复盘、面试准备和可公开笔记，不做完整论坛。
+
+## 接手先读
+
+1. `docs/PROJECT_CONTEXT.md`
+2. `docs/SSD.md`
+3. `docs/HERMES_ARCHITECTURE.md`
+4. `docs/RUNBOOK.md`
+5. `docs/UI_DECORATION_RESEARCH.md`
+6. `docs/COLLABORATION.md`
+7. `docs/OBSIDIAN_SYNC.md`
+8. `task_plan.md`、`findings.md`、`progress.md`
+
+## 本地命令
+
+```powershell
+npm.cmd run build
+npm.cmd run serve
+```
+
+默认本地预览地址：`http://127.0.0.1:3010`。
+
+Obsidian 公开目录同步：
+
+```powershell
+.\scripts\sync-obsidian.ps1 -VaultPath "D:\Your\ObsidianVault" -SourceSubdir "PublicBlog" -DryRun
+.\scripts\sync-obsidian.ps1 -VaultPath "D:\Your\ObsidianVault" -SourceSubdir "PublicBlog"
+```
+
+## 关键约束
+
+- 内容源目录是 `content/`，只放可公开内容。
+- 私密笔记、公司资料、账号、密钥、token 不得进入仓库。
+- 目标 Renderer 是 Quartz 4；当前本地原型保持 Quartz 迁移兼容的 Markdown/frontmatter/双链结构。
+- 多会话并行时先读 `docs/COLLABORATION.md`，不要同时整文件覆盖 `scripts/build.mjs`、`public/styles.css`、`public/app.js`。
+- 服务器 `146.190.97.62` 上 3001 被 `mypersonweb` 占用，80 端口归属未确认前不得覆盖。
+- `/opt/PaiFlow` 数据卷保留，不清理、不覆盖。
+
+## 发布原则
+
+用户主动 `git push` 才发布，避免 Obsidian 私人 vault 自动同步导致误发布。

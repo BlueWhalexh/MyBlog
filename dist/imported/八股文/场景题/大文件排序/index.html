@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>大文件排序 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/场景题/大文件排序/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="大文件排序">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/场景题/大文件排序/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>场景题</summary><div class="explorer-links"><a class="active" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java基础</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 3 min read</div>
+    <h1>大文件排序</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, 场景题, 面试]</p>
+<p>source: &quot;Java面试准备&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>有一个 10GB 的文件，里面每行是一个整数，内存只有 1GB，如何对文件进行排序？</p>
+<h2 id="方案一外部排序external-sort">方案一：外部排序（External Sort）</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>分治：将大文件拆分成多个小文件，每个小文件可以放入内存排序，然后将排序好的小文件进行多路归并。</p>
+<h3 id="详细步骤">详细步骤</h3>
+<h4 id="第一步文件拆分-内存排序生成初始归并段">第一步：文件拆分 + 内存排序（生成初始归并段）</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+1. 将 10GB 文件分成 10 个 1GB 的小文件（chunk_0 ~ chunk_9）
+
+2. 逐个读入内存，使用快速排序/堆排序
+
+3. 将排序结果写回磁盘，生成 10 个有序文件
+
+</code></pre></div>
+<h4 id="第二步多路归并k-way-merge">第二步：多路归并（K-Way Merge）</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+1. 为每个有序文件打开一个文件指针
+
+2. 读取每个文件的第一条数据放入小顶堆（堆大小 = 文件数 = 10）
+
+3. 取出堆顶元素写入结果文件
+
+4. 从堆顶元素所属的文件中读取下一个数据放入堆
+
+5. 重复步骤 3-4 直到所有文件读取完毕
+
+</code></pre></div>
+<h3 id="代码实现">代码实现</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public class ExternalSort {
+
+    
+
+    private static final int MEMORY_SIZE = 1024 * 1024; // 1GB模拟
+
+    
+
+    /**
+
+     * 第一步：生成初始归并段
+
+     */
+
+    public List&lt;File&gt; createInitialRuns(File inputFile) throws IOException {
+
+        List&lt;File&gt; runs = new ArrayList&lt;&gt;();
+
+        
+
+        try (BufferedReader reader = new BufferedReader(
+
+                new FileReader(inputFile))) {
+
+            List&lt;Long&gt; buffer = new ArrayList&lt;&gt;(MEMORY_SIZE);
+
+            String line;
+
+            
+
+            while ((line = reader.readLine()) != null) {
+
+                buffer.add(Long.parseLong(line));
+
+                
+
+                if (buffer.size() &gt;= MEMORY_SIZE) {
+
+                    // 内存排序
+
+                    Collections.sort(buffer);
+
+                    // 写入临时文件
+
+                    File runFile = writeToFile(buffer);
+
+                    runs.add(runFile);
+
+                    buffer.clear();
+
+                }
+
+            }
+
+            
+
+            // 处理剩余数据
+
+            if (!buffer.isEmpty()) {
+
+                Collections.sort(buffer);
+
+                runs.add(writeToFile(buffer));
+
+            }
+
+        }
+
+        
+
+        return runs;
+
+    }
+
+    
+
+    /**
+
+     * 第二步：多路归并
+
+     */
+
+    public void mergeRuns(List&lt;File&gt; runs, File outputFile) 
+
+            throws IOException {
+
+        // 小顶堆：元素为 (值, 文件索引)
+
+        PriorityQueue&lt;long[]&gt; minHeap = new PriorityQueue&lt;&gt;(
+
+            runs.size(), Comparator.comparingLong(a -&gt; a[0]));
+
+        
+
+        // 打开所有文件的 BufferedReader
+
+        BufferedReader[] readers = new BufferedReader[runs.size()];
+
+        for (int i = 0; i &lt; runs.size(); i++) {
+
+            readers[i] = new BufferedReader(new FileReader(runs.get(i)));
+
+            String line = readers[i].readLine();
+
+            if (line != null) {
+
+                minHeap.offer(new long[]{Long.parseLong(line), i});
+
+            }
+
+        }
+
+        
+
+        // 归并输出
+
+        try (BufferedWriter writer = new BufferedWriter(
+
+                new FileWriter(outputFile))) {
+
+            while (!minHeap.isEmpty()) {
+
+                long[] min = minHeap.poll();
+
+                writer.write(min[0] + &quot;\n&quot;);
+
+                
+
+                int fileIdx = (int) min[1];
+
+                String nextLine = readers[fileIdx].readLine();
+
+                if (nextLine != null) {
+
+                    minHeap.offer(new long[]{
+
+                        Long.parseLong(nextLine), fileIdx});
+
+                }
+
+            }
+
+        }
+
+        
+
+        // 关闭所有 reader
+
+        for (BufferedReader reader : readers) {
+
+            reader.close();
+
+        }
+
+    }
+
+    
+
+    private File writeToFile(List&lt;Long&gt; data) throws IOException {
+
+        File tempFile = File.createTempFile(&quot;run_&quot;, &quot;.tmp&quot;);
+
+        try (BufferedWriter writer = new BufferedWriter(
+
+                new FileWriter(tempFile))) {
+
+            for (Long value : data) {
+
+                writer.write(value + &quot;\n&quot;);
+
+            }
+
+        }
+
+        return tempFile;
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="时间复杂度分析">时间复杂度分析</h3>
+<p>假设文件大小 N，内存大小 M，分成 K = N/M 个归并段：</p>
+<ul>
+<li>第一步（拆分排序）：每段排序 O(M logM)，共 K 段 → O(N logM)</li>
+<li>第二步（多路归并）：每条数据入堆出堆一次 O(logK)，共 N 条 → O(N logK)</li>
+<li>总计：O(N logM + N logK) = O(N logN)</li>
+<li>磁盘 IO：每条数据读写各 2 次 → 4N 次 IO</li>
+</ul>
+<h3 id="优化使用置换选择排序replacement-selection">优化：使用置换选择排序（Replacement Selection）</h3>
+<p>生成长度大于内存的初始归并段，减少归并路数。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+1. 用 M 大小的最小堆构建初始堆
+
+2. 不断输出堆顶到当前归并段
+
+3. 新元素如果 &gt;= 上一个输出值，插入堆
+
+4. 新元素如果 &lt; 上一个输出值，标记为&quot;下一个归并段&quot;
+
+5. 当前堆清空后，开始下一个归并段
+
+</code></pre></div>
+<p>最优情况下（数据基本有序），可以只生成 1 个归并段，无需归并。</p>
+<p>---</p>
+<h2 id="方案二位图法bitmap-sort">方案二：位图法（Bitmap Sort）</h2>
+<h3 id="适用条件">适用条件</h3>
+<ul>
+<li>数据范围已知且不太大（如 1 到 10 亿）</li>
+<li>数据不重复（或允许去重）</li>
+<li>需要排序（而非仅仅查找 Top K）</li>
+</ul>
+<h3 id="核心思想">核心思想</h3>
+<p>用一个 bit 数组来表示某个数是否存在。第 i 位为 1 表示数字 i 存在。</p>
+<h3 id="空间计算">空间计算</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+10 亿个整数，范围 0 ~ 10 亿
+
+位图大小 = 10 亿 bit = 125MB（远小于 1GB 内存限制）
+
+</code></pre></div>
+<h3 id="代码实现">代码实现</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public class BitmapSort {
+
+    
+
+    /**
+
+     * 方式1：直接使用 BitSet
+
+     */
+
+    public void sortWithBitSet(File inputFile, File outputFile) 
+
+            throws IOException {
+
+        BitSet bitSet = new BitSet(1_000_000_000);
+
+        
+
+        // 读取数据并设置位
+
+        try (BufferedReader reader = new BufferedReader(
+
+                new FileReader(inputFile))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                int num = Integer.parseInt(line.trim());
+
+                bitSet.set(num);
+
+            }
+
+        }
+
+        
+
+        // 按顺序输出
+
+        try (BufferedWriter writer = new BufferedWriter(
+
+                new FileWriter(outputFile))) {
+
+            int idx = -1;
+
+            while ((idx = bitSet.nextSetBit(idx + 1)) &gt;= 0) {
+
+                writer.write(idx + &quot;\n&quot;);
+
+            }
+
+        }
+
+    }
+
+    
+
+    /**
+
+     * 方式2：手动使用 byte 数组（更底层）
+
+     */
+
+    public void sortWithByteArray(int[] data) {
+
+        // 假设数据范围 0 ~ 10 亿
+
+        int bitmapSize = 1_000_000_000 / 8 + 1; // 约 125MB
+
+        byte[] bitmap = new byte[bitmapSize];
+
+        
+
+        // 设置位
+
+        for (int num : data) {
+
+            bitmap[num / 8] |= (1 &lt;&lt; (num % 8));
+
+        }
+
+        
+
+        // 输出排序结果
+
+        List&lt;Integer&gt; sorted = new ArrayList&lt;&gt;();
+
+        for (int i = 0; i &lt; bitmapSize; i++) {
+
+            for (int j = 0; j &lt; 8; j++) {
+
+                if ((bitmap[i] &amp; (1 &lt;&lt; j)) != 0) {
+
+                    sorted.add(i * 8 + j);
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="时间复杂度">时间复杂度</h3>
+<ul>
+<li>时间：O(N)，只需遍历数据两次（一次读入，一次输出）</li>
+<li>空间：O(数据范围 / 8) 字节</li>
+<li>是最快的排序方案，但限制条件多</li>
+</ul>
+<p>---</p>
+<h2 id="方案对比">方案对比</h2>
+<table><thead><tr><th>方案</th><th>时间复杂度</th><th>空间复杂度</th><th>适用条件</th></tr></thead><tbody>
+<tr><td>外部排序</td><td>O(N logN)</td><td>O(M) M=内存大小</td><td>通用，无特殊限制</td></tr>
+<tr><td>位图法</td><td>O(N)</td><td>O(数据范围/8)</td><td>数据范围已知、不重复</td></tr>
+<tr><td>直接内存排序</td><td>O(N logN)</td><td>O(N)</td><td>数据能放入内存</td></tr>
+</tbody></table>
+<p>---</p>
+<h2 id="扩展大规模数据处理常见问题">扩展：大规模数据处理常见问题</h2>
+<h3 id="1-两个大文件求交集">1. 两个大文件求交集</h3>
+<p><strong>问题</strong>：文件 A 有 10 亿个 URL，文件 B 有 10 亿个 URL，求交集。</p>
+<p><strong>方案</strong>：</p>
+<ul>
+<li><strong>位图法</strong>：如果 URL 可以哈希到固定范围，用两个位图</li>
+<li><strong>分桶法</strong>：对 URL 取哈希值 mod N，分到 N 个桶中，再对每个桶求交集</li>
+<li><strong>布隆过滤器</strong>：允许一定误判率时使用</li>
+</ul>
+<h3 id="2-大文件中找重复行">2. 大文件中找重复行</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+1. 计算每行的哈希值（如 MD5）
+
+2. 将哈希值相同的行分到同一个桶
+
+3. 在每个桶内精确比较
+
+</code></pre></div>
+<h3 id="3-海量数据-top-k">3. 海量数据 Top K</h3>
+<p>参考 <a class="internal-link" href="/Top K 问题/">Top K 问题</a>，使用分治 + 小顶堆方案。</p>
+<h2 id="常见追问">常见追问</h2>
+<h3 id="q外部排序如何优化磁盘-io">Q：外部排序如何优化磁盘 IO？</h3>
+<blockquote>1. 使用大缓冲区（BufferedInputStream），减少系统调用次数</blockquote>
+<blockquote>2. 使用 SSD 替代 HDD，随机读写性能提升百倍</blockquote>
+<blockquote>3. 并行读写：一个线程读数据，一个线程排序，一个线程写数据（流水线）</blockquote>
+<blockquote>4. 使用内存映射文件（MappedByteBuffer），减少用户态/内核态切换</blockquote>
+<h3 id="q如果数据有重复怎么办">Q：如果数据有重复怎么办？</h3>
+<blockquote>位图法只能标记存在与否，无法统计重复次数。此时可以使用：</blockquote>
+<blockquote>- <strong>计数布隆过滤器</strong></blockquote>
+<blockquote>- <strong>桶排序 + 哈希分桶</strong>，每个桶内统计频次后再排序</blockquote>
+<h3 id="q分布式环境下如何排序">Q：分布式环境下如何排序？</h3>
+<blockquote>1. 对数据按 key 范围进行分区（Range Partition），每个分区交给一台机器排序</blockquote>
+<blockquote>2. 或者对数据取哈希值分区（Hash Partition）</blockquote>
+<blockquote>3. 每台机器独立排序</blockquote>
+<blockquote>4. 最后合并各分区结果（分区之间天然有序）</blockquote>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/Top K 问题/">Top K 问题</a></li>
+<li><a class="internal-link" href="/集合框架基础 — ArrayList 与 HashMap/">集合框架基础 — ArrayList 与 HashMap</a></li>
+</ul></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#方案一外部排序external-sort"><strong>方案一：外部排序（External Sort）</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-3" href="#详细步骤"><strong>详细步骤</strong></a><a class="list-link toc-level-4" href="#第一步文件拆分-内存排序生成初始归并段"><strong>第一步：文件拆分 + 内存排序（生成初始归并段）</strong></a><a class="list-link toc-level-4" href="#第二步多路归并k-way-merge"><strong>第二步：多路归并（K-Way Merge）</strong></a><a class="list-link toc-level-3" href="#代码实现"><strong>代码实现</strong></a><a class="list-link toc-level-3" href="#时间复杂度分析"><strong>时间复杂度分析</strong></a><a class="list-link toc-level-3" href="#优化使用置换选择排序replacement-selection"><strong>优化：使用置换选择排序（Replacement Selection）</strong></a><a class="list-link toc-level-2" href="#方案二位图法bitmap-sort"><strong>方案二：位图法（Bitmap Sort）</strong></a><a class="list-link toc-level-3" href="#适用条件"><strong>适用条件</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-3" href="#空间计算"><strong>空间计算</strong></a><a class="list-link toc-level-3" href="#代码实现"><strong>代码实现</strong></a><a class="list-link toc-level-3" href="#时间复杂度"><strong>时间复杂度</strong></a><a class="list-link toc-level-2" href="#方案对比"><strong>方案对比</strong></a><a class="list-link toc-level-2" href="#扩展大规模数据处理常见问题"><strong>扩展：大规模数据处理常见问题</strong></a><a class="list-link toc-level-3" href="#1-两个大文件求交集"><strong>1. 两个大文件求交集</strong></a><a class="list-link toc-level-3" href="#2-大文件中找重复行"><strong>2. 大文件中找重复行</strong></a><a class="list-link toc-level-3" href="#3-海量数据-top-k"><strong>3. 海量数据 Top K</strong></a><a class="list-link toc-level-2" href="#常见追问"><strong>常见追问</strong></a><a class="list-link toc-level-3" href="#q外部排序如何优化磁盘-io"><strong>Q：外部排序如何优化磁盘 IO？</strong></a><a class="list-link toc-level-3" href="#q如果数据有重复怎么办"><strong>Q：如果数据有重复怎么办？</strong></a><a class="list-link toc-level-3" href="#q分布式环境下如何排序"><strong>Q：分布式环境下如何排序？</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/场景题/大文件排序/"><circle class="active" cx="208" cy="102" r="8"><title>大文件排序</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>原子类与 Unsafe 类</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

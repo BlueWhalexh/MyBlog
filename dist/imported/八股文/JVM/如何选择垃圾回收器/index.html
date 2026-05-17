@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>如何选择垃圾回收器 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/JVM/如何选择垃圾回收器/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="如何选择垃圾回收器">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/JVM/如何选择垃圾回收器/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2"><summary>场景题</summary><div class="explorer-links"><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java基础</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>JVM</summary><div class="explorer-links"><a class="active" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 6 min read</div>
+    <h1>如何选择垃圾回收器</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, JVM, 面试]</p>
+<p>source: &quot;<a class="internal-link" href="/Java八股PDF/">Java八股PDF</a>&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>JVM 有哪些垃圾回收器？各自有什么特点？如何根据场景选择合适的垃圾回收器？JDK 默认使用哪个？</p>
+<h2 id="答案">答案</h2>
+<h3 id="一垃圾回收器概览">一、垃圾回收器概览</h3>
+<p>JVM 提供了多种垃圾回收器，适用于不同的应用场景。按代际可以分为：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+新生代回收器              老年代回收器              整堆回收器
+
+├── Serial               ├── Serial Old           ├── G1
+
+├── Parallel Scavenge    ├── CMS                  ├── ZGC（JDK 11+）
+
+└── ParNew               └── Parallel Old         └── Shenandoah（JDK 12+）
+
+</code></pre></div>
+<p>按发展时间线：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+Serial → Parallel → CMS → G1 → ZGC
+
+  │         │        │     │     │
+
+  串行      并行     并发   分区   超低延迟
+
+</code></pre></div>
+<p>回收器的组合使用关系：</p>
+<table><thead><tr><th>新生代</th><th>老年代</th><th>说明</th></tr></thead><tbody>
+<tr><td>Serial</td><td>Serial Old</td><td>单线程，简单高效</td></tr>
+<tr><td>ParNew</td><td>CMS</td><td>低延迟</td></tr>
+<tr><td>Parallel Scavenge</td><td>Serial Old</td><td>JDK 8 默认</td></tr>
+<tr><td>Parallel Scavenge</td><td>Parallel Old</td><td>吞吐量优先</td></tr>
+<tr><td>G1</td><td>G1</td><td>分 Region，JDK 9+ 默认</td></tr>
+<tr><td>ZGC</td><td>ZGC</td><td>超低延迟</td></tr>
+</tbody></table>
+<p>---</p>
+<h3 id="二各回收器详细介绍">二、各回收器详细介绍</h3>
+<h4 id="21-serial-收集器">2.1 Serial 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>新生代</td></tr>
+<tr><td><strong>算法</strong></td><td>复制算法</td></tr>
+<tr><td><strong>线程</strong></td><td>单线程</td></tr>
+<tr><td><strong>STW</strong></td><td>需要，GC 时暂停所有应用线程</td></tr>
+<tr><td><strong>适用场景</strong></td><td>客户端应用、小堆（几十 MB）</td></tr>
+<tr><td><strong>优点</strong></td><td>简单高效，没有线程交互开销</td></tr>
+<tr><td><strong>缺点</strong></td><td>STW 时间长</td></tr>
+</tbody></table>
+<p>Serial 是最基础、最古老的收集器。单线程意味着 GC 时只使用一个 CPU 或一个收集线程，且必须暂停所有工作线程（STW）。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 Serial + Serial Old
+
+-XX:+UseSerialGC
+
+</code></pre></div>
+<h4 id="22-serial-old-收集器">2.2 Serial Old 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>老年代</td></tr>
+<tr><td><strong>算法</strong></td><td>标记-整理（Mark-Compact）</td></tr>
+<tr><td><strong>线程</strong></td><td>单线程</td></tr>
+<tr><td><strong>适用场景</strong></td><td>客户端模式、CMS 的后备方案</td></tr>
+</tbody></table>
+<h4 id="23-parnew-收集器">2.3 ParNew 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>新生代</td></tr>
+<tr><td><strong>算法</strong></td><td>复制算法</td></tr>
+<tr><td><strong>线程</strong></td><td>多线程</td></tr>
+<tr><td><strong>STW</strong></td><td>需要</td></tr>
+<tr><td><strong>适用场景</strong></td><td>与 CMS 搭配使用</td></tr>
+<tr><td><strong>优点</strong></td><td>多线程并行 GC，减少 STW 时间</td></tr>
+<tr><td><strong>缺点</strong></td><td>只能与 CMS 搭配（JDK 9 之前）</td></tr>
+</tbody></table>
+<p>ParNew 本质上是 Serial 的多线程版本，使用多个 GC 线程并行回收新生代。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 ParNew + CMS
+
+-XX:+UseParNewGC -XX:+UseConcMarkSweepGC
+
+</code></pre></div>
+<h4 id="24-parallel-scavenge-收集器">2.4 Parallel Scavenge 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>新生代</td></tr>
+<tr><td><strong>算法</strong></td><td>复制算法</td></tr>
+<tr><td><strong>线程</strong></td><td>多线程</td></tr>
+<tr><td><strong>STW</strong></td><td>需要</td></tr>
+<tr><td><strong>目标</strong></td><td><strong>吞吐量最大化</strong>（而非停顿时间最小化）</td></tr>
+<tr><td><strong>适用场景</strong></td><td>后台计算、批处理</td></tr>
+</tbody></table>
+<p><strong>吞吐量</strong> = 用户代码运行时间 / (用户代码运行时间 + GC 时间)</p>
+<p>Parallel Scavenge 与 ParNew 的区别：</p>
+<ul>
+<li>Parallel Scavenge 关注吞吐量，ParNew 关注停顿时间。</li>
+<li>Parallel Scavenge 支持自适应调节策略（<code>-XX:+UseAdaptiveSizePolicy</code>）。</li>
+</ul>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 设置吞吐量目标（默认 99，即 99% 的时间用于用户代码）
+
+-XX:GCTimeRatio=99
+
+
+
+# 设置最大停顿时间目标（默认不设置）
+
+-XX:MaxGCPauseMillis=&lt;ms&gt;
+
+
+
+# 开启自适应调节（自动调整新生代大小、Eden/Survivor 比例等）
+
+-XX:+UseAdaptiveSizePolicy
+
+</code></pre></div>
+<h4 id="25-parallel-old-收集器">2.5 Parallel Old 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>老年代</td></tr>
+<tr><td><strong>算法</strong></td><td>标记-整理（Mark-Compact）</td></tr>
+<tr><td><strong>线程</strong></td><td>多线程</td></tr>
+<tr><td><strong>适用场景</strong></td><td>与 Parallel Scavenge 搭配，JDK 8 默认组合</td></tr>
+</tbody></table>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 Parallel Scavenge + Parallel Old（JDK 8 默认）
+
+-XX:+UseParallelGC
+
+</code></pre></div>
+<h4 id="26-cms-收集器concurrent-mark-sweep">2.6 CMS 收集器（Concurrent Mark Sweep）</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>老年代</td></tr>
+<tr><td><strong>算法</strong></td><td><strong>标记-清除</strong>（Mark-Sweep）</td></tr>
+<tr><td><strong>线程</strong></td><td>并发（GC 线程与用户线程同时工作）</td></tr>
+<tr><td><strong>目标</strong></td><td><strong>最短停顿时间</strong></td></tr>
+<tr><td><strong>适用场景</strong></td><td>交互式应用、Web 服务</td></tr>
+<tr><td><strong>缺点</strong></td><td>内存碎片、CPU 敏感、浮动垃圾、并发失败</td></tr>
+</tbody></table>
+<p><strong>CMS 的四个阶段</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+阶段1：初始标记（Initial Mark）     — STW，标记 GC Roots 直接关联的对象（快）
+
+阶段2：并发标记（Concurrent Mark）   — 与用户线程并发，遍历引用链（慢但不停顿）
+
+阶段3：重新标记（Remark）           — STW，修正并发标记期间变动的对象（较快）
+
+阶段4：并发清除（Concurrent Sweep）  — 与用户线程并发，清除垃圾（慢但不停顿）
+
+</code></pre></div>
+<table><thead><tr><th>阶段</th><th>STW</th><th>说明</th></tr></thead><tbody>
+<tr><td>初始标记</td><td>是</td><td>速度很快，只标记 GC Root 直接关联的对象</td></tr>
+<tr><td>并发标记</td><td>否</td><td>耗时最长，与用户线程并发执行</td></tr>
+<tr><td>重新标记</td><td>是</td><td>修正并发标记期间的变动（增量更新）</td></tr>
+<tr><td>并发清除</td><td>否</td><td>清除已标记的垃圾对象</td></tr>
+</tbody></table>
+<p><strong>CMS 的缺点</strong>：</p>
+<table><thead><tr><th>缺点</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>内存碎片</strong></td><td>使用标记-清除算法，会产生内存碎片。可通过 <code>-XX:+UseCMSCompactAtFullCollection</code> 在 Full GC 时压缩</td></tr>
+<tr><td><strong>CPU 敏感</strong></td><td>并发阶段会占用 CPU 资源，降低吞吐量。默认 GC 线程数 = (CPU 核心数 + 3) / 4</td></tr>
+<tr><td><strong>浮动垃圾</strong></td><td>并发清除阶段用户线程产生的新垃圾无法在本次 GC 中清除，需要下次 GC 回收</td></tr>
+<tr><td><strong>并发失败</strong></td><td>如果并发阶段用户线程产生的新对象太快，老年代空间不足，会退化为 Serial Old 进行 Full GC</td></tr>
+</tbody></table>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 CMS
+
+-XX:+UseConcMarkSweepGC
+
+
+
+# 设置 CMS 触发阈值（老年代使用率达到多少触发 CMS GC，默认 92%，建议 75%）
+
+-XX:CMSInitiatingOccupancyFraction=75
+
+
+
+# 开启 CMS 碎片整理
+
+-XX:+UseCMSCompactAtFullCollection
+
+-XX:CMSFullGCsBeforeCompaction=0  # 每次 Full GC 都压缩
+
+</code></pre></div>
+<h4 id="27-g1-收集器garbage-first">2.7 G1 收集器（Garbage First）</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>整堆（不分新生代/老年代物理隔离）</td></tr>
+<tr><td><strong>算法</strong></td><td>整体标记-整理，Region 间复制</td></tr>
+<tr><td><strong>线程</strong></td><td>并发 + 并行</td></tr>
+<tr><td><strong>目标</strong></td><td><strong>可控的停顿时间</strong> + 高吞吐量</td></tr>
+<tr><td><strong>适用场景</strong></td><td>大堆（6GB+）、需要可控停顿时间</td></tr>
+<tr><td><strong>JDK 默认</strong></td><td>JDK 9+ 默认回收器</td></tr>
+</tbody></table>
+<p><strong>G1 的核心设计</strong>：</p>
+<p>G1 将堆划分为多个大小相等的 <strong>Region</strong>（默认 2048 个），每个 Region 可以是 Eden、Survivor、Old 或 Humongous（存储大对象）。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+┌──────┬──────┬──────┬──────┬──────┬──────┐
+
+│ Eden │ Old  │Surv. │ Old  │ Eden │ Hum. │
+
+├──────┼──────┼──────┼──────┼──────┼──────┤
+
+│ Old  │ Eden │ Old  │Surv. │ Old  │ Eden │
+
+├──────┼──────┼──────┼──────┼──────┼──────┤
+
+│ Eden │ Old  │ Eden │ Old  │ Eden │ Old  │
+
+└──────┴──────┴──────┴──────┴──────┴──────┘
+
+</code></pre></div>
+<p><strong>G1 的回收过程（Mixed GC）</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+阶段1：初始标记（Initial Mark）          — STW，标记 GC Roots 直接关联的对象
+
+阶段2：并发标记（Concurrent Mark）        — 与用户线程并发，遍历引用链
+
+阶段3：最终标记（Final Mark）            — STW，处理并发标记遗留的 SATB 记录
+
+阶段4：筛选回收（Cleanup/Evacuation）    — STW，选择回收价值最高的 Region，复制存活对象
+
+</code></pre></div>
+<p><strong>G1 的特点</strong>：</p>
+<table><thead><tr><th>特点</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>可预测停顿</strong></td><td>通过 <code>-XX:MaxGCPauseMillis</code> 设置目标停顿时间，G1 会优先回收垃圾最多的 Region</td></tr>
+<tr><td><strong>Region 化</strong></td><td>不需要整堆回收，可以按 Region 粒度回收</td></tr>
+<tr><td><strong>Humongous 对象</strong></td><td>大于 Region 50% 的对象存放在 Humongous Region</td></tr>
+<tr><td><strong>SATB</strong></td><td>使用原始快照（Snapshot At The Beginning）解决并发标记的漏标问题</td></tr>
+<tr><td><strong>无内存碎片</strong></td><td>复制算法在 Region 间移动对象，不会产生碎片</td></tr>
+<tr><td><strong>优先回收价值高的 Region</strong></td><td>优先回收垃圾最多的 Region（Garbage First 的由来）</td></tr>
+</tbody></table>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 G1（JDK 9+ 默认）
+
+-XX:+UseG1GC
+
+
+
+# 设置目标停顿时间（默认 200ms）
+
+-XX:MaxGCPauseMillis=200
+
+
+
+# 设置 Region 大小（1-32MB，必须是 2 的幂）
+
+-XX:G1HeapRegionSize=16m
+
+
+
+# 触发并发标记的堆使用率阈值
+
+-XX:InitiatingHeapOccupancyPercent=45
+
+
+
+# 新生代占比范围
+
+-XX:G1NewSizePercent=5
+
+-XX:G1MaxNewSizePercent=60
+
+</code></pre></div>
+<h4 id="28-zgc-收集器z-garbage-collector">2.8 ZGC 收集器（Z Garbage Collector）</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>整堆</td></tr>
+<tr><td><strong>算法</strong></td><td>染色指针 + 读屏障 + 内存多重映射</td></tr>
+<tr><td><strong>线程</strong></td><td>并发（几乎所有阶段都并发）</td></tr>
+<tr><td><strong>目标</strong></td><td><strong>超低停顿时间</strong>（&lt; 10ms，通常 &lt; 1ms）</td></tr>
+<tr><td><strong>适用场景</strong></td><td>超大堆（TB 级别）、超低延迟要求</td></tr>
+<tr><td><strong>JDK 版本</strong></td><td>JDK 11 实验性引入，JDK 15 正式可用</td></tr>
+</tbody></table>
+<p><strong>ZGC 的核心技术</strong>：</p>
+<table><thead><tr><th>技术</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>染色指针（Colored Pointer）</strong></td><td>在 64 位指针中借用几个 bit 来存储 GC 状态信息（Marked0/Marked1/Remapped/Finalizable）</td></tr>
+<tr><td><strong>读屏障（Load Barrier）</strong></td><td>在读取对象引用时检查指针的 GC 状态，必要时修正引用</td></tr>
+<tr><td><strong>内存多重映射</strong></td><td>将同一块物理内存映射到多个虚拟地址，支持染色指针</td></tr>
+</tbody></table>
+<p><strong>ZGC 的工作流程</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+阶段1：初始标记（Initial Mark）       — STW（&lt; 1ms）
+
+阶段2：并发标记（Concurrent Mark）     — 并发
+
+阶段3：并发预备重分配（Concurrent Prepare for Relocate） — 并发
+
+阶段4：并发重分配（Concurrent Relocate） — 并发
+
+阶段5：并发重映射（Concurrent Remap）    — 并发
+
+</code></pre></div>
+<p><strong>ZGC 的优势</strong>：</p>
+<ul>
+<li>停顿时间极短（&lt; 1ms），不随堆大小增长</li>
+<li>支持 TB 级堆内存</li>
+<li>吞吐量损失较小（约 15%）</li>
+</ul>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 使用 ZGC（JDK 15+）
+
+-XX:+UseZGC
+
+
+
+# JDK 21+ 分代 ZGC
+
+-XX:+UseZGC -XX:+ZGenerational
+
+
+
+# 主动回收间隔（秒）
+
+-XX:ZCollectionInterval=5
+
+</code></pre></div>
+<h4 id="29-shenandoah-收集器">2.9 Shenandoah 收集器</h4>
+<table><thead><tr><th>特性</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>代际</strong></td><td>整堆</td></tr>
+<tr><td><strong>算法</strong></td><td>转发指针 + 读屏障</td></tr>
+<tr><td><strong>目标</strong></td><td>超低停顿时间（与 ZGC 类似）</td></tr>
+<tr><td><strong>JDK 版本</strong></td><td>JDK 12+（OpenJDK 特有，Oracle JDK 不包含）</td></tr>
+<tr><td><strong>与 ZGC 的区别</strong></td><td>Shenandoah 更注重低延迟，ZGC 更注重低延迟 + 吞吐量的平衡</td></tr>
+</tbody></table>
+<p>---</p>
+<h3 id="三回收器对比总结">三、回收器对比总结</h3>
+<table><thead><tr><th>对比项</th><th>Serial</th><th>Parallel</th><th>CMS</th><th>G1</th><th>ZGC</th></tr></thead><tbody>
+<tr><td><strong>算法</strong></td><td>复制/标记-整理</td><td>复制/标记-整理</td><td>标记-清除</td><td>复制+标记-整理</td><td>着色指针+读屏障</td></tr>
+<tr><td><strong>线程</strong></td><td>单线程</td><td>多线程并行</td><td>并发</td><td>并发+并行</td><td>并发</td></tr>
+<tr><td><strong>目标</strong></td><td>简单高效</td><td>吞吐量优先</td><td>低延迟</td><td>兼顾吞吐和延迟</td><td>超低延迟</td></tr>
+<tr><td><strong>停顿时间</strong></td><td>长</td><td>中等</td><td>短</td><td>可控</td><td>极短（&lt; 1ms）</td></tr>
+<tr><td><strong>堆大小</strong></td><td>小堆</td><td>中等</td><td>中等</td><td>大堆（4GB+）</td><td>超大堆（TB级）</td></tr>
+<tr><td><strong>内存碎片</strong></td><td>无（复制/整理）</td><td>无（复制/整理）</td><td>有（标记-清除）</td><td>无（复制）</td><td>无</td></tr>
+<tr><td><strong>JDK 版本</strong></td><td>JDK 1.3</td><td>JDK 1.4</td><td>JDK 1.5</td><td>JDK 7u4</td><td>JDK 11（实验）/15</td></tr>
+</tbody></table>
+<p>---</p>
+<h3 id="四如何选择垃圾回收器">四、如何选择垃圾回收器</h3>
+<h4 id="41-根据堆大小选择">4.1 根据堆大小选择</h4>
+<table><thead><tr><th>堆大小</th><th>推荐回收器</th><th>原因</th></tr></thead><tbody>
+<tr><td>&lt; 100MB</td><td>Serial</td><td>单线程足够，开销小</td></tr>
+<tr><td>100MB ~ 4GB</td><td>Parallel</td><td>并行回收效率高</td></tr>
+<tr><td>4GB ~ 16GB</td><td>G1</td><td>Region 机制，可预测停顿</td></tr>
+<tr><td>&gt; 16GB</td><td>G1 或 ZGC</td><td>大堆需要并发收集</td></tr>
+<tr><td>&gt; 100GB</td><td>ZGC</td><td>停顿时间不随堆增长</td></tr>
+</tbody></table>
+<h4 id="42-根据应用场景选择">4.2 根据应用场景选择</h4>
+<table><thead><tr><th>应用场景</th><th>推荐回收器</th><th>原因</th></tr></thead><tbody>
+<tr><td><strong>小型应用 / 客户端</strong></td><td>Serial + Serial Old</td><td>简单高效，资源受限</td></tr>
+<tr><td><strong>后台计算 / 批处理</strong></td><td>Parallel Scavenge + Parallel Old</td><td>吞吐量优先</td></tr>
+<tr><td><strong>Web 服务 / 微服务（JDK 8）</strong></td><td>ParNew + CMS</td><td>低延迟</td></tr>
+<tr><td><strong>Web 服务 / 微服务（JDK 9+）</strong></td><td>G1</td><td>兼顾吞吐和延迟</td></tr>
+<tr><td><strong>实时交易系统</strong></td><td>ZGC 或 G1</td><td>低延迟要求</td></tr>
+<tr><td><strong>大数据平台</strong></td><td>G1 或 ZGC</td><td>大堆 + 低延迟</td></tr>
+<tr><td><strong>超大堆 / 超低延迟</strong></td><td>ZGC</td><td>STW &lt; 1ms</td></tr>
+</tbody></table>
+<h4 id="43-根据关注指标选择">4.3 根据关注指标选择</h4>
+<table><thead><tr><th>关注指标</th><th>推荐回收器</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>吞吐量</strong></td><td>Parallel</td><td>用户代码执行时间占比最高</td></tr>
+<tr><td><strong>响应时间</strong></td><td>G1 / ZGC</td><td>单次停顿时间短</td></tr>
+<tr><td><strong>堆内存大小</strong></td><td>G1 / ZGC</td><td>支持大堆</td></tr>
+<tr><td><strong>简单性</strong></td><td>Serial</td><td>最简单，调优参数少</td></tr>
+</tbody></table>
+<p>---</p>
+<h3 id="五jdk-默认垃圾回收器变迁">五、JDK 默认垃圾回收器变迁</h3>
+<table><thead><tr><th>JDK 版本</th><th>默认回收器</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>JDK 7</strong></td><td>Parallel Scavenge + Serial Old</td><td>吞吐量优先</td></tr>
+<tr><td><strong>JDK 8</strong></td><td>Parallel Scavenge + Parallel Old</td><td>吞吐量优先</td></tr>
+<tr><td><strong>JDK 9</strong></td><td>G1</td><td>低延迟 + 平衡</td></tr>
+<tr><td><strong>JDK 11</strong></td><td>G1</td><td>ZGC 实验性引入</td></tr>
+<tr><td><strong>JDK 15</strong></td><td>G1</td><td>ZGC 正式可用</td></tr>
+<tr><td><strong>JDK 21</strong></td><td>G1（ZGC 作为备选）</td><td>ZGC 分代模式成熟</td></tr>
+</tbody></table>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 查看当前 JDK 默认使用的回收器
+
+java -XX:+PrintCommandLineFlags -version
+
+
+
+# JDK 8 输出：
+
+# -XX:+UseParallelGC
+
+
+
+# JDK 11 输出：
+
+# -XX:+UseG1GC
+
+</code></pre></div>
+<p>---</p>
+<h3 id="六常用调优参数">六、常用调优参数</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 1. 选择回收器
+
+-XX:+UseSerialGC          # Serial + Serial Old
+
+-XX:+UseParallelGC        # Parallel Scavenge + Parallel Old（JDK 8 默认）
+
+-XX:+UseConcMarkSweepGC   # ParNew + CMS
+
+-XX:+UseG1GC              # G1（JDK 9+ 默认）
+
+-XX:+UseZGC               # ZGC（JDK 15+）
+
+
+
+# 2. 通用参数
+
+-Xms&lt;size&gt;                 # 初始堆大小
+
+-Xmx&lt;size&gt;                 # 最大堆大小
+
+-Xmn&lt;size&gt;                 # 新生代大小
+
+-XX:SurvivorRatio=&lt;ratio&gt;  # Eden/Survivor 比例
+
+-XX:MaxGCPauseMillis=&lt;ms&gt;  # 目标最大停顿时间
+
+-XX:GCTimeRatio=&lt;ratio&gt;    # 吞吐量目标
+
+
+
+# 3. 打印 GC 日志
+
+-XX:+PrintGCDetails
+
+-XX:+PrintGCDateStamps
+
+-Xloggc:/path/to/gc.log
+
+
+
+# JDK 9+ 统一日志框架：
+
+-Xlog:gc*:file=gc.log:time,uptime,level,tags
+
+
+
+# 4. GC 日志分析工具
+
+# GCEasy: https://gceasy.io
+
+# GCViewer: 开源 GC 日志分析工具
+
+</code></pre></div>
+<p>---</p>
+<h3 id="七如何判断是否需要更换回收器">七、如何判断是否需要更换回收器</h3>
+<p><strong>1. 监控 GC 停顿时间</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 如果 GC 停顿时间超过业务容忍范围（如 &gt; 200ms），考虑换 G1 或 ZGC
+
+</code></pre></div>
+<p><strong>2. 监控 GC 频率</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 如果 Minor GC 频率过高（如每秒 &gt; 1 次），考虑增大新生代
+
+# 如果 Full GC 频率过高（如每天 &gt; 1 次），考虑换 G1 或排查内存泄漏
+
+</code></pre></div>
+<p><strong>3. 监控吞吐量</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-bash">
+# 如果 GC 时间占比过高（如 &gt; 5%），考虑换 Parallel 或增大堆
+
+</code></pre></div>
+<p>---</p>
+<h3 id="八实战建议">八、实战建议</h3>
+<ol>
+<li><strong>先看 JDK 版本</strong>：JDK 8 用 Parallel 或 CMS，JDK 9+ 默认 G1 通常不需要更换。</li>
+<li><strong>看应用类型</strong>：交互式应用优先考虑延迟，批处理优先考虑吞吐量。</li>
+<li><strong>看堆大小</strong>：小堆用 Parallel，大堆用 G1，超大堆用 ZGC。</li>
+<li><strong>先监控再调优</strong>：通过 GC 日志和监控工具分析 GC 行为，再针对性调优。</li>
+<li><strong>不要过度调优</strong>：JVM 的默认值在大部分场景下已经足够好，只有在明确观察到 GC 问题时才需要调优。</li>
+</ol>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/CMS 与 G1 垃圾回收器对比/">CMS 与 G1 垃圾回收器对比</a></li>
+<li><a class="internal-link" href="/根可达性算法与三色标记法/">根可达性算法与三色标记法</a></li>
+<li><a class="internal-link" href="/频繁 GC 的原因分析/">频繁 GC 的原因分析</a></li>
+<li><a class="internal-link" href="/JVM 内存结构与运行时数据区/">JVM 内存结构与运行时数据区</a></li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>来源：Java八股文PDF</p></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#答案"><strong>答案</strong></a><a class="list-link toc-level-3" href="#一垃圾回收器概览"><strong>一、垃圾回收器概览</strong></a><a class="list-link toc-level-3" href="#二各回收器详细介绍"><strong>二、各回收器详细介绍</strong></a><a class="list-link toc-level-4" href="#21-serial-收集器"><strong>2.1 Serial 收集器</strong></a><a class="list-link toc-level-4" href="#22-serial-old-收集器"><strong>2.2 Serial Old 收集器</strong></a><a class="list-link toc-level-4" href="#23-parnew-收集器"><strong>2.3 ParNew 收集器</strong></a><a class="list-link toc-level-4" href="#24-parallel-scavenge-收集器"><strong>2.4 Parallel Scavenge 收集器</strong></a><a class="list-link toc-level-4" href="#25-parallel-old-收集器"><strong>2.5 Parallel Old 收集器</strong></a><a class="list-link toc-level-4" href="#26-cms-收集器concurrent-mark-sweep"><strong>2.6 CMS 收集器（Concurrent Mark Sweep）</strong></a><a class="list-link toc-level-4" href="#27-g1-收集器garbage-first"><strong>2.7 G1 收集器（Garbage First）</strong></a><a class="list-link toc-level-4" href="#28-zgc-收集器z-garbage-collector"><strong>2.8 ZGC 收集器（Z Garbage Collector）</strong></a><a class="list-link toc-level-4" href="#29-shenandoah-收集器"><strong>2.9 Shenandoah 收集器</strong></a><a class="list-link toc-level-3" href="#三回收器对比总结"><strong>三、回收器对比总结</strong></a><a class="list-link toc-level-3" href="#四如何选择垃圾回收器"><strong>四、如何选择垃圾回收器</strong></a><a class="list-link toc-level-4" href="#41-根据堆大小选择"><strong>4.1 根据堆大小选择</strong></a><a class="list-link toc-level-4" href="#42-根据应用场景选择"><strong>4.2 根据应用场景选择</strong></a><a class="list-link toc-level-4" href="#43-根据关注指标选择"><strong>4.3 根据关注指标选择</strong></a><a class="list-link toc-level-3" href="#五jdk-默认垃圾回收器变迁"><strong>五、JDK 默认垃圾回收器变迁</strong></a><a class="list-link toc-level-3" href="#六常用调优参数"><strong>六、常用调优参数</strong></a><a class="list-link toc-level-3" href="#七如何判断是否需要更换回收器"><strong>七、如何判断是否需要更换回收器</strong></a><a class="list-link toc-level-3" href="#八实战建议"><strong>八、实战建议</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a><a class="list-link toc-level-2" href="#来源"><strong>来源</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/JVM/如何选择垃圾回收器/"><circle class="active" cx="208" cy="102" r="8"><title>如何选择垃圾回收器</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>原子类与 Unsafe 类</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

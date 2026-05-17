@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>与外部服务交互防拖垮 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/场景题/与外部服务交互防拖垮/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="与外部服务交互防拖垮">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/场景题/与外部服务交互防拖垮/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>场景题</summary><div class="explorer-links"><a class="active" href="/imported/八股文/场景题/与外部服务交互防拖垮/"><span>与外部服务交互防拖垮</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java基础</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 4 min read</div>
+    <h1>与外部服务交互防拖垮</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, 场景题, 面试]</p>
+<p>source: &quot;Java面试准备&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>系统需要调用外部合作方的接口，如何防止外部服务不可用时拖垮自己的系统？</p>
+<h2 id="问题分析">问题分析</h2>
+<p>外部服务不可用时会导致：</p>
+<ol>
+<li><strong>线程阻塞</strong>：调用超时时间内线程被占用，线程池耗尽</li>
+<li><strong>响应变慢</strong>：大量请求等待外部服务响应，用户体验差</li>
+<li><strong>级联故障</strong>：上游服务超时导致调用方也超时，故障传播</li>
+<li><strong>资源耗尽</strong>：连接池、内存等资源被占满</li>
+</ol>
+<p>---</p>
+<h2 id="方案一超时控制">方案一：超时控制</h2>
+<h3 id="核心原则">核心原则</h3>
+<p><strong>必须设置合理的超时时间</strong>，永远不要使用默认的无限超时。</p>
+<h3 id="超时时间设置">超时时间设置</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+@Configuration
+
+public class ExternalServiceConfig {
+
+    
+
+    @Bean
+
+    public RestTemplate externalRestTemplate() {
+
+        // 连接超时：建立TCP连接的超时时间
+
+        RequestConfig requestConfig = RequestConfig.custom()
+
+            .setConnectTimeout(3000)      // 3秒
+
+            .setSocketTimeout(5000)       // 读取超时5秒
+
+            .setConnectionRequestTimeout(2000) // 从连接池获取连接超时2秒
+
+            .build();
+
+        
+
+        CloseableHttpClient httpClient = HttpClientBuilder.create()
+
+            .setDefaultRequestConfig(requestConfig)
+
+            .build();
+
+        
+
+        return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="超时时间如何确定">超时时间如何确定</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+超时时间 = 外部服务 P99 响应时间 × 1.5 ~ 2 倍
+
+</code></pre></div>
+<ul>
+<li>先看外部服务的 SLA 文档或历史监控数据</li>
+<li>通常连接超时 3 秒，读取超时 5~10 秒</li>
+<li>不同接口设置不同超时（非核心接口更短）</li>
+</ul>
+<h3 id="超时后的处理">超时后的处理</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+try {
+
+    Response result = externalService.call(request);
+
+    return result;
+
+} catch (TimeoutException e) {
+
+    // 记录日志
+
+    log.warn(&quot;External service timeout: {}&quot;, e.getMessage());
+
+    // 返回降级结果
+
+    return getDefaultValue();
+
+}
+
+</code></pre></div>
+<p>---</p>
+<h2 id="方案二熔断降级">方案二：熔断降级</h2>
+<h3 id="什么是熔断">什么是熔断</h3>
+<p>当下游服务的错误率超过阈值时，自动&quot;断开&quot;调用，直接返回降级结果，避免持续调用失败的服务消耗资源。</p>
+<h3 id="熔断器状态机">熔断器状态机</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+        失败率超过阈值
+
+关闭(Closed) ──────→ 打开(Open) ──────→ 半开(Half-Open)
+
+    ↑                                        │
+
+    │        探测成功                         │
+
+    └─────────────────────────────────────────┘
+
+              探测失败 → 回到 Open
+
+</code></pre></div>
+<ul>
+<li><strong>关闭（Closed）</strong>：正常调用，统计失败率</li>
+<li><strong>打开（Open）</strong>：直接返回降级结果，不调用外部服务</li>
+<li><strong>半开（Half-Open）</strong>：允许少量请求通过，试探外部服务是否恢复</li>
+</ul>
+<h3 id="sentinel-实现推荐">Sentinel 实现（推荐）</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 1. 定义资源
+
+@SentinelResource(
+
+    value = &quot;externalService&quot;,
+
+    blockHandler = &quot;handleBlock&quot;,
+
+    fallback = &quot;handleFallback&quot;
+
+)
+
+public String callExternalService(String param) {
+
+    return externalService.call(param);
+
+}
+
+
+
+// 2. 限流降级处理
+
+public String handleBlock(String param, BlockException ex) {
+
+    return &quot;服务繁忙，请稍后重试&quot;;
+
+}
+
+
+
+// 3. 熔断降级处理
+
+public String handleFallback(String param, Throwable ex) {
+
+    return getDefaultValue();
+
+}
+
+
+
+// 4. 配置熔断规则
+
+@PostConstruct
+
+public void initDegradeRule() {
+
+    DegradeRule rule = new DegradeRule(&quot;externalService&quot;)
+
+        .setGrade(CircuitBreakerStrategy.ERROR_RATIO.getType())
+
+        .setCount(0.5)         // 错误率阈值 50%
+
+        .setTimeWindow(10)     // 熔断持续时间 10 秒
+
+        .setMinRequestAmount(10) // 最少请求数
+
+        .setStatIntervalMs(10000); // 统计窗口 10 秒
+
+    DegradeRuleManager.loadRules(Collections.singletonList(rule));
+
+}
+
+</code></pre></div>
+<h3 id="hystrix-实现">Hystrix 实现</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+@HystrixCommand(
+
+    fallbackMethod = &quot;fallback&quot;,
+
+    commandProperties = {
+
+        // 10 秒内请求数 &gt; 20 且错误率 &gt; 50% 时熔断
+
+        @HystrixProperty(name = &quot;circuitBreaker.requestVolumeThreshold&quot;, 
+
+                         value = &quot;20&quot;),
+
+        @HystrixProperty(name = &quot;circuitBreaker.errorThresholdPercentage&quot;, 
+
+                         value = &quot;50&quot;),
+
+        @HystrixProperty(name = &quot;circuitBreaker.sleepWindowInMilliseconds&quot;, 
+
+                         value = &quot;10000&quot;),
+
+        // 超时时间
+
+        @HystrixProperty(name = &quot;execution.isolation.thread.timeoutInMilliseconds&quot;, 
+
+                         value = &quot;5000&quot;)
+
+    }
+
+)
+
+public String callExternalService(String param) {
+
+    return externalService.call(param);
+
+}
+
+
+
+public String fallback(String param) {
+
+    return getDefaultValue();
+
+}
+
+</code></pre></div>
+<h3 id="sentinel-vs-hystrix">Sentinel vs Hystrix</h3>
+<table><thead><tr><th>特性</th><th>Sentinel</th><th>Hystrix</th></tr></thead><tbody>
+<tr><td>熔断策略</td><td>慢调用比例/异常比例/异常数</td><td>错误率/错误数</td></tr>
+<tr><td>流控</td><td>QPS/并发数线程数</td><td>线程池/信号量</td></tr>
+<tr><td>实时监控</td><td>Dashboard 实时监控</td><td>依赖 Turbine</td></tr>
+<tr><td>规则配置</td><td>动态推送</td><td>配置文件</td></tr>
+<tr><td>社区活跃</td><td>阿里持续维护</td><td>已停止维护</td></tr>
+</tbody></table>
+<p><strong>结论</strong>：新项目用 Sentinel。</p>
+<p>---</p>
+<h2 id="方案三异步化">方案三：异步化</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>将同步调用改为异步调用，不阻塞主线程。</p>
+<h3 id="使用-completablefuture">使用 CompletableFuture</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 同步调用（阻塞）
+
+public OrderDTO getOrderDetail(long orderId) {
+
+    OrderDTO order = orderService.getById(orderId); // 10ms
+
+    UserDTO user = externalUserService.getById(order.getUserId()); // 200ms（外部服务）
+
+    ProductDTO product = productService.getById(order.getProductId()); // 10ms
+
+    return merge(order, user, product);
+
+}
+
+// 总耗时：10 + 200 + 10 = 220ms
+
+
+
+// 异步调用（并行）
+
+public OrderDTO getOrderDetailAsync(long orderId) {
+
+    OrderDTO order = orderService.getById(orderId); // 10ms
+
+    
+
+    CompletableFuture&lt;UserDTO&gt; userFuture = CompletableFuture
+
+        .supplyAsync(() -&gt; externalUserService.getById(order.getUserId()));
+
+    
+
+    CompletableFuture&lt;ProductDTO&gt; productFuture = CompletableFuture
+
+        .supplyAsync(() -&gt; productService.getById(order.getProductId()));
+
+    
+
+    // 等待所有结果返回
+
+    CompletableFuture.allOf(userFuture, productFuture).join();
+
+    
+
+    return merge(order, userFuture.join(), productFuture.join());
+
+}
+
+// 总耗时：10 + max(200, 10) = 210ms（外部服务耗时被并行掩盖）
+
+</code></pre></div>
+<h3 id="使用-mq-异步解耦">使用 MQ 异步解耦</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+同步方式：订单服务 → 调用外部风控服务 → 创建订单
+
+异步方式：订单服务 → 发送 MQ 消息 → 风控服务消费消息 → 回调通知
+
+</code></pre></div>
+<p><strong>适用场景</strong>：不需要实时返回结果的操作。</p>
+<p>---</p>
+<h2 id="方案四缓存兜底">方案四：缓存兜底</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>对外部服务的返回结果进行缓存。当外部服务不可用时，使用缓存数据作为兜底。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public UserDTO getUserWithCache(long userId) {
+
+    String cacheKey = &quot;external:user:&quot; + userId;
+
+    
+
+    // 1. 先查缓存
+
+    UserDTO cached = cache.get(cacheKey);
+
+    if (cached != null) return cached;
+
+    
+
+    try {
+
+        // 2. 调用外部服务
+
+        UserDTO user = externalService.getUser(userId);
+
+        // 3. 写入缓存（设置合理过期时间）
+
+        cache.put(cacheKey, user, 5, TimeUnit.MINUTES);
+
+        return user;
+
+    } catch (Exception e) {
+
+        // 4. 外部服务异常时，返回缓存的旧数据
+
+        UserDTO staleData = cache.get(cacheKey);
+
+        if (staleData != null) {
+
+            log.warn(&quot;External service failed, returning stale data&quot;, e);
+
+            return staleData;
+
+        }
+
+        // 5. 连缓存都没有，返回默认值
+
+        return getDefaultUser();
+
+    }
+
+}
+
+</code></pre></div>
+<p>---</p>
+<h2 id="方案五隔离">方案五：隔离</h2>
+<h3 id="线程池隔离">线程池隔离</h3>
+<p>为不同的外部服务分配独立的线程池，防止一个服务拖垮所有服务。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 外部服务 A 专用线程池
+
+ThreadPoolExecutor serviceAPool = new ThreadPoolExecutor(
+
+    10, 20, 60, TimeUnit.SECONDS, new LinkedBlockingQueue&lt;&gt;(100));
+
+
+
+// 外部服务 B 专用线程池
+
+ThreadPoolExecutor serviceBPool = new ThreadPoolExecutor(
+
+    10, 20, 60, TimeUnit.SECONDS, new LinkedBlockingQueue&lt;&gt;(100));
+
+
+
+// 调用外部服务 A
+
+CompletableFuture.supplyAsync(() -&gt; externalServiceA.call(), serviceAPool);
+
+
+
+// 调用外部服务 B
+
+CompletableFuture.supplyAsync(() -&gt; externalServiceB.call(), serviceBPool);
+
+</code></pre></div>
+<h3 id="信号量隔离">信号量隔离</h3>
+<p>限制对外部服务的并发调用数。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+private final Semaphore semaphore = new Semaphore(10); // 最多 10 个并发
+
+
+
+public String callExternal(String param) {
+
+    if (!semaphore.tryAcquire(100, TimeUnit.MILLISECONDS)) {
+
+        return getDefaultValue(); // 获取不到信号量，直接降级
+
+    }
+
+    try {
+
+        return externalService.call(param);
+
+    } finally {
+
+        semaphore.release();
+
+    }
+
+}
+
+</code></pre></div>
+<p>---</p>
+<h2 id="综合防护方案">综合防护方案</h2>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+                    ┌─ 超时控制（第一道防线）
+
+                    │
+
+外部服务调用 ───────┼─ 熔断降级（第二道防线）
+
+                    │
+
+                    ├─ 异步化（减少阻塞）
+
+                    │
+
+                    ├─ 缓存兜底（第三道防线）
+
+                    │
+
+                    └─ 线程池隔离（防止扩散）
+
+</code></pre></div>
+<p><strong>完整的调用流程</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+@SentinelResource(value = &quot;externalCall&quot;, fallback = &quot;fallback&quot;)
+
+public Result callExternalWithProtection(Request request) {
+
+    // 1. 信号量限流
+
+    if (!semaphore.tryAcquire()) {
+
+        return Result.fail(&quot;too many requests&quot;);
+
+    }
+
+    
+
+    try {
+
+        // 2. 从缓存获取
+
+        Result cached = cache.get(buildCacheKey(request));
+
+        if (cached != null) return cached;
+
+        
+
+        // 3. 异步调用 + 超时控制
+
+        CompletableFuture&lt;Result&gt; future = CompletableFuture
+
+            .supplyAsync(() -&gt; externalService.call(request), pool)
+
+            .orTimeout(5, TimeUnit.SECONDS); // 5秒超时
+
+        
+
+        Result result = future.join();
+
+        
+
+        // 4. 更新缓存
+
+        cache.put(buildCacheKey(request), result, 5, TimeUnit.MINUTES);
+
+        
+
+        return result;
+
+    } finally {
+
+        semaphore.release();
+
+    }
+
+}
+
+
+
+// 降级方法
+
+public Result fallback(Request request, Throwable e) {
+
+    // 尝试返回缓存数据
+
+    Result cached = cache.get(buildCacheKey(request));
+
+    if (cached != null) return cached;
+
+    // 返回默认值
+
+    return Result.success(getDefaultValue());
+
+}
+
+</code></pre></div>
+<h2 id="常见追问">常见追问</h2>
+<h3 id="q如何判断外部服务是否可靠">Q：如何判断外部服务是否可靠？</h3>
+<blockquote>1. 看 SLA 承诺（99.9% 还是 99.99%）</blockquote>
+<blockquote>2. 查看历史监控数据（错误率、P99 延迟）</blockquote>
+<blockquote>3. 进行混沌工程测试（模拟外部服务不可用）</blockquote>
+<blockquote>4. 询问对方的容灾方案（是否有主备切换）</blockquote>
+<h3 id="q熔断恢复后如何避免流量突增">Q：熔断恢复后如何避免流量突增？</h3>
+<blockquote>1. 使用半开状态逐步放量</blockquote>
+<blockquote>2. 设置恢复速率（如每秒增加 10% 的流量）</blockquote>
+<blockquote>3. 使用预热模式（Sentinel 支持 warm up）</blockquote>
+<h3 id="q外部服务的接口文档和实际不一致怎么办">Q：外部服务的接口文档和实际不一致怎么办？</h3>
+<blockquote>1. 所有外部调用都要做防御性编程（空指针检查、类型转换异常处理）</blockquote>
+<blockquote>2. 使用契约测试（Contract Testing）验证接口规范</blockquote>
+<blockquote>3. 与合作方建立接口变更通知机制</blockquote>
+<h2 id="场景题补充第三方接口超时处理">场景题补充：第三方接口超时处理</h2>
+<p>面试常问：&quot;第三方接口不稳定经常超时，如何保证不影响自己接口？&quot;这道题考察系统容错能力和韧性设计。</p>
+<p><strong>核心目标</strong>：故障隔离（第三方异常不影响自身）、容错降级（失败也能提供基础服务）、性能保障（防止拖慢自身响应）。</p>
+<p><strong>六大防护策略</strong>：</p>
+<ol>
+<li><strong>超时控制</strong>：HTTP客户端（Feign/RestTemplate）设置connectTimeout和readTimeout；RPC框架（Dubbo/gRPC）配置超时参数。超时时间 = 第三方P99响应时间 x 1.5~2倍。</li>
+</ol>
+<ol>
+<li><strong>重试机制</strong>：指数退避重试（Exponential Backoff），仅对幂等接口重试（GET/查询），非幂等接口（支付/写操作）禁止重试。</li>
+</ol>
+<ol>
+<li><strong>熔断降级</strong>：Sentinel/Hystrix/Resilience4j实现。失败率超阈值自动熔断，返回默认值或缓存数据。</li>
+</ol>
+<ol>
+<li><strong>异步化+消息队列</strong>：非关键路径调用异步化，用CompletableFuture或MQ解耦。</li>
+</ol>
+<ol>
+<li><strong>缓存策略</strong>：本地缓存（Caffeine）+ 分布式缓存（Redis），减少对第三方直接依赖。第三方不可用时返回缓存兜底数据。</li>
+</ol>
+<ol>
+<li><strong>限流与线程池隔离</strong>：为不同第三方服务分配独立线程池，防止一个服务故障耗尽所有线程。</li>
+</ol>
+<p><strong>推荐组合</strong>：线程池隔离 + 熔断降级 + 缓存策略 + 监控告警。实测效果：核心接口成功率从75%提升至99.95%，第三方全量故障时缓存兜底保障80%请求可处理。</p>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/缓存穿透击穿与雪崩/">缓存穿透击穿与雪崩</a></li>
+<li><a class="internal-link" href="/线程池使用场景与参数设置/">线程池使用场景与参数设置</a></li>
+<li><a class="internal-link" href="/消息队列重复消费与丢失问题/">消息队列重复消费与丢失问题</a></li>
+</ul></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#问题分析"><strong>问题分析</strong></a><a class="list-link toc-level-2" href="#方案一超时控制"><strong>方案一：超时控制</strong></a><a class="list-link toc-level-3" href="#核心原则"><strong>核心原则</strong></a><a class="list-link toc-level-3" href="#超时时间设置"><strong>超时时间设置</strong></a><a class="list-link toc-level-3" href="#超时时间如何确定"><strong>超时时间如何确定</strong></a><a class="list-link toc-level-3" href="#超时后的处理"><strong>超时后的处理</strong></a><a class="list-link toc-level-2" href="#方案二熔断降级"><strong>方案二：熔断降级</strong></a><a class="list-link toc-level-3" href="#什么是熔断"><strong>什么是熔断</strong></a><a class="list-link toc-level-3" href="#熔断器状态机"><strong>熔断器状态机</strong></a><a class="list-link toc-level-3" href="#sentinel-实现推荐"><strong>Sentinel 实现（推荐）</strong></a><a class="list-link toc-level-3" href="#hystrix-实现"><strong>Hystrix 实现</strong></a><a class="list-link toc-level-3" href="#sentinel-vs-hystrix"><strong>Sentinel vs Hystrix</strong></a><a class="list-link toc-level-2" href="#方案三异步化"><strong>方案三：异步化</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-3" href="#使用-completablefuture"><strong>使用 CompletableFuture</strong></a><a class="list-link toc-level-3" href="#使用-mq-异步解耦"><strong>使用 MQ 异步解耦</strong></a><a class="list-link toc-level-2" href="#方案四缓存兜底"><strong>方案四：缓存兜底</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-2" href="#方案五隔离"><strong>方案五：隔离</strong></a><a class="list-link toc-level-3" href="#线程池隔离"><strong>线程池隔离</strong></a><a class="list-link toc-level-3" href="#信号量隔离"><strong>信号量隔离</strong></a><a class="list-link toc-level-2" href="#综合防护方案"><strong>综合防护方案</strong></a><a class="list-link toc-level-2" href="#常见追问"><strong>常见追问</strong></a><a class="list-link toc-level-3" href="#q如何判断外部服务是否可靠"><strong>Q：如何判断外部服务是否可靠？</strong></a><a class="list-link toc-level-3" href="#q熔断恢复后如何避免流量突增"><strong>Q：熔断恢复后如何避免流量突增？</strong></a><a class="list-link toc-level-3" href="#q外部服务的接口文档和实际不一致怎么办"><strong>Q：外部服务的接口文档和实际不一致怎么办？</strong></a><a class="list-link toc-level-2" href="#场景题补充第三方接口超时处理"><strong>场景题补充：第三方接口超时处理</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/场景题/与外部服务交互防拖垮/"><circle class="active" cx="208" cy="102" r="8"><title>与外部服务交互防拖垮</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>原子类与 Unsafe 类</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

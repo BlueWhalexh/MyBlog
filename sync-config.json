@@ -1,0 +1,28 @@
+{
+  "vaultPath": "D:\\Document\\Notes",
+  "sourceSubdir": "知识库",
+  "destination": "content/imported",
+  "includeImages": false,
+  "deleteMissing": false,
+  "includeExtensions": [".md"],
+  "excludePathParts": [
+    ".obsidian",
+    ".trash",
+    "private",
+    "Private",
+    "draft",
+    "Draft",
+    "secret",
+    "Secret",
+    "daily",
+    "Daily",
+    "todo",
+    "Todo",
+    "template",
+    "Template",
+    "claude",
+    "Claude",
+    "intern",
+    "Intern"
+  ]
+}

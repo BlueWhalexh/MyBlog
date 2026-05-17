@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BIO NIO AIO 对比 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/Java基础/BIO NIO AIO 对比/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="BIO NIO AIO 对比">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/Java基础/BIO NIO AIO 对比/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2"><summary>场景题</summary><div class="explorer-links"><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>Java基础</summary><div class="explorer-links"><a class="active" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 5 min read</div>
+    <h1>BIO NIO AIO 对比</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, Java基础, 面试]</p>
+<p>source: &quot;<a class="internal-link" href="/Java八股PDF/">Java八股PDF</a>&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>BIO、NIO、AIO 有什么区别？同步与异步、阻塞与非阻塞的区别是什么？</p>
+<h2 id="答案">答案</h2>
+<h3 id="同步与异步如何理解">同步与异步如何理解</h3>
+<p><strong>同步（Synchronous）</strong>：调用方发出请求后，必须<strong>等待</strong>被调用方处理完成并返回结果，才能继续执行后续操作。调用方主动等待结果。</p>
+<p><strong>异步（Asynchronous）</strong>：调用方发出请求后，<strong>不需要等待</strong>被调用方处理完成，可以立即去做其他事情。被调用方处理完成后通过回调、通知等方式告知调用方。</p>
+<p><strong>经典比喻：打电话 vs 发短信</strong></p>
+<table><thead><tr><th>场景</th><th>同步（打电话）</th><th>异步（发短信）</th></tr></thead><tbody>
+<tr><td>发起动作</td><td>拨号</td><td>编辑短信并发送</td></tr>
+<tr><td>等待方式</td><td>拿着电话等对方接听</td><td>发完就去做别的事</td></tr>
+<tr><td>结果获取</td><td>实时听到对方说话</td><td>手机收到回复短信</td></tr>
+<tr><td>期间能否做其他事</td><td>不能，必须等通话结束</td><td>可以，不阻塞</td></tr>
+<tr><td>可靠性</td><td>高，实时反馈</td><td>需要额外机制保证（如重发）</td></tr>
+</tbody></table>
+<p><strong>从 CPU 角度理解</strong>：</p>
+<ul>
+<li><strong>同步</strong>：CPU 发起 I/O 请求后，必须等 I/O 完成才能继续执行（CPU 可能阻塞等待）</li>
+<li><strong>异步</strong>：CPU 发起 I/O 请求后立即返回，I/O 由 DMA/硬件完成，完成后通过中断通知 CPU</li>
+</ul>
+<h3 id="阻塞与非阻塞如何理解">阻塞与非阻塞如何理解</h3>
+<p><strong>阻塞（Blocking）</strong>：调用方在等待结果的过程中，当前线程被<strong>挂起</strong>（阻塞），不占用 CPU 资源，直到操作完成。</p>
+<p><strong>非阻塞（Non-Blocking）</strong>：调用方在等待结果的过程中，当前线程<strong>不会被挂起</strong>，可以继续执行其他操作，需要通过轮询等方式检查操作是否完成。</p>
+<p><strong>从 CPU 消耗角度理解</strong>：</p>
+<table><thead><tr><th>角度</th><th>阻塞</th><th>非阻塞</th></tr></thead><tbody>
+<tr><td>CPU 状态</td><td>线程挂起，CPU 去调度其他线程</td><td>线程运行中，CPU 在忙等或做其他事</td></tr>
+<tr><td>CPU 利用率</td><td>等待期间 CPU 不浪费在该线程上</td><td>忙等时 CPU 空转浪费，但也可能做有用功</td></tr>
+<tr><td>线程状态</td><td>WAITING / BLOCKED</td><td>RUNNABLE</td></tr>
+<tr><td>响应速度</td><td>操作完成后立即响应</td><td>需要轮询才能知道完成</td></tr>
+</tbody></table>
+<p><strong>关键区别</strong>：</p>
+<ul>
+<li><strong>阻塞/非阻塞</strong>关注的是：调用方在等待结果时<strong>线程的状态</strong></li>
+<li><strong>同步/异步</strong>关注的是：调用方和被调用方之间的<strong>消息通信机制</strong></li>
+</ul>
+<h3 id="同步不一定阻塞异步也不一定非阻塞">同步不一定阻塞，异步也不一定非阻塞</h3>
+<p>这是一个常见的误区。两组概念是<strong>正交的</strong>，可以自由组合：</p>
+<table><thead><tr><th>组合</th><th>说明</th><th>示例</th></tr></thead><tbody>
+<tr><td><strong>同步阻塞</strong></td><td>调用方等待结果，期间线程挂起</td><td>BIO 的 read()</td></tr>
+<tr><td><strong>同步非阻塞</strong></td><td>调用方等待结果，期间线程不挂起（轮询）</td><td>NIO 中 Channel 配合 Selector</td></tr>
+<tr><td><strong>异步阻塞</strong></td><td>调用方发了请求就返回，但线程还是阻塞了（罕见）</td><td>调用了异步 API 但又调了 get() 等结果</td></tr>
+<tr><td><strong>异步非阻塞</strong></td><td>调用方发了请求就返回，线程也不阻塞</td><td>AIO</td></tr>
+</tbody></table>
+<p><strong>同步不阻塞的例子</strong>：</p>
+<ul>
+<li>NIO 的 Channel 设置为非阻塞模式后，<code>read()</code> 调用是<strong>同步的</strong>（调用方需要处理返回值），但<strong>非阻塞的</strong>（如果没有数据立即返回 0，不会挂起线程）</li>
+<li>调用方需要不断轮询检查数据是否就绪</li>
+</ul>
+<p><strong>异步阻塞的例子</strong>：</p>
+<ul>
+<li>使用 <code>CompletableFuture</code> 发起异步请求后，调用 <code>future.get()</code> 会阻塞当前线程等待结果</li>
+<li>虽然任务本身是异步执行的，但调用方仍然被阻塞了</li>
+</ul>
+<h3 id="bioblocking-io">BIO（Blocking I/O）</h3>
+<p>BIO 是传统的 <code>java.io</code> 包，基于流模型实现。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>同步阻塞</strong>：读写操作时，线程会一直阻塞直到操作完成</li>
+<li>调用是可靠的线性顺序</li>
+</ul>
+<p><strong>优点</strong>：代码简单、直观</p>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>I/O 效率低</li>
+<li>扩展性差</li>
+<li>容易成为应用性能瓶颈</li>
+</ul>
+<p><strong>典型模型</strong>：一个连接一个线程</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+客户端连接 → 服务端分配线程 → 线程阻塞等待读写 → 读写完成释放线程
+
+</code></pre></div>
+<p><strong>代码示例</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// BIO 服务端
+
+ServerSocket serverSocket = new ServerSocket(8080);
+
+while (true) {
+
+    Socket socket = serverSocket.accept(); // 阻塞等待连接
+
+    new Thread(() -&gt; {
+
+        InputStream in = socket.getInputStream();
+
+        byte[] buf = new byte[1024];
+
+        int len = in.read(buf); // 阻塞等待数据
+
+        // 处理数据...
+
+    }).start();
+
+}
+
+</code></pre></div>
+<p><strong>适用场景</strong>：连接数少、每个连接的 I/O 操作频繁且持续</p>
+<h3 id="nionon-blocking-io">NIO（Non-Blocking I/O）</h3>
+<p>NIO 是 Java 1.4 引入的 <code>java.nio</code> 包。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>同步非阻塞</strong></li>
+<li>提供了 Channel、Selector、Buffer 等新的抽象</li>
+<li>构建<strong>多路复用</strong>的同步非阻塞 I/O 程序</li>
+<li>更接近操作系统底层的高性能数据操作方式</li>
+</ul>
+<p><strong>三大核心组件</strong>：</p>
+<table><thead><tr><th>组件</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>Channel</strong></td><td>双向通道，既可读也可写，类似流但更灵活</td></tr>
+<tr><td><strong>Buffer</strong></td><td>缓冲区，数据读写的中转站</td></tr>
+<tr><td><strong>Selector</strong></td><td>多路复用器，一个线程监听多个 Channel 的事件</td></tr>
+</tbody></table>
+<p><strong>工作原理</strong>：</p>
+<ol>
+<li>Selector 注册多个 Channel 的事件（连接就绪、可读、可写）</li>
+<li>一个线程通过 Selector 轮询所有注册的 Channel</li>
+<li>当某个 Channel 有事件就绪时，才处理该 Channel</li>
+</ol>
+<p><strong>为什么 NIO 是同步的？</strong></p>
+<ul>
+<li>NIO 的 read/write 操作仍然是<strong>同步的</strong>：应用程序需要自己负责数据的读写操作</li>
+<li>只是通过 Selector 实现了<strong>非阻塞</strong>：没有数据就绪时不阻塞，而是返回 0</li>
+<li>数据从内核缓冲区到用户缓冲区的拷贝，仍然是应用程序主动完成的</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>一个线程处理多个连接，减少线程开销</li>
+<li>适合连接数多但每个连接 I/O 操作不频繁的场景</li>
+</ul>
+<p><strong>典型模型</strong>：一个线程处理多个连接（多路复用）</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+多个客户端连接 → 注册到 Selector → 单线程轮询 → 处理就绪的 Channel
+
+</code></pre></div>
+<p><strong>适用场景</strong>：连接数多、每个连接的 I/O 操作不频繁（如聊天服务器）</p>
+<h3 id="aioasynchronous-io">AIO（Asynchronous I/O）</h3>
+<p>AIO 是 Java 1.7 引入的 <code>java.nio</code> 包的升级版本（NIO 2.0）。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>异步非阻塞</strong></li>
+<li>基于<strong>事件和回调</strong>机制实现</li>
+<li>应用操作后直接返回，不阻塞</li>
+<li>后台处理完成后，操作系统通知相应线程进行后续操作</li>
+</ul>
+<p><strong>为什么 AIO 是异步的？</strong></p>
+<ul>
+<li>应用程序发起 I/O 请求后<strong>立即返回</strong>，不需要等待</li>
+<li>数据的读写操作完全由<strong>操作系统完成</strong>（包括从内核缓冲区到用户缓冲区的拷贝）</li>
+<li>操作完成后通过<strong>回调函数</strong>通知应用程序</li>
+<li>应用程序全程不需要参与 I/O 操作</li>
+</ul>
+<p><strong>工作原理</strong>：</p>
+<ol>
+<li>发起 I/O 请求后立即返回</li>
+<li>操作系统在后台完成 I/O 操作</li>
+<li>操作完成后通过回调函数通知应用</li>
+</ol>
+<p><strong>典型模型</strong>：真正的异步 I/O</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+客户端发起请求 → 立即返回 → 操作系统后台处理 → 完成后回调通知
+
+</code></pre></div>
+<p><strong>适用场景</strong>：连接数多且每个连接的 I/O 操作频繁</p>
+<h3 id="三者对比">三者对比</h3>
+<table><thead><tr><th>对比项</th><th>BIO</th><th>NIO</th><th>AIO</th></tr></thead><tbody>
+<tr><td>I/O 模型</td><td>同步阻塞</td><td>同步非阻塞</td><td>异步非阻塞</td></tr>
+<tr><td>引入版本</td><td>JDK 1.0</td><td>JDK 1.4</td><td>JDK 1.7</td></tr>
+<tr><td>线程模型</td><td>一个连接一个线程</td><td>一个线程处理多个连接</td><td>事件回调驱动</td></tr>
+<tr><td>编程复杂度</td><td>简单</td><td>较复杂</td><td>复杂</td></tr>
+<tr><td>吞吐量</td><td>低</td><td>高</td><td>最高</td></tr>
+<tr><td>适用场景</td><td>连接数少、I/O 操作频繁</td><td>连接数多、I/O 操作不频繁</td><td>连接数多、I/O 操作频繁</td></tr>
+<tr><td>数据拷贝</td><td>应用程序负责</td><td>应用程序负责</td><td>操作系统负责</td></tr>
+</tbody></table>
+<h3 id="选型建议">选型建议</h3>
+<ul>
+<li><strong>BIO</strong>：适用于连接数目比较小且固定的架构，对服务器资源要求不高</li>
+<li><strong>NIO</strong>：适用于连接数目多且连接比较短的架构，如聊天服务器、弹幕系统</li>
+<li><strong>AIO</strong>：适用于连接数目多且连接比较长的架构，如相册服务器</li>
+</ul>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/线程池工作原理/">线程池工作原理</a></li>
+<li><a class="internal-link" href="/单机系统并发提升方案/">单机系统并发提升方案</a></li>
+<li><a class="internal-link" href="/IO多路复用 select poll epoll/">IO多路复用 select poll epoll</a></li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>来源：Java八股文PDF</p></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#答案"><strong>答案</strong></a><a class="list-link toc-level-3" href="#同步与异步如何理解"><strong>同步与异步如何理解</strong></a><a class="list-link toc-level-3" href="#阻塞与非阻塞如何理解"><strong>阻塞与非阻塞如何理解</strong></a><a class="list-link toc-level-3" href="#同步不一定阻塞异步也不一定非阻塞"><strong>同步不一定阻塞，异步也不一定非阻塞</strong></a><a class="list-link toc-level-3" href="#bioblocking-io"><strong>BIO（Blocking I/O）</strong></a><a class="list-link toc-level-3" href="#nionon-blocking-io"><strong>NIO（Non-Blocking I/O）</strong></a><a class="list-link toc-level-3" href="#aioasynchronous-io"><strong>AIO（Asynchronous I/O）</strong></a><a class="list-link toc-level-3" href="#三者对比"><strong>三者对比</strong></a><a class="list-link toc-level-3" href="#选型建议"><strong>选型建议</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a><a class="list-link toc-level-2" href="#来源"><strong>来源</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="active" cx="208" cy="102" r="8"><title>BIO NIO AIO 对比</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>原子类与 Unsafe 类</title></circle></a><a href="/imported/八股文/Java并发/多线程上下文切换/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>多线程上下文切换</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>泛型与类型擦除 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/Java基础/泛型与类型擦除/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="泛型与类型擦除">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/Java基础/泛型与类型擦除/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2"><summary>场景题</summary><div class="explorer-links"><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>Java基础</summary><div class="explorer-links"><a class="active" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 3 min read</div>
+    <h1>泛型与类型擦除</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, Java 基础, 面试]</p>
+<p>source: &quot;<a class="internal-link" href="/Java八股PDF/">Java八股PDF</a>&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>泛型是什么？有什么好处？什么是类型擦除？为什么需要类型擦除？泛型通配符怎么用？</p>
+<h2 id="答案">答案</h2>
+<h3 id="泛型是什么">泛型是什么</h3>
+<p>泛型（Generics）是 Java 5 引入的特性，允许在定义类、接口和方法时使用<strong>类型参数</strong>（Type Parameter）。泛型提供了一种<strong>参数化类型</strong>的能力，使得代码可以适用于多种数据类型，同时保证类型安全。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 没有泛型：需要强制转换，可能 ClassCastException
+
+List list = new ArrayList();
+
+list.add(&quot;hello&quot;);
+
+String s = (String) list.get(0); // 需要强转
+
+list.add(123); // 编译不报错，运行时可能出错
+
+
+
+// 有泛型：类型安全，无需强转
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+list.add(&quot;hello&quot;);
+
+String s = list.get(0); // 无需强转
+
+// list.add(123); // 编译报错！类型安全
+
+</code></pre></div>
+<h3 id="泛型的好处">泛型的好处</h3>
+<h4 id="1-类型安全编译时检查">1. 类型安全（编译时检查）</h4>
+<p>泛型在<strong>编译时</strong>进行类型检查，将运行时的 <code>ClassCastException</code> 提前到编译时发现。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 没有泛型：运行时才发现错误
+
+List list = new ArrayList();
+
+list.add(&quot;hello&quot;);
+
+list.add(123); // 编译通过
+
+for (Object obj : list) {
+
+    String s = (String) obj; // 运行时 ClassCastException！
+
+}
+
+
+
+// 有泛型：编译时就发现错误
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+list.add(&quot;hello&quot;);
+
+// list.add(123); // 编译错误！类型不匹配
+
+for (String s : list) {
+
+    System.out.println(s); // 无需强转，安全
+
+}
+
+</code></pre></div>
+<h4 id="2-代码复用消除重复代码">2. 代码复用（消除重复代码）</h4>
+<p>泛型使得一段代码可以适用于多种类型，避免为每种类型编写重复的代码。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 没有泛型：需要为每种类型写一个类
+
+public class IntegerBox {
+
+    private Integer value;
+
+    public void set(Integer value) { this.value = value; }
+
+    public Integer get() { return value; }
+
+}
+
+public class StringBox {
+
+    private String value;
+
+    public void set(String value) { this.value = value; }
+
+    public String get() { return value; }
+
+}
+
+
+
+// 有泛型：一个类适用于所有类型
+
+public class Box&lt;T&gt; {
+
+    private T value;
+
+    public void set(T value) { this.value = value; }
+
+    public T get() { return value; }
+
+}
+
+
+
+Box&lt;Integer&gt; intBox = new Box&lt;&gt;();
+
+intBox.set(123);
+
+
+
+Box&lt;String&gt; strBox = new Box&lt;&gt;();
+
+strBox.set(&quot;hello&quot;);
+
+</code></pre></div>
+<h4 id="3-消除强制类型转换">3. 消除强制类型转换</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 没有泛型
+
+List list = new ArrayList();
+
+list.add(&quot;hello&quot;);
+
+String s = (String) list.get(0); // 需要强转
+
+
+
+// 有泛型
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+list.add(&quot;hello&quot;);
+
+String s = list.get(0); // 无需强转，编译器自动处理
+
+</code></pre></div>
+<h3 id="类型擦除是什么">类型擦除是什么</h3>
+<p><strong>类型擦除（Type Erasure）</strong> 是 Java 泛型的实现机制：泛型信息<strong>只在编译时存在</strong>，编译后会被<strong>擦除</strong>，替换为原始类型（Raw Type）。</p>
+<p><strong>擦除规则</strong>：</p>
+<ul>
+<li><code>&lt;T&gt;</code> 无界类型参数 → 擦除为 <code>Object</code></li>
+<li><code>&lt;T extends Comparable&gt;</code> 有界类型参数 → 擦除为上界 <code>Comparable</code></li>
+</ul>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 编译前（带泛型）
+
+public class Box&lt;T&gt; {
+
+    private T value;
+
+    public void set(T value) { this.value = value; }
+
+    public T get() { return value; }
+
+}
+
+
+
+// 编译后（擦除泛型）
+
+public class Box {
+
+    private Object value;
+
+    public void set(Object value) { this.value = value; }
+
+    public Object get() { return value; }
+
+}
+
+</code></pre></div>
+<p><strong>有界泛型的擦除</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 编译前
+
+public class Box&lt;T extends Number&gt; {
+
+    private T value;
+
+    public void set(T value) { this.value = value; }
+
+    public T get() { return value; }
+
+}
+
+
+
+// 编译后（擦除为上界 Number）
+
+public class Box {
+
+    private Number value;
+
+    public void set(Number value) { this.value = value; }
+
+    public Number get() { return value; }
+
+}
+
+</code></pre></div>
+<p><strong>证明类型擦除</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+List&lt;String&gt; stringList = new ArrayList&lt;&gt;();
+
+List&lt;Integer&gt; intList = new ArrayList&lt;&gt;();
+
+
+
+// 编译后两者是同一个类
+
+System.out.println(stringList.getClass() == intList.getClass()); // true
+
+
+
+// 通过反射可以绕过泛型检查（因为运行时没有泛型信息）
+
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+
+list.getClass().getMethod(&quot;add&quot;, Object.class).invoke(list, &quot;abc&quot;);
+
+System.out.println(list.get(0)); // &quot;abc&quot;（运行时没有泛型检查）
+
+</code></pre></div>
+<p><strong>类型擦除的插入类型转换</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 编译前
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+list.add(&quot;hello&quot;);
+
+String s = list.get(0);
+
+
+
+// 编译后（编译器自动插入强转）
+
+List list = new ArrayList();
+
+list.add(&quot;hello&quot;);
+
+String s = (String) list.get(0); // 编译器自动插入的强转
+
+</code></pre></div>
+<p><strong>类型擦除的桥方法（Bridge Method）</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 编译前
+
+public class IntegerBox extends Box&lt;Integer&gt; {
+
+    @Override
+
+    public void set(Integer value) { ... }
+
+}
+
+
+
+// 编译后（编译器生成桥方法保持多态性）
+
+public class IntegerBox extends Box {
+
+    @Override
+
+    public void set(Integer value) { ... }
+
+    
+
+    // 编译器生成的桥方法
+
+    public void set(Object value) {
+
+        set((Integer) value); // 强转后调用实际方法
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="为什么需要类型擦除">为什么需要类型擦除</h3>
+<p><strong>核心原因：向后兼容（Backward Compatibility）</strong></p>
+<ol>
+<li><strong>兼容旧版本 JVM</strong>：Java 5 引入泛型时，已经存在大量运行在旧版 JVM 上的 Java 程序。如果泛型需要 JVM 支持，旧版 JVM 就无法运行新代码</li>
+<li><strong>兼容旧代码</strong>：泛型代码和非泛型代码可以互操作</li>
+</ol>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// Java 1.4 的旧代码
+
+List list = new ArrayList();
+
+list.add(&quot;hello&quot;);
+
+
+
+// Java 5+ 的新代码可以使用旧代码
+
+List&lt;String&gt; stringList = list; // 可以兼容（有 unchecked 警告）
+
+</code></pre></div>
+<ol>
+<li><strong>不需要修改 JVM 指令集</strong>：类型擦除在编译器层面完成，JVM 无需知道泛型的存在</li>
+</ol>
+<p><strong>类型擦除带来的限制</strong>：</p>
+<table><thead><tr><th>限制</th><th>原因</th><th>示例</th></tr></thead><tbody>
+<tr><td>不能用基本类型作为类型参数</td><td>擦除后为 Object，基本类型不是 Object</td><td><code>List&lt;int&gt;</code> 不行，要用 <code>List&lt;Integer&gt;</code></td></tr>
+<tr><td>不能创建泛型数组</td><td>数组在运行时有类型检查</td><td><code>new T[]</code> 不行</td></tr>
+<tr><td>不能用 instanceof 判断泛型类型</td><td>运行时没有泛型信息</td><td><code>obj instanceof List&lt;String&gt;</code> 不行</td></tr>
+<tr><td>不能创建泛型类的实例</td><td>擦除后不知道具体类型</td><td><code>new T()</code> 不行</td></tr>
+<tr><td>不能在静态上下文中使用类型参数</td><td>靪态成员属于类，不绑定具体类型</td><td><code>static T value</code> 不行</td></tr>
+</tbody></table>
+<h3 id="泛型通配符">泛型通配符</h3>
+<p>泛型通配符用于在泛型类型不确定时提供灵活性。主要有三种形式：</p>
+<h4 id="1-无界通配符">1. 无界通配符 <code>&lt;?&gt;</code></h4>
+<p>表示<strong>任意类型</strong>，通常用于读取操作。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 可以接受任何类型的 List
+
+public void printList(List&lt;?&gt; list) {
+
+    for (Object item : list) {
+
+        System.out.println(item);
+
+    }
+
+}
+
+
+
+printList(Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)); // List&lt;String&gt;
+
+printList(Arrays.asList(1, 2, 3));       // List&lt;Integer&gt;
+
+</code></pre></div>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>只关心集合中的元素类型是否是 Object</li>
+<li>方法不依赖于具体的类型参数</li>
+</ul>
+<h4 id="2-上界通配符-extends-t协变">2. 上界通配符 <code>&lt;? extends T&gt;</code>（协变）</h4>
+<p>表示<strong>T 或 T 的子类</strong>，用于<strong>读取</strong>数据（生产者 Producer）。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 只能读取 Number 或 Number 的子类
+
+public double sum(List&lt;? extends Number&gt; list) {
+
+    double sum = 0;
+
+    for (Number num : list) { // 可以安全地读取为 Number
+
+        sum += num.doubleValue();
+
+    }
+
+    return sum;
+
+}
+
+
+
+sum(Arrays.asList(1, 2, 3));       // List&lt;Integer&gt;（Integer extends Number）
+
+sum(Arrays.asList(1.1, 2.2, 3.3)); // List&lt;Double&gt;（Double extends Number）
+
+</code></pre></div>
+<p><strong>PECS 原则：Producer Extends</strong> — 如果你要<strong>从集合中读取</strong>数据，使用 <code>extends</code>。</p>
+<p><strong>限制</strong>：不能往 <code>List&lt;? extends Number&gt;</code> 中添加元素（除了 null），因为不知道具体类型：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+List&lt;? extends Number&gt; list = new ArrayList&lt;Integer&gt;();
+
+list.add(1);    // 编译错误！不知道是 Integer 还是 Double
+
+list.add(null); // 可以（null 是所有类型的子类）
+
+</code></pre></div>
+<h4 id="3-下界通配符-super-t逆变">3. 下界通配符 <code>&lt;? super T&gt;</code>（逆变）</h4>
+<p>表示<strong>T 或 T 的父类</strong>，用于<strong>写入</strong>数据（消费者 Consumer）。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 只能添加 Integer 或 Integer 的子类
+
+public void addNumbers(List&lt;? super Integer&gt; list) {
+
+    list.add(1);
+
+    list.add(2);
+
+    list.add(3);
+
+}
+
+
+
+List&lt;Number&gt; numberList = new ArrayList&lt;&gt;();
+
+addNumbers(numberList); // 可以，Number 是 Integer 的父类
+
+
+
+List&lt;Object&gt; objectList = new ArrayList&lt;&gt;();
+
+addNumbers(objectList); // 可以，Object 是 Integer 的父类
+
+</code></pre></div>
+<p><strong>PECS 原则：Consumer Super</strong> — 如果你要<strong>往集合中写入</strong>数据，使用 <code>super</code>。</p>
+<p><strong>限制</strong>：从 <code>List&lt;? super Integer&gt;</code> 中读取只能得到 Object：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+List&lt;? super Integer&gt; list = new ArrayList&lt;Number&gt;();
+
+list.add(1);         // 可以
+
+Object obj = list.get(0); // 只能读为 Object，不能读为 Integer
+
+Integer num = list.get(0); // 编译错误！
+
+</code></pre></div>
+<h4 id="pecs-原则总结">PECS 原则总结</h4>
+<p><strong>PECS = Producer Extends, Consumer Super</strong></p>
+<table><thead><tr><th>场景</th><th>通配符</th><th>说明</th></tr></thead><tbody>
+<tr><td>只读（生产者）</td><td><code>&lt;? extends T&gt;</code></td><td>从集合中读取 T 类型的数据</td></tr>
+<tr><td>只写（消费者）</td><td><code>&lt;? super T&gt;</code></td><td>往集合中写入 T 类型的数据</td></tr>
+<tr><td>读写都可以</td><td>确定的类型参数 <code>&lt;T&gt;</code></td><td>既读又写时，使用确切类型</td></tr>
+</tbody></table>
+<p><strong>经典示例 — Collections.copy()</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// src 是生产者（只读），用 extends
+
+// dest 是消费者（只写），用 super
+
+public static &lt;T&gt; void copy(List&lt;? super T&gt; dest, List&lt;? extends T&gt; src) {
+
+    for (int i = 0; i &lt; src.size(); i++) {
+
+        dest.set(i, src.get(i));
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="泛型的使用场景">泛型的使用场景</h3>
+<p><strong>1. 泛型类</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public class Result&lt;T&gt; {
+
+    private int code;
+
+    private String message;
+
+    private T data;
+
+    
+
+    public static &lt;T&gt; Result&lt;T&gt; success(T data) {
+
+        Result&lt;T&gt; result = new Result&lt;&gt;();
+
+        result.setCode(200);
+
+        result.setData(data);
+
+        return result;
+
+    }
+
+}
+
+
+
+Result&lt;User&gt; result = Result.success(user);
+
+Result&lt;List&lt;Order&gt;&gt; result = Result.success(orders);
+
+</code></pre></div>
+<p><strong>2. 泛型方法</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public static &lt;T extends Comparable&lt;T&gt;&gt; T max(T a, T b) {
+
+    return a.compareTo(b) &gt;= 0 ? a : b;
+
+}
+
+
+
+String maxStr = max(&quot;abc&quot;, &quot;def&quot;); // &quot;def&quot;
+
+int maxInt = max(1, 2);            // 2
+
+</code></pre></div>
+<p><strong>3. 泛型接口</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+public interface Repository&lt;T, ID&gt; {
+
+    T findById(ID id);
+
+    List&lt;T&gt; findAll();
+
+    void save(T entity);
+
+    void delete(ID id);
+
+}
+
+
+
+public class UserRepository implements Repository&lt;User, Long&gt; {
+
+    @Override
+
+    public User findById(Long id) { ... }
+
+    // ...
+
+}
+
+</code></pre></div>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/迭代器的实现原理/">迭代器的实现原理</a></li>
+<li><a class="internal-link" href="/深拷贝与浅拷贝/">深拷贝与浅拷贝</a></li>
+<li><a class="internal-link" href="/Java 反射与动态代理/">Java 反射与动态代理</a></li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>来源：Java八股文PDF</p></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#答案"><strong>答案</strong></a><a class="list-link toc-level-3" href="#泛型是什么"><strong>泛型是什么</strong></a><a class="list-link toc-level-3" href="#泛型的好处"><strong>泛型的好处</strong></a><a class="list-link toc-level-4" href="#1-类型安全编译时检查"><strong>1. 类型安全（编译时检查）</strong></a><a class="list-link toc-level-4" href="#2-代码复用消除重复代码"><strong>2. 代码复用（消除重复代码）</strong></a><a class="list-link toc-level-4" href="#3-消除强制类型转换"><strong>3. 消除强制类型转换</strong></a><a class="list-link toc-level-3" href="#类型擦除是什么"><strong>类型擦除是什么</strong></a><a class="list-link toc-level-3" href="#为什么需要类型擦除"><strong>为什么需要类型擦除</strong></a><a class="list-link toc-level-3" href="#泛型通配符"><strong>泛型通配符</strong></a><a class="list-link toc-level-4" href="#1-无界通配符"><strong>1. 无界通配符 `&lt;?&gt;`</strong></a><a class="list-link toc-level-4" href="#2-上界通配符-extends-t协变"><strong>2. 上界通配符 `&lt;? extends T&gt;`（协变）</strong></a><a class="list-link toc-level-4" href="#3-下界通配符-super-t逆变"><strong>3. 下界通配符 `&lt;? super T&gt;`（逆变）</strong></a><a class="list-link toc-level-4" href="#pecs-原则总结"><strong>PECS 原则总结</strong></a><a class="list-link toc-level-3" href="#泛型的使用场景"><strong>泛型的使用场景</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a><a class="list-link toc-level-2" href="#来源"><strong>来源</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="active" cx="208" cy="102" r="8"><title>泛型与类型擦除</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>原子类与 Unsafe 类</title></circle></a><a href="/imported/八股文/Java并发/多线程上下文切换/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>多线程上下文切换</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

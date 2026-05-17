@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx quartz *)",
+      "Bash(node scripts/verify.mjs)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3010/)",
+      "Bash(curl -s -o /dev/null -w \" %{http_code}\" http://127.0.0.1:3010/tags/)",
+      "Bash(curl -s -o /dev/null -w \" %{http_code}\" http://127.0.0.1:3010/index.xml)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3019/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3019/tags/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3019/index.xml)",
+      "Bash(git add *)"
+    ]
+  }
+}

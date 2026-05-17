@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>单点登录实现 | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/场景题/单点登录实现/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="单点登录实现">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/场景题/单点登录实现/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>场景题</summary><div class="explorer-links"><a class="active" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java基础</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 4 min read</div>
+    <h1>单点登录实现</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, 场景题, 面试]</p>
+<p>source: &quot;Java面试准备&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>如何实现用户在 A 网站登录后，访问 B 网站时自动登录（Single Sign-On, SSO）？</p>
+<h2 id="一为什么需要单点登录">一、为什么需要单点登录</h2>
+<p>一个公司可能有多个子系统：</p>
+<ul>
+<li>主站（www.example.com）</li>
+<li>后台管理（admin.example.com）</li>
+<li>商城（shop.example.com）</li>
+</ul>
+<p>用户在主站登录后，希望访问商城时不需要再次登录。</p>
+<p><strong>核心难点</strong>：HTTP 是无状态协议，每个站点的 Cookie 是独立的，A 站的登录状态无法直接传递给 B 站。</p>
+<p>---</p>
+<h2 id="二方案一共享-cookie">二、方案一：共享 Cookie</h2>
+<h3 id="实现原理">实现原理</h3>
+<p>利用 Cookie 的 Domain 属性，让多个子域名共享同一个 Cookie。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 登录成功后设置 Cookie
+
+Cookie cookie = new Cookie(&quot;token&quot;, jwtToken);
+
+cookie.setDomain(&quot;.example.com&quot;); // 关键：设置父域名
+
+cookie.setPath(&quot;/&quot;);
+
+cookie.setHttpOnly(true);
+
+response.addCookie(cookie);
+
+</code></pre></div>
+<p><strong>效果</strong>：用户在 <code>www.example.com</code> 登录后，Cookie 会被发送到 <code>*.example.com</code> 的所有子域名。</p>
+<h3 id="限制">限制</h3>
+<ol>
+<li><strong>必须同域</strong>：只能用于子域名（如 <code>*.example.com</code>），不能跨主域名</li>
+<li><strong>安全风险</strong>：一个子站被攻破，所有子站的登录状态都暴露</li>
+<li><strong>隐私法规</strong>：某些浏览器限制第三方 Cookie（Safari/Chrome）</li>
+</ol>
+<h3 id="适用场景">适用场景</h3>
+<p>同一公司的多个子域名系统，简单快速的方案。</p>
+<p>---</p>
+<h2 id="三方案二cas-协议central-authentication-service">三、方案二：CAS 协议（Central Authentication Service）</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>设立一个中央认证服务器（CAS Server），所有应用系统（CAS Client）的登录都通过它来完成。</p>
+<h3 id="流程详解">流程详解</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+用户访问系统 A（未登录）
+
+    │
+
+    ▼
+
+系统 A 发现未登录，重定向到 CAS Server
+
+URL: https://cas.example.com/login?service=https://a.example.com/callback
+
+    │
+
+    ▼
+
+CAS Server 显示登录页面，用户输入账号密码
+
+    │
+
+    ▼
+
+CAS Server 验证通过，生成 TGT（Ticket Granting Ticket）
+
+设置 CAS Server 的 Cookie（TGT）
+
+生成 ST（Service Ticket），重定向回系统 A
+
+URL: https://a.example.com/callback?ST=ST-xxxxx
+
+    │
+
+    ▼
+
+系统 A 收到 ST，向 CAS Server 验证 ST
+
+CAS Server 验证 ST 有效，返回用户信息
+
+系统 A 建立本地会话，设置自己的 Cookie
+
+    │
+
+    ▼
+
+用户访问系统 B（未登录）
+
+    │
+
+    ▼
+
+系统 B 重定向到 CAS Server
+
+CAS Server 发现已有 TGT Cookie，不需要再次登录
+
+直接生成新的 ST，重定向回系统 B
+
+    │
+
+    ▼
+
+系统 B 验证 ST，建立本地会话
+
+用户无需输入密码，自动登录
+
+</code></pre></div>
+<h3 id="核心代码">核心代码</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// CAS Server 端
+
+@Controller
+
+public class CasServerController {
+
+    
+
+    @GetMapping(&quot;/login&quot;)
+
+    public String login(@RequestParam String service, 
+
+                        HttpServletRequest request,
+
+                        HttpServletResponse response) {
+
+        // 检查是否已有 TGT
+
+        String tgt = getTgtFromCookie(request);
+
+        if (tgt != null) {
+
+            // 已登录，直接生成 ST 并重定向
+
+            String st = generateServiceTicket(tgt, service);
+
+            return &quot;redirect:&quot; + service + &quot;?ST=&quot; + st;
+
+        }
+
+        // 未登录，显示登录页面
+
+        return &quot;login&quot;;
+
+    }
+
+    
+
+    @PostMapping(&quot;/login&quot;)
+
+    public String doLogin(@RequestParam String username,
+
+                          @RequestParam String password,
+
+                          @RequestParam String service,
+
+                          HttpServletResponse response) {
+
+        // 验证用户名密码
+
+        if (authenticate(username, password)) {
+
+            // 生成 TGT
+
+            String tgt = generateTgt(username);
+
+            // 设置 TGT Cookie
+
+            setTgtCookie(response, tgt);
+
+            // 生成 ST
+
+            String st = generateServiceTicket(tgt, service);
+
+            return &quot;redirect:&quot; + service + &quot;?ST=&quot; + st;
+
+        }
+
+        return &quot;login?error=true&quot;;
+
+    }
+
+    
+
+    @GetMapping(&quot;/validate&quot;)
+
+    @ResponseBody
+
+    public Map&lt;String, Object&gt; validate(@RequestParam String st) {
+
+        // 验证 ST 并返回用户信息
+
+        String username = validateServiceTicket(st);
+
+        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
+
+        result.put(&quot;valid&quot;, username != null);
+
+        result.put(&quot;username&quot;, username);
+
+        return result;
+
+    }
+
+}
+
+
+
+// CAS Client 端（系统 A/B）
+
+@Component
+
+public class CasClientFilter implements Filter {
+
+    
+
+    private String casServerUrl = &quot;https://cas.example.com&quot;;
+
+    private String localUrl = &quot;https://a.example.com&quot;;
+
+    
+
+    @Override
+
+    public void doFilter(ServletRequest req, ServletResponse res, 
+
+                         FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest request = (HttpServletRequest) req;
+
+        HttpServletResponse response = (HttpServletResponse) res;
+
+        
+
+        // 检查本地会话
+
+        if (isLoggedIn(request)) {
+
+            chain.doFilter(req, res);
+
+            return;
+
+        }
+
+        
+
+        // 检查是否有 ST 参数
+
+        String st = request.getParameter(&quot;ST&quot;);
+
+        if (st != null) {
+
+            // 向 CAS Server 验证 ST
+
+            String username = validateWithCasServer(st);
+
+            if (username != null) {
+
+                // 建立本地会话
+
+                createLocalSession(request, username);
+
+                chain.doFilter(req, res);
+
+                return;
+
+            }
+
+        }
+
+        
+
+        // 重定向到 CAS Server
+
+        String loginUrl = casServerUrl + &quot;/login?service=&quot; + 
+
+            URLEncoder.encode(localUrl, &quot;UTF-8&quot;);
+
+        response.sendRedirect(loginUrl);
+
+    }
+
+}
+
+</code></pre></div>
+<h3 id="关键概念">关键概念</h3>
+<table><thead><tr><th>概念</th><th>说明</th></tr></thead><tbody>
+<tr><td>TGT</td><td>Ticket Granting Ticket，用户在 CAS Server 的登录凭证</td></tr>
+<tr><td>ST</td><td>Service Ticket，一次性凭证，用于应用系统验证用户身份</td></tr>
+<tr><td>TGC</td><td>Ticket Granting Cookie，CAS Server 设置的 Cookie，存储 TGT</td></tr>
+</tbody></table>
+<p>---</p>
+<h2 id="四方案三oauth-20">四、方案三：OAuth 2.0</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>OAuth 2.0 本质是一种授权协议，但也可用于 SSO。用户通过第三方平台（如微信、Google）的身份来登录你的系统。</p>
+<h3 id="授权码模式流程">授权码模式流程</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+用户点击&quot;微信登录&quot;
+
+    │
+
+    ▼
+
+重定向到微信授权页面
+
+URL: https://open.weixin.qq.com/connect/oauth2/authorize
+
+    ?appid=xxx
+
+    &amp;redirect_uri=https://a.example.com/callback
+
+    &amp;response_type=code
+
+    &amp;scope=snsapi_userinfo
+
+    │
+
+    ▼
+
+用户授权后，微信重定向回应用
+
+URL: https://a.example.com/callback?code=AUTH_CODE
+
+    │
+
+    ▼
+
+应用用 code 换取 access_token
+
+POST https://api.weixin.qq.com/sns/oauth2/access_token
+
+    ?appid=xxx&amp;secret=xxx&amp;code=AUTH_CODE
+
+    │
+
+    ▼
+
+用 access_token 获取用户信息
+
+GET https://api.weixin.qq.com/sns/userinfo?access_token=xxx&amp;openid=xxx
+
+    │
+
+    ▼
+
+根据用户信息创建/登录本地账户
+
+</code></pre></div>
+<h3 id="spring-security-oauth2-实现">Spring Security OAuth2 实现</h3>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+@Configuration
+
+@EnableWebSecurity
+
+public class SecurityConfig {
+
+    
+
+    @Bean
+
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+
+            .authorizeHttpRequests(auth -&gt; auth
+
+                .requestMatchers(&quot;/public/**&quot;).permitAll()
+
+                .anyRequest().authenticated()
+
+            )
+
+            .oauth2Login(oauth2 -&gt; oauth2
+
+                .loginPage(&quot;/login&quot;)
+
+                .defaultSuccessUrl(&quot;/home&quot;)
+
+                .userInfoEndpoint(userInfo -&gt; userInfo
+
+                    .userService(customOAuth2UserService)
+
+                )
+
+            );
+
+        return http.build();
+
+    }
+
+}
+
+</code></pre></div>
+<p>---</p>
+<h2 id="五方案对比">五、方案对比</h2>
+<table><thead><tr><th>方案</th><th>跨域</th><th>复杂度</th><th>安全性</th><th>适用场景</th></tr></thead><tbody>
+<tr><td>共享 Cookie</td><td>仅同父域</td><td>低</td><td>中</td><td>子域名系统</td></tr>
+<tr><td>CAS</td><td>任意域</td><td>中</td><td>高</td><td>企业内部多系统（推荐）</td></tr>
+<tr><td>OAuth 2.0</td><td>任意域</td><td>高</td><td>高</td><td>第三方登录/开放平台</td></tr>
+<tr><td>JWT + Redis</td><td>任意域</td><td>低</td><td>中</td><td>前后端分离微服务</td></tr>
+</tbody></table>
+<p>---</p>
+<h2 id="六微服务场景下的-sso">六、微服务场景下的 SSO</h2>
+<p>在微服务架构中，通常使用 <strong>JWT + 网关</strong> 实现 SSO：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+用户登录 → 网关验证 → 颁发 JWT Token
+
+用户请求 → 网关校验 Token → 转发到具体服务
+
+
+
+所有微服务共享同一个 JWT Token，无需每个服务单独登录。
+
+</code></pre></div>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 网关层统一校验
+
+@Component
+
+public class AuthFilter implements GlobalFilter {
+
+    
+
+    @Override
+
+    public Mono&lt;Void&gt; filter(ServerWebExchange exchange, 
+
+                              GatewayFilterChain chain) {
+
+        String token = exchange.getRequest().getHeaders()
+
+            .getFirst(&quot;Authorization&quot;);
+
+        
+
+        if (token == null || !jwtUtils.validate(token)) {
+
+            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+
+            return exchange.getResponse().setComplete();
+
+        }
+
+        
+
+        // 将用户信息传递给下游服务
+
+        Claims claims = jwtUtils.parseToken(token);
+
+        ServerHttpRequest request = exchange.getRequest().mutate()
+
+            .header(&quot;X-User-Id&quot;, claims.getSubject())
+
+            .build();
+
+        
+
+        return chain.filter(exchange.mutate().request(request).build());
+
+    }
+
+}
+
+</code></pre></div>
+<h2 id="常见追问">常见追问</h2>
+<h3 id="qcas-和-oauth-20-的区别">Q：CAS 和 OAuth 2.0 的区别？</h3>
+<blockquote>1. CAS 是认证协议，解决&quot;你是谁&quot;的问题</blockquote>
+<blockquote>2. OAuth 2.0 是授权协议，解决&quot;你能做什么&quot;的问题</blockquote>
+<blockquote>3. CAS 适用于企业内部系统，OAuth 2.0 适用于第三方登录</blockquote>
+<blockquote>4. CAS 需要自建认证中心，OAuth 2.0 依赖第三方平台</blockquote>
+<h3 id="qtoken-被盗怎么办">Q：Token 被盗怎么办？</h3>
+<blockquote>1. 设置较短的过期时间（如 2 小时）</blockquote>
+<blockquote>2. 使用 HTTPS 传输</blockquote>
+<blockquote>3. 将 Token 存在 HttpOnly Cookie 中，防止 XSS 攻击</blockquote>
+<blockquote>4. 使用 Refresh Token 机制，Access Token 过期后用 Refresh Token 换新</blockquote>
+<blockquote>5. 服务端维护 Token 黑名单（注销时加入黑名单）</blockquote>
+<h3 id="q如何实现登出注销">Q：如何实现登出（注销）？</h3>
+<blockquote>1. CAS：向 CAS Server 发送注销请求，CAS Server 销毁 TGT 并通知所有已登录的应用</blockquote>
+<blockquote>2. JWT：客户端删除 Token + 服务端将 Token 加入黑名单</blockquote>
+<blockquote>3. OAuth 2.0：调用第三方平台的注销接口</blockquote>
+<h2 id="场景题补充sso系统设计要点">场景题补充：SSO系统设计要点</h2>
+<p>面试中可能会问：&quot;如何设计一个SSO系统？&quot;这道题考察对认证授权体系和分布式会话管理的理解。</p>
+<p><strong>SSO核心组件</strong>：</p>
+<ul>
+<li>前台站点（需要登录的业务站点）</li>
+<li>SSO站点（登录页面、登出入口）</li>
+<li>SSO服务（登录服务、登录状态校验服务、登出服务）</li>
+<li>数据库（用户账户信息）</li>
+<li>缓存（Redis存储登录信息，保证高可用和线性扩展）</li>
+</ul>
+<p><strong>登录状态存储方案</strong>：</p>
+<ul>
+<li>用户登录成功后生成AuthToken（UUID或UserName+时间戳加密），浏览器存Cookie，App存本地缓存</li>
+<li>服务端用Redis集群存储登录信息（UserId、UserName），支持负载均衡和水平扩展</li>
+<li>Cookie设置domain为<code>.test.com</code>，所有<code>*.test.com</code>子站自动携带AuthToken</li>
+</ul>
+<p><strong>跨域SSO实现思路</strong>：</p>
+<ul>
+<li>登录完成后通过回调方式将AuthToken传递给非主域名站点，各站点自行存入当前域Cookie</li>
+<li>登出时通过回调调用各站点登出接口，清除各域Cookie中的AuthToken</li>
+<li>核心是解决Cookie的跨域读写问题</li>
+</ul>
+<p><strong>关键设计决策</strong>：</p>
+<ul>
+<li>AuthToken建议用UUID+时间戳加密生成，服务端解密验证合法性</li>
+<li>登出需同时清除Redis缓存和客户端Cookie</li>
+<li>手机App场景需额外考虑Token刷新和本地安全存储</li>
+</ul>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/HTTP 与 HTTPS 的区别/">HTTP 与 HTTPS 的区别</a></li>
+<li><a class="internal-link" href="/Security Filter vs Interceptor/">Security Filter vs Interceptor</a></li>
+</ul></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#一为什么需要单点登录"><strong>一、为什么需要单点登录</strong></a><a class="list-link toc-level-2" href="#二方案一共享-cookie"><strong>二、方案一：共享 Cookie</strong></a><a class="list-link toc-level-3" href="#实现原理"><strong>实现原理</strong></a><a class="list-link toc-level-3" href="#限制"><strong>限制</strong></a><a class="list-link toc-level-3" href="#适用场景"><strong>适用场景</strong></a><a class="list-link toc-level-2" href="#三方案二cas-协议central-authentication-service"><strong>三、方案二：CAS 协议（Central Authentication Service）</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-3" href="#流程详解"><strong>流程详解</strong></a><a class="list-link toc-level-3" href="#核心代码"><strong>核心代码</strong></a><a class="list-link toc-level-3" href="#关键概念"><strong>关键概念</strong></a><a class="list-link toc-level-2" href="#四方案三oauth-20"><strong>四、方案三：OAuth 2.0</strong></a><a class="list-link toc-level-3" href="#核心思想"><strong>核心思想</strong></a><a class="list-link toc-level-3" href="#授权码模式流程"><strong>授权码模式流程</strong></a><a class="list-link toc-level-3" href="#spring-security-oauth2-实现"><strong>Spring Security OAuth2 实现</strong></a><a class="list-link toc-level-2" href="#五方案对比"><strong>五、方案对比</strong></a><a class="list-link toc-level-2" href="#六微服务场景下的-sso"><strong>六、微服务场景下的 SSO</strong></a><a class="list-link toc-level-2" href="#常见追问"><strong>常见追问</strong></a><a class="list-link toc-level-3" href="#qcas-和-oauth-20-的区别"><strong>Q：CAS 和 OAuth 2.0 的区别？</strong></a><a class="list-link toc-level-3" href="#qtoken-被盗怎么办"><strong>Q：Token 被盗怎么办？</strong></a><a class="list-link toc-level-3" href="#q如何实现登出注销"><strong>Q：如何实现登出（注销）？</strong></a><a class="list-link toc-level-2" href="#场景题补充sso系统设计要点"><strong>场景题补充：SSO系统设计要点</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/场景题/单点登录实现/"><circle class="active" cx="208" cy="102" r="8"><title>单点登录实现</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>原子类与 Unsafe 类</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>集合框架基础 — ArrayList 与 HashMap | xuehang 技术博客</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="http://127.0.0.1:3010/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/">
+  <link rel="alternate" type="application/rss+xml" title="xuehang 技术博客" href="/feed.xml">
+  <meta property="og:title" content="集合框架基础 — ArrayList 与 HashMap">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://127.0.0.1:3010/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="reading-progress" data-reading-progress></div>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-mark"><img src="/avatar.png" alt="xuehang avatar"></span><span>xuehang 技术博客</span></a>
+      <nav class="nav" aria-label="主导航">
+        <a class="" href="/">首页</a>
+        <a class="" href="/posts/">文章</a>
+        <a class="" href="/tags/">标签</a>
+        <a class="" href="/graph/">图谱</a>
+        <a href="/feed.xml">RSS</a>
+      </nav>
+      <div class="toolbar">
+        <button class="theme-dot paper" type="button" data-theme-button="paper" aria-label="Paper 主题"></button>
+        <button class="theme-dot dusk" type="button" data-theme-button="dusk" aria-label="Dusk 主题"></button>
+        <button class="reader-toggle" type="button" data-reader-toggle aria-label="切换阅读模式">阅读</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="left-rail" aria-label="内容导航">
+      <div class="rail-label">Finder</div>
+      <details open><summary>入口</summary><div class="explorer-links"><a class="" href="/"><span>首页</span><small>2026-05-17</small></a></div></details><details open><summary>学习笔记</summary><div class="explorer-links"><a class="" href="/notes/obsidian-publish-flow/"><span>Obsidian 发布流程</span><small>2026-05-17</small></a></div></details><details open><summary>技术文章</summary><div class="explorer-links"><a class="" href="/posts/quartz-research/"><span>个人技术博客脚手架调研</span><small>2026-05-17</small></a></div></details><details open><summary>项目复盘</summary><div class="explorer-links"><a class="" href="/projects/hermes-architecture/"><span>Hermes 架构说明</span><small>2026-05-17</small></a></div></details><details class="tree-node depth-0" open><summary>同步笔记</summary><div class="explorer-links"><details class="tree-node depth-1" open><summary>八股文</summary><div class="explorer-links"><details class="tree-node depth-2"><summary>操作系统</summary><div class="explorer-links"><a class="" href="/imported/八股文/操作系统/操作系统内存管理/"><span>操作系统内存管理</span><small></small></a><a class="" href="/imported/八股文/操作系统/进程线程与协程/"><span>进程线程与协程</span><small></small></a><a class="" href="/imported/八股文/操作系统/死锁的四个必要条件与解决/"><span>死锁的四个必要条件与解决</span><small></small></a><a class="" href="/imported/八股文/操作系统/中断与进程状态/"><span>中断与进程状态</span><small></small></a><a class="" href="/imported/八股文/操作系统/IO多路复用 select poll epoll/"><span>IO多路复用 select poll epoll</span><small></small></a><a class="" href="/imported/八股文/操作系统/Linux 常用命令/"><span>Linux 常用命令</span><small></small></a></div></details><details class="tree-node depth-2"><summary>场景题</summary><div class="explorer-links"><a class="" href="/imported/八股文/场景题/10万QPS RPC框架毫秒级调用/"><span>10万QPS RPC框架毫秒级调用</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS会员系统设计/"><span>10万QPS会员系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS评论中台设计/"><span>10万QPS评论中台设计（B站案例）</span><small></small></a><a class="" href="/imported/八股文/场景题/10万QPS优惠券系统设计/"><span>10万QPS优惠券系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/1TB数据排序32GB内存/"><span>1TB数据排序32GB内存</span><small></small></a><a class="" href="/imported/八股文/场景题/机器配置选择4C8G与8C16G/"><span>4C8G 16 台与 8C16G 8 台机器配置选择</span><small></small></a><a class="" href="/imported/八股文/场景题/4C8G机器指标范围/"><span>4C8G 机器各项系统指标正常范围</span><small></small></a><a class="" href="/imported/八股文/场景题/50万QPS站内未读消息系统/"><span>50万QPS站内未读消息系统</span><small></small></a><a class="" href="/imported/八股文/场景题/5亿用户网约车系统设计/"><span>5亿用户网约车系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级单表查询三层优化/"><span>百万级单表查询三层优化</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel导入数据库/"><span>百万级Excel导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/百万级Excel快速导入数据库/"><span>百万级Excel快速导入数据库</span><small></small></a><a class="" href="/imported/八股文/场景题/本地缓存设计/"><span>本地缓存设计</span><small></small></a><a class="" href="/imported/八股文/场景题/避免超预期高并发压垮系统/"><span>避免超预期高并发压垮系统（限流器Diana）</span><small></small></a><a class="" href="/imported/八股文/场景题/不用锁实现线程安全单例/"><span>不用锁实现线程安全单例</span><small></small></a><a class="" href="/imported/八股文/场景题/布隆过滤器内存估算/"><span>布隆过滤器内存估算</span><small></small></a><a class="" href="/imported/八股文/场景题/IP地址存储数据类型选择/"><span>存 IP 地址用什么数据类型比较好</span><small></small></a><a class="" href="/imported/八股文/场景题/骚扰电话号码存储方案/"><span>大量手机号码被标记成骚扰电话如何存储</span><small></small></a><a class="" href="/imported/八股文/场景题/大文件排序/"><span>大文件排序</span><small></small></a><a class="" href="/imported/八股文/场景题/单点登录实现/"><span>单点登录实现</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方接口超时防护/"><span>第三方接口超时防护</span><small></small></a><a class="" href="/imported/八股文/场景题/第三方支付回调不一致/"><span>调用第三方支付显示成功但调用方显示失败</span><small></small></a><a class="" href="/imported/八股文/场景题/订单超时自动关闭/"><span>订单超时自动关闭</span><small></small></a><a class="" href="/imported/八股文/场景题/订单到期关单实现/"><span>订单到期关单实现</span><small></small></a><a class="" href="/imported/八股文/场景题/定时任务集群并发问题/"><span>定时任务集群并发问题</span><small></small></a><a class="" href="/imported/八股文/场景题/动态数据查询效率提升/"><span>动态数据查询效率提升</span><small></small></a><a class="" href="/imported/八股文/场景题/多线程读文件效率对比/"><span>读取一千个文件单线程和十线程哪种效率高</span><small></small></a><a class="" href="/imported/八股文/场景题/短URL生成器无冲突设计/"><span>短URL生成器无冲突设计</span><small></small></a><a class="" href="/imported/八股文/场景题/堆外内存泄漏排查/"><span>堆外内存泄漏排查</span><small></small></a><a class="" href="/imported/八股文/场景题/多级缓存应用场景/"><span>多级缓存应用场景</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式调度框架设计考量/"><span>分布式调度框架设计考量</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式架构与单体架构对比/"><span>分布式架构与单体架构对比</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式链路跟踪系统设计/"><span>分布式链路跟踪系统设计</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁影响并发的优化/"><span>分布式锁影响并发的优化</span><small></small></a><a class="" href="/imported/八股文/场景题/分布式锁与事务的顺序/"><span>分布式锁与事务的顺序</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表/"><span>分库分表</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表数据均匀分布方案/"><span>分库分表时每个城市人口不一样如何均匀分布</span><small></small></a><a class="" href="/imported/八股文/场景题/分库分表之外的替代方案/"><span>分库分表之外的替代方案</span><small></small></a><a class="" href="/imported/八股文/场景题/复杂架构分层设计原因/"><span>复杂架构分层设计原因</span><small></small></a><a class="" href="/imported/八股文/场景题/高并发库存抢购超卖解决/"><span>高并发库存抢购超卖解决</span><small></small></a><a class="more-link" href="/posts/"><span>查看更多 101 篇</span><small>使用文章页或搜索进入</small></a></div></details><details class="tree-node depth-2"><summary>分布式</summary><div class="explorer-links"><a class="" href="/imported/八股文/分布式/分布式 ID 生成方案/"><span>分布式 ID 生成方案</span><small></small></a><a class="" href="/imported/八股文/分布式/CAP 定理与 BASE 理论/"><span>CAP 定理与 BASE 理论</span><small></small></a></div></details><details class="tree-node depth-2"><summary>计算机网络</summary><div class="explorer-links"><a class="" href="/imported/八股文/计算机网络/半连接队列与全连接队列/"><span>半连接队列与全连接队列</span><small></small></a><a class="" href="/imported/八股文/计算机网络/从输入URL到页面显示发生了什么/"><span>从输入URL到页面显示发生了什么</span><small></small></a><a class="" href="/imported/八股文/计算机网络/GET 与 POST 的区别/"><span>GET 与 POST 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 与 HTTPS 的区别/"><span>HTTP 与 HTTPS 的区别</span><small></small></a><a class="" href="/imported/八股文/计算机网络/HTTP 状态码/"><span>HTTP 状态码</span><small></small></a><a class="" href="/imported/八股文/计算机网络/TCP 三次握手与四次挥手/"><span>TCP 三次握手与四次挥手</span><small></small></a></div></details><details class="tree-node depth-2"><summary>排查与优化</summary><div class="explorer-links"><a class="" href="/imported/八股文/排查与优化/极端场景峰期接口毛刺排查/"><span>极端场景：峰期接口毛刺 RT 波动排查</span><small></small></a><a class="" href="/imported/八股文/排查与优化/CPU 100% 排查完整流程/"><span>CPU 100% 排查完整流程</span><small></small></a><a class="" href="/imported/八股文/排查与优化/OOM 排查完整攻略/"><span>OOM 排查完整攻略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>设计模式</summary><div class="explorer-links"><a class="" href="/imported/八股文/设计模式/单例模式实现要点/"><span>单例模式实现要点</span><small></small></a><a class="" href="/imported/八股文/设计模式/设计模式概览/"><span>设计模式概览</span><small></small></a><a class="" href="/imported/八股文/设计模式/项目中用了哪些设计模式 — 下单链路/"><span>项目中用了哪些设计模式 — 下单链路</span><small></small></a></div></details><details class="tree-node depth-2"><summary>算法</summary><div class="explorer-links"><a class="" href="/imported/八股文/算法/排序算法与栈队列/"><span>排序算法与栈队列</span><small></small></a></div></details><details class="tree-node depth-2"><summary>消息队列</summary><div class="explorer-links"><a class="" href="/imported/八股文/消息队列/消息队列重复消费与丢失问题/"><span>消息队列的优点及消息重复消费/丢失问题</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka 分区设置与顺序性保证/"><span>Kafka 分区设置与顺序性保证</span><small></small></a><a class="" href="/imported/八股文/消息队列/Kafka Rebalance 机制与消息堆积/"><span>Kafka Rebalance 机制与消息堆积</span><small></small></a><a class="" href="/imported/八股文/消息队列/MQ 选型详解/"><span>MQ 选型详解</span><small></small></a></div></details><details class="tree-node depth-2"><summary>智力题</summary><div class="explorer-links"><a class="" href="/imported/八股文/智力题/常见智力题/"><span>常见智力题</span><small></small></a></div></details><details class="tree-node depth-2"><summary>AI大模型</summary><div class="explorer-links"><a class="" href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><span>FunctionCall 和 MCP 的区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Elasticsearch</summary><div class="explorer-links"><a class="" href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><span>ES 倒排索引详解</span><small></small></a><a class="" href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><span>ES 使用中的问题及解决方案</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Java并发</summary><div class="explorer-links"><a class="" href="/imported/八股文/Java并发/悲观锁的实现机制/"><span>悲观锁的实现机制</span><small></small></a><a class="" href="/imported/八股文/Java并发/多线程上下文切换/"><span>多线程上下文切换</span><small></small></a><a class="" href="/imported/八股文/Java并发/乐观锁与悲观锁/"><span>乐观锁与悲观锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池创建与单核 CPU 多线程价值/"><span>如何创建线程池？为什么要线程池？单核 CPU 多线程是否有用？</span><small></small></a><a class="" href="/imported/八股文/Java并发/如何让主线程感知子线程异常/"><span>如何让主线程感知子线程异常？</span><small></small></a><a class="" href="/imported/八股文/Java并发/单机系统并发提升方案/"><span>如何提升单机系统的并发？</span><small></small></a><a class="" href="/imported/八股文/Java并发/生产者消费者模型的实现方式/"><span>生产者消费者模型的实现方式</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程安全的本质/"><span>线程安全的本质</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池工作原理/"><span>线程池工作原理</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程池使用场景与参数设置/"><span>线程池使用场景与参数设置</span><small></small></a><a class="" href="/imported/八股文/Java并发/线程状态与流转/"><span>线程状态与流转</span><small></small></a><a class="" href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><span>原子类与 Unsafe 类</span><small></small></a><a class="" href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><span>AQS 如何实现公平锁和非公平锁</span><small></small></a><a class="" href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><span>CAS 与 JMM 内存模型</span><small></small></a><a class="" href="/imported/八股文/Java并发/Java 同步机制分层/"><span>Java 同步机制分层</span><small></small></a><a class="" href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><span>Spring Boot 自定义线程池</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><span>ThreadLocal 底层原理与内存泄漏</span><small></small></a><a class="" href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><span>ThreadLocal 和 synchronized 的作用及设计思想？</span><small></small></a><a class="" href="/imported/八股文/Java并发/volatile 内存屏障机制/"><span>volatile 内存屏障机制</span><small></small></a></div></details><details class="tree-node depth-2" open><summary>Java基础</summary><div class="explorer-links"><a class="active" href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><span>集合框架基础 — ArrayList 与 HashMap</span><small></small></a><a class="" href="/imported/八股文/Java基础/迭代器的实现原理/"><span>迭代器的实现原理</span><small></small></a><a class="" href="/imported/八股文/Java基础/泛型与类型擦除/"><span>泛型与类型擦除</span><small></small></a><a class="" href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><span>深拷贝与浅拷贝</span><small></small></a><a class="" href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><span>异常体系 — Error 与 Exception</span><small></small></a><a class="" href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><span>BIO NIO AIO 对比</span><small></small></a><a class="" href="/imported/八股文/Java基础/Java 反射与动态代理/"><span>Java 反射与动态代理</span><small></small></a><a class="" href="/imported/八股文/Java基础/JDK 新特性概览/"><span>JDK 新特性概览</span><small></small></a><a class="" href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><span>String 为什么设计为不可变类型？</span><small></small></a></div></details><details class="tree-node depth-2"><summary>JVM</summary><div class="explorer-links"><a class="" href="/imported/八股文/JVM/根可达性算法与三色标记法/"><span>根可达性算法与三色标记法</span><small></small></a><a class="" href="/imported/八股文/JVM/类的生命周期/"><span>类的生命周期</span><small></small></a><a class="" href="/imported/八股文/JVM/类加载每一步具体做了什么/"><span>类加载每一步具体做了什么</span><small></small></a><a class="" href="/imported/八股文/JVM/频繁 GC 的原因分析/"><span>频繁 GC 的原因分析</span><small></small></a><a class="" href="/imported/八股文/JVM/如何选择垃圾回收器/"><span>如何选择垃圾回收器</span><small></small></a><a class="" href="/imported/八股文/JVM/双亲委派与类加载器/"><span>双亲委派与类加载器</span><small></small></a><a class="" href="/imported/八股文/JVM/CMS 与 G1 垃圾回收器对比/"><span>CMS 与 G1 垃圾回收器对比</span><small></small></a><a class="" href="/imported/八股文/JVM/G1 GC 详细流程/"><span>G1 GC 详细流程</span><small></small></a><a class="" href="/imported/八股文/JVM/Java 编译型与解释型语言/"><span>Java 编译型与解释型语言</span><small></small></a><a class="" href="/imported/八股文/JVM/JIT 编译器与编译解释混合/"><span>JIT 编译器与编译解释混合</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 调优实战经验/"><span>JVM 调优实战经验</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 内存结构与运行时数据区/"><span>JVM 内存结构与运行时数据区</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 逃逸分析与栈上分配/"><span>JVM 逃逸分析与栈上分配</span><small></small></a><a class="" href="/imported/八股文/JVM/JVM 优化策略/"><span>JVM 优化策略</span><small></small></a></div></details><details class="tree-node depth-2"><summary>MySQL</summary><div class="explorer-links"><a class="" href="/imported/八股文/MySQL/查询关键字执行顺序/"><span>查询关键字执行顺序</span><small></small></a><a class="" href="/imported/八股文/MySQL/聚簇索引与非聚簇索引/"><span>聚簇索引与非聚簇索引</span><small></small></a><a class="" href="/imported/八股文/MySQL/千万级数据表 CURD 效率低如何优化/"><span>千万级数据表 CURD 效率低，如何优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/深分页优化思路/"><span>深分页优化思路</span><small></small></a><a class="" href="/imported/八股文/MySQL/索引覆盖与回表/"><span>索引覆盖与回表</span><small></small></a><a class="" href="/imported/八股文/MySQL/执行SQL查询的完整过程/"><span>执行 SQL 查询的完整过程</span><small></small></a><a class="" href="/imported/八股文/MySQL/InnoDB 与 MyISAM 对比/"><span>InnoDB 与 MyISAM 对比</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 联合索引最左前缀原则/"><span>MySQL 联合索引最左前缀原则</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 三种日志/"><span>MySQL 三种日志</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 索引失效的常见场景/"><span>MySQL 索引失效的常见场景</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 写入加速优化/"><span>MySQL 为了加速写入速度做了哪些优化？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL 主从复制/"><span>MySQL 主从复制</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL B+树与红黑树对比/"><span>MySQL B+树能否换成红黑树？加上双向链表呢？</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL EXPLAIN 分析/"><span>MySQL EXPLAIN 分析</span><small></small></a><a class="" href="/imported/八股文/MySQL/MySQL MVCC 多版本并发控制/"><span>MySQL MVCC 多版本并发控制</span><small></small></a><a class="" href="/imported/八股文/MySQL/RR 与 RC 隔离级别区别/"><span>RR 与 RC 隔离级别区别</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Redis</summary><div class="explorer-links"><a class="" href="/imported/八股文/Redis/Redis 单线程为什么这么快/"><span>单线程 Redis 为什么那么快？</span><small></small></a><a class="" href="/imported/八股文/Redis/缓存穿透击穿与雪崩/"><span>缓存穿透、击穿与雪崩</span><small></small></a><a class="" href="/imported/八股文/Redis/基于 Redis 的分布式锁/"><span>基于 Redis 的分布式锁</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 持久化机制 RDB 与 AOF/"><span>Redis 持久化机制 RDB 与 AOF</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 内存淘汰策略/"><span>Redis 内存淘汰策略</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 热key排查与高可用/"><span>Redis 热key排查与高可用</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 数据类型与底层实现/"><span>Redis 数据类型与底层实现</span><small></small></a><a class="" href="/imported/八股文/Redis/Redis 主从同步原理/"><span>Redis 主从同步原理</span><small></small></a></div></details><details class="tree-node depth-2"><summary>Spring</summary><div class="explorer-links"><a class="" href="/imported/八股文/Spring/@Autowired 与 @Resource 的区别/"><span>@Autowired 与 @Resource 的区别</span><small></small></a><a class="" href="/imported/八股文/Spring/循环依赖与三级缓存/"><span>循环依赖与三级缓存</span><small></small></a><a class="" href="/imported/八股文/Spring/Security Filter vs Interceptor/"><span>Security Filter vs Interceptor</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring 事务管理机制/"><span>Spring 事务管理机制</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring AOP 设计模式与代理方式/"><span>Spring AOP 设计模式与代理方式</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 启动流程/"><span>Spring Boot 启动流程</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring Boot 自动装配与 Bean 生命周期/"><span>Spring Boot 自动装配与 Bean 生命周期</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring IOC 与 AOP 核心概念/"><span>Spring IOC 与 AOP 核心概念</span><small></small></a><a class="" href="/imported/八股文/Spring/Spring MVC 请求执行流程/"><span>Spring MVC 请求执行流程</span><small></small></a></div></details></div></details><details class="tree-node depth-1" open><summary>MOC</summary><div class="explorer-links"><a class="" href="/imported/MOC/八股文索引/"><span>imported/MOC/八股文索引</span><small></small></a><a class="" href="/imported/MOC/场景题索引/"><span>imported/MOC/场景题索引</span><small></small></a><a class="" href="/imported/MOC/面试自查表/"><span>imported/MOC/面试自查表</span><small></small></a></div></details><a class="" href="/imported/待学清单/"><span>📋 待学知识清单</span><small></small></a><a class="" href="/imported/知识库检索方案对比（RAG vs Wiki vs Graph RAG）/"><span>知识库检索方案对比</span><small></small></a><a class="" href="/imported/Docker 入门与核心概念/"><span>Docker 入门与核心概念</span><small></small></a><a class="" href="/imported/GitHub Actions Docker 部署流程/"><span>GitHub Actions Docker 部署流程</span><small></small></a></div></details>
+    </aside>
+    <section class="content"><section class="mac-window">
+    <div class="window-bar"><span></span><span></span><span></span><strong>Reading Pane</strong></div>
+    <div class="window-body"><article class="article">
+    <div class="article-kicker">同步笔记 · 未标注日期 · 6 min read</div>
+    <h1>集合框架基础 — ArrayList 与 HashMap</h1>
+    
+    <div class="tag-row"></div>
+    <div class="article-body"><p>---</p>
+<p>tags: [八股文, Java基础, 面试]</p>
+<p>source: &quot;<a class="internal-link" href="/Java八股PDF/">Java八股PDF</a>&quot;</p>
+<p>date: 2026-04-30</p>
+<p>---</p>
+<h2 id="问题">问题</h2>
+<p>集合的分类有哪些？ArrayList 和 HashMap 的底层实现原理是什么？扩容机制？线程安全问题如何解决？ConcurrentHashMap 的实现原理？</p>
+<h2 id="答案">答案</h2>
+<h3 id="集合的分类">集合的分类</h3>
+<p>Java 集合框架主要分为两大体系：</p>
+<p><strong>1. Collection 单列集合体系（存储单个元素）</strong></p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+Collection (接口)
+
+├── List (接口) — 有序、可重复
+
+│   ├── ArrayList    — 数组实现，查询快，增删慢
+
+│   ├── LinkedList   — 双向链表实现，增删快，查询慢
+
+│   └── Vector       — 数组实现，线程安全（已过时）
+
+├── Set (接口) — 无序、不可重复
+
+│   ├── HashSet      — 基于 HashMap 实现
+
+│   ├── LinkedHashSet— 维护插入顺序
+
+│   └── TreeSet      — 红黑树实现，有序
+
+└── Queue (接口) — 队列
+
+    ├── LinkedList   — 双端队列
+
+    ├── PriorityQueue— 优先级队列（堆）
+
+    └── ArrayDeque   — 循环数组实现的双端队列
+
+</code></pre></div>
+<p><strong>2. Map 双列集合体系（存储键值对）</strong></p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+Map (接口)
+
+├── HashMap        — 数组+链表+红黑树（JDK1.8）
+
+├── LinkedHashMap  — 维护插入/访问顺序
+
+├── TreeMap        — 红黑树实现，按 key 排序
+
+├── Hashtable      — 线程安全（已过时）
+
+└── ConcurrentHashMap — 分段锁/CAS+synchronized
+
+</code></pre></div>
+<p><strong>Collection 与 Map 的区别</strong>：</p>
+<ul>
+<li>Collection 存储单列数据，Map 存储键值对数据</li>
+<li>Collection 的子接口 List 有序可重复，Set 无序不可重复</li>
+<li>Map 的 key 无序不可重复（底层是 Set），value 无序可重复</li>
+</ul>
+<p>---</p>
+<h3 id="arraylist-底层结构">ArrayList 底层结构</h3>
+<p>ArrayList 底层基于 <strong>Object 数组</strong> 实现，默认初始容量为 10。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// JDK 源码中的关键字段
+
+private static final int DEFAULT_CAPACITY = 10;       // 默认容量
+
+private static final Object[] EMPTY_ELEMENTDATA = {};  // 空数组（指定容量为0时）
+
+private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {}; // 默认空数组
+
+transient Object[] elementData; // 实际存储元素的数组
+
+private int size;               // 实际元素数量
+
+</code></pre></div>
+<h4 id="为什么-new-arraylist-时建议指定初始化容量值">为什么 new ArrayList&lt;&gt;() 时建议指定初始化容量值？</h4>
+<p><strong>核心原因：避免频繁扩容，减少内存拷贝。</strong></p>
+<ol>
+<li><strong>不指定容量时</strong>：初始容量为 0（注意不是 10），第一次 <code>add()</code> 时才扩容到 10</li>
+<li><strong>后续扩容</strong>：每次容量不够时，创建新数组（1.5倍），通过 <code>Arrays.copyOf()</code> 将旧数组数据复制到新数组</li>
+<li><strong>扩容代价</strong>：</li>
+</ol>
+<p>   - 创建新数组需要分配内存</p>
+<p>   - 复制旧数组数据是 O(n) 操作</p>
+<p>   - 旧数组需要被 GC 回收，增加 GC 压力</p>
+<p><strong>示例</strong>：如果已知要存储 1000 个元素，不指定容量会经历：0→10→15→22→33→49→73→109→163→244→366→549→823→1234，共 13 次扩容和数据拷贝。而直接指定 1000，一次扩容都不需要。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 推荐：已知大致数量时指定容量
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;(1000);
+
+
+
+// 不推荐：每次 add 可能触发扩容
+
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+</code></pre></div>
+<h4 id="为什么默认扩容为-15-倍">为什么默认扩容为 1.5 倍？</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// ArrayList.grow() 源码
+
+private void grow(int minCapacity) {
+
+    int oldCapacity = elementData.length;
+
+    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); // 右移1位 = 除以2，即1.5倍
+
+    if (newCapacity - minCapacity &lt; 0)
+
+        newCapacity = minCapacity;
+
+    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+
+        newCapacity = hugeCapacity(minCapacity);
+
+    elementData = Arrays.copyOf(elementData, newCapacity);
+
+}
+
+</code></pre></div>
+<p><strong>1.5 倍是内存使用和性能之间的权衡经验值</strong>：</p>
+<ul>
+<li><strong>太小（如 1.1 倍）</strong>：频繁扩容，每次都要创建新数组 + 复制数据，性能差</li>
+<li><strong>太大（如 2 倍以上）</strong>：每次扩容后空闲空间过多，浪费内存</li>
+<li><strong>为什么不是 2 倍</strong>：1.5 倍可以在多次扩容后，复用之前释放的内存空间。例如：扩容到 15 后释放了原来大小 10 的空间，下次扩容到 22 时，之前释放的 10 + 新释放的 5 刚好够用。而 2 倍则永远无法复用之前的内存</li>
+<li><strong>经验表明</strong>：1.5 倍在时间和空间上取得了较好的平衡</li>
+</ul>
+<h4 id="arraylist-是线程安全的吗">ArrayList 是线程安全的吗？</h4>
+<p>ArrayList <strong>不是线程安全的</strong>。多线程并发修改时会出现以下问题：</p>
+<ol>
+<li><strong>元素覆盖</strong>：两个线程同时 <code>add()</code>，可能写入同一个数组位置，导致元素丢失</li>
+<li><strong>数组越界</strong>：线程 A 判断 <code>size &lt; capacity</code> 后被挂起，线程 B 完成 add 使 <code>size == capacity</code>，线程 A 恢复后直接写入导致越界</li>
+<li><strong>数据不一致</strong>：并发修改导致 <code>size</code> 与实际元素数量不匹配</li>
+</ol>
+<p><strong>解决方案</strong>：</p>
+<table><thead><tr><th>方案</th><th>原理</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><code>Collections.synchronizedList()</code></td><td>所有方法加 synchronized</td><td>通用场景</td></tr>
+<tr><td><code>CopyOnWriteArrayList</code></td><td>写时复制，读写分离</td><td>读多写少</td></tr>
+<tr><td><code>Vector</code>（不推荐）</td><td>所有方法加 synchronized</td><td>已过时</td></tr>
+</tbody></table>
+<h4 id="copyonwritearraylist-实现原理">CopyOnWriteArrayList 实现原理</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// CopyOnWriteArrayList 核心源码
+
+public boolean add(E e) {
+
+    final ReentrantLock lock = this.lock;
+
+    lock.lock(); // 加锁
+
+    try {
+
+        Object[] elements = getArray();
+
+        int len = elements.length;
+
+        Object[] newElements = Arrays.copyOf(elements, len + 1); // 复制新数组
+
+        newElements[len] = e;
+
+        setArray(newElements); // 指向新数组
+
+        return true;
+
+    } finally {
+
+        lock.unlock(); // 解锁
+
+    }
+
+}
+
+
+
+public E get(int index) {
+
+    return get(getArray(), index); // 直接读，不加锁
+
+}
+
+</code></pre></div>
+<p><strong>核心思想：读写分离</strong></p>
+<ol>
+<li><strong>读操作</strong>：直接读取当前数组，不加锁，性能高</li>
+<li><strong>写操作</strong>：</li>
+</ol>
+<p>   - 加锁（ReentrantLock）</p>
+<p>   - 复制一份当前数组（长度+1）</p>
+<p>   - 在新数组上修改</p>
+<p>   - 将引用指向新数组</p>
+<p>   - 解锁</p>
+<ol>
+<li><strong>读到的是快照</strong>：读操作读的是写操作之前的旧数组，因此读到的数据可能不是实时最新的</li>
+</ol>
+<p><strong>优点</strong>：读操作完全无锁，适合读多写少场景（如配置信息、监听器列表）</p>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>写操作需要复制整个数组，内存占用大</li>
+<li>写操作性能差（加锁 + 复制）</li>
+<li>数据弱一致性（读到的可能是旧数据）</li>
+</ul>
+<p>---</p>
+<h3 id="hashmap-底层结构">HashMap 底层结构</h3>
+<p><strong>JDK1.7</strong>：数组 + 链表</p>
+<p><strong>JDK1.8</strong>：数组 + 链表 + 红黑树</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// JDK1.8 HashMap 关键字段
+
+static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // 16，默认初始容量
+
+static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;        // 最大容量
+
+static final float DEFAULT_LOAD_FACTOR = 0.75f;     // 默认加载因子
+
+static final int TREEIFY_THRESHOLD = 8;             // 链表转红黑树阈值
+
+static final int UNTREEIFY_THRESHOLD = 6;           // 红黑树退化为链表阈值
+
+static final int MIN_TREEIFY_CAPACITY = 64;         // 链表转红黑树的最小数组容量
+
+transient Node&lt;K,V&gt;[] table;                        // 底层数组
+
+transient int size;                                 // 元素数量
+
+</code></pre></div>
+<h4 id="hashmap-添加元素完整流程">HashMap 添加元素完整流程</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+put(key, value) 调用流程：
+
+│
+
+├─ 1. 计算 key 的 hash 值
+
+│     hash = key.hashCode() ^ (key.hashCode() &gt;&gt;&gt; 16)
+
+│     // 高16位与低16位异或，减少碰撞
+
+│
+
+├─ 2. 判断数组是否为空/长度为0
+
+│     └─ 是 → resize() 初始化数组（默认长度16）
+
+│
+
+├─ 3. 计算数组下标
+
+│     index = (n - 1) &amp; hash  // n为数组长度
+
+│     // 等价于 hash % n（当n是2的次幂时）
+
+│
+
+├─ 4. 判断 table[index] 是否为空
+
+│     ├─ 空 → 直接创建新节点放入
+
+│     └─ 不为空 → 进入步骤5
+
+│
+
+├─ 5. 判断首节点的 key 是否与当前 key 相同
+
+│     ├─ 相同（hash相同且equals为true）→ 覆盖 value
+
+│     └─ 不相同 → 进入步骤6
+
+│
+
+├─ 6. 判断首节点是否是 TreeNode（红黑树节点）
+
+│     ├─ 是 → 调用 putTreeVal() 插入红黑树
+
+│     └─ 不是 → 进入步骤7（链表）
+
+│
+
+├─ 7. 遍历链表
+
+│     ├─ 找到相同 key → 覆盖 value
+
+│     └─ 未找到 → 尾部插入新节点
+
+│        └─ 插入后判断链表长度是否 &gt;= 8
+
+│           ├─ 是 → 调用 treeifyBin()
+
+│           │     └─ 判断数组长度是否 &gt;= 64
+
+│           │        ├─ 是 → 链表转红黑树
+
+│           │        └─ 否 → 先扩容（数组长度翻倍）
+
+│           └─ 否 → 继续保持链表
+
+│
+
+└─ 8. 判断是否需要扩容
+
+      └─ size &gt; capacity * loadFactor → resize() 扩容
+
+</code></pre></div>
+<p><strong>为什么链表长度 &gt;= 8 且数组长度 &gt;= 64 才转红黑树？</strong></p>
+<ul>
+<li>链表长度达到 8 的概率已经非常低（基于泊松分布，概率约为 0.00000006）</li>
+<li>如果数组长度很短就转红黑树，频繁扩容会导致红黑树退化为链表，浪费性能</li>
+<li>红黑树节点占用空间是链表节点的 2 倍，空间换时间需要权衡</li>
+</ul>
+<h4 id="hashmap-扩容加载因子为什么是-075">HashMap 扩容加载因子为什么是 0.75？</h4>
+<p><strong>基于泊松分布的数学推导</strong>：</p>
+<p>HashMap 中每个桶的元素个数服从泊松分布，参数 λ = 0.5（当加载因子为 0.75 时）：</p>
+<table><thead><tr><th>桶中元素个数 k</th><th>泊松概率 P(X=k)</th></tr></thead><tbody>
+<tr><td>0</td><td>0.60653066</td></tr>
+<tr><td>1</td><td>0.30326533</td></tr>
+<tr><td>2</td><td>0.07581633</td></tr>
+<tr><td>3</td><td>0.01263606</td></tr>
+<tr><td>4</td><td>0.00157952</td></tr>
+<tr><td>5</td><td>0.00015795</td></tr>
+<tr><td>6</td><td>0.00001316</td></tr>
+<tr><td>7</td><td>0.00000094</td></tr>
+<tr><td>8</td><td>0.00000006</td></tr>
+</tbody></table>
+<p>可以看到，当加载因子为 0.75 时：</p>
+<ul>
+<li>桶中元素 &gt;= 8 的概率仅为 <strong>0.00000006</strong>，几乎不可能发生</li>
+<li>这也是为什么选择 8 作为链表转红黑树的阈值（概率极低才触发，避免浪费）</li>
+</ul>
+<p><strong>为什么不是其他值？</strong></p>
+<ul>
+<li><strong>太小（如 0.5）</strong>：扩容太频繁，空间利用率低（只用了一半就扩容）</li>
+<li><strong>太大（如 1.0）</strong>：哈希冲突概率增大，链表变长，查询从 O(1) 退化为 O(n)</li>
+<li><strong>0.75</strong> 是时间和空间的折中，JDK 作者通过大量实验得出的最佳值</li>
+</ul>
+<h4 id="hashmap-扩容为什么是-2-倍">HashMap 扩容为什么是 2 倍？</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// resize() 核心逻辑
+
+int newCap = oldCap &lt;&lt; 1; // 左移1位 = 乘以2
+
+</code></pre></div>
+<p><strong>核心原因：保持数组长度始终是 2 的次幂，使 <code>(n-1) &amp; hash</code> 等价于 <code>hash % n</code>。</strong></p>
+<ol>
+<li><strong>位运算替代取模</strong>：<code>&amp;</code> 运算比 <code>%</code> 运算快得多</li>
+<li><strong>2 的次幂的特性</strong>：<code>n-1</code> 的二进制全为 1（如 16-1=15，二进制 01111），与 hash 做 <code>&amp;</code> 运算时，结果完全取决于 hash 的低位，分布均匀</li>
+<li><strong>扩容时的元素迁移优化</strong>：扩容为 2 倍后，每个元素的新位置要么在原位置，要么在原位置 + 旧数组长度。只需判断 hash 的新增高位是 0 还是 1：</li>
+</ol>
+<p>   - 是 0 → 位置不变</p>
+<p>   - 是 1 → 位置 = 原位置 + 旧数组长度</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// 扩容时判断元素新位置
+
+if ((e.hash &amp; oldCap) == 0) {
+
+    // 新位置 = 原位置（低位不变）
+
+} else {
+
+    // 新位置 = 原位置 + oldCap（高位+1）
+
+}
+
+</code></pre></div>
+<h4 id="hashmap-是线程安全的吗">HashMap 是线程安全的吗？</h4>
+<p>HashMap <strong>不是线程安全的</strong>：</p>
+<p><strong>JDK1.7 的问题</strong>：</p>
+<ul>
+<li><strong>环形链表</strong>：多线程并发扩容时，头插法导致链表形成环，后续 get 操作会陷入死循环，CPU 100%</li>
+<li><strong>数据丢失</strong>：并发 put 时可能覆盖已有的键值对</li>
+</ul>
+<p><strong>JDK1.8 的问题</strong>：</p>
+<ul>
+<li>虽然改为尾插法解决了环形链表问题，但并发 put 仍然会<strong>数据覆盖</strong></li>
+<li>线程 A 判断桶为空准备写入时，线程 B 也判断为空并先写入，线程 A 恢复后直接覆盖</li>
+</ul>
+<p>---</p>
+<h3 id="concurrenthashmap-实现原理">ConcurrentHashMap 实现原理</h3>
+<h4 id="jdk17分段锁segment">JDK1.7：分段锁（Segment）</h4>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="">
+ConcurrentHashMap
+
+├── Segment[] segments（默认16个段）
+
+│   ├── Segment[0] → HashEntry[] → 链表
+
+│   ├── Segment[1] → HashEntry[] → 链表
+
+│   ├── ...
+
+│   └── Segment[15] → HashEntry[] → 链表
+
+</code></pre></div>
+<p><strong>核心设计</strong>：</p>
+<ul>
+<li>将整个 Map 分成 16 个 Segment（段），每个 Segment 继承 ReentrantLock</li>
+<li>每个 Segment 内部是一个小的 HashMap（数组 + 链表）</li>
+<li><strong>不同的 Segment 使用不同的锁</strong>，最多支持 16 个线程并发写入</li>
+<li>Segment 数量在初始化后<strong>不可改变</strong>（并发度固定）</li>
+</ul>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// JDK1.7 核心结构
+
+static final class Segment&lt;K,V&gt; extends ReentrantLock {
+
+    transient volatile HashEntry&lt;K,V&gt;[] table;
+
+    transient int count;
+
+}
+
+
+
+// put 操作
+
+public V put(K key, V value) {
+
+    Segment&lt;K,V&gt; s;
+
+    int hash = hash(key);
+
+    int j = (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;
+
+    s = segments[j]; // 定位到具体的 Segment
+
+    s.lock(); // 锁住该 Segment
+
+    try {
+
+        // 在 Segment 内部执行 put
+
+    } finally {
+
+        s.unlock();
+
+    }
+
+}
+
+</code></pre></div>
+<p><strong>JDK1.7 的问题</strong>：</p>
+<ul>
+<li>Segment 数量固定（默认16），并发度有限</li>
+<li>不同 Segment 之间不能同时扩容</li>
+<li>查询遍历需要跨多个 Segment</li>
+</ul>
+<h4 id="jdk18cas-synchronized">JDK1.8：CAS + synchronized</h4>
+<p>JDK1.8 的 ConcurrentHashMap 与 HashMap 结构一致（数组 + 链表 + 红黑树），但通过 <strong>CAS + synchronized</strong> 保证线程安全。</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+// JDK1.8 核心结构
+
+transient volatile Node&lt;K,V&gt;[] table;
+
+private transient volatile Node&lt;K,V&gt;[] nextTable;
+
+
+
+static class Node&lt;K,V&gt; {
+
+    final int hash;
+
+    final K key;
+
+    volatile V val;
+
+    volatile Node&lt;K,V&gt; next;
+
+}
+
+</code></pre></div>
+<p><strong>put 操作详细源码分析</strong>：</p>
+<div class="code-block"><button class="copy-code" type="button" data-copy-code>复制</button><pre><code class="language-java">
+final V putVal(K key, V value, boolean onlyIfAbsent) {
+
+    if (key == null || value == null) throw new NullPointerException();
+
+    int hash = spread(key.hashCode());
+
+    int binCount = 0;
+
+    for (Node&lt;K,V&gt;[] tab = table;;) { // 自旋
+
+        Node&lt;K,V&gt; f; int n, i, fh;
+
+        
+
+        // 情况1：数组为空，CAS 初始化数组
+
+        if (tab == null || (n = tab.length) == 0)
+
+            tab = initTable(); // CAS 设置 sizeCtl
+
+        
+
+        // 情况2：桶位置为空，CAS 设置头节点
+
+        else if ((f = tabAt(tab, i = (n - 1) &amp; hash)) == null) {
+
+            if (casTabAt(tab, i, null, new Node&lt;K,V&gt;(hash, key, value, null)))
+
+                break; // CAS 成功，跳出循环
+
+            // CAS 失败（其他线程先插入了），继续自旋
+
+        }
+
+        
+
+        // 情况3：正在扩容（头节点 hash == MOVED）
+
+        else if ((fh = f.hash) == MOVED)
+
+            tab = helpTransfer(tab, f); // 帮助迁移数据
+
+        
+
+        // 情况4：桶位置不为空，synchronized 锁住头节点
+
+        else {
+
+            V oldVal = null;
+
+            synchronized (f) { // 锁住头节点
+
+                if (tabAt(tab, i) == f) { // 二次确认头节点未变
+
+                    if (fh &gt;= 0) { // 链表
+
+                        binCount = 1;
+
+                        for (Node&lt;K,V&gt; e = f;; ++binCount) {
+
+                            K ek;
+
+                            if (e.hash == hash &amp;&amp;
+
+                                ((ek = e.key) == key || 
+
+                                 (ek != null &amp;&amp; key.equals(ek)))) {
+
+                                oldVal = e.val;
+
+                                if (!onlyIfAbsent)
+
+                                    e.val = value; // 覆盖 value
+
+                                break;
+
+                            }
+
+                            Node&lt;K,V&gt; pred = e;
+
+                            if ((e = e.next) == null) {
+
+                                pred.next = new Node&lt;&gt;(hash, key, value, null);
+
+                                break; // 尾部插入
+
+                            }
+
+                        }
+
+                    }
+
+                    else if (f instanceof TreeBin) { // 红黑树
+
+                        // 红黑树插入逻辑
+
+                    }
+
+                }
+
+            }
+
+            if (binCount != 0) {
+
+                if (binCount &gt;= TREEIFY_THRESHOLD)
+
+                    treeifyBin(tab, i); // 链表转红黑树
+
+                if (oldVal != null)
+
+                    return oldVal;
+
+                break;
+
+            }
+
+        }
+
+    }
+
+    addCount(1L, binCount);
+
+    return null;
+
+}
+
+</code></pre></div>
+<p><strong>三种线程安全机制的使用场景</strong>：</p>
+<table><thead><tr><th>场景</th><th>机制</th><th>原因</th></tr></thead><tbody>
+<tr><td>数组初始化</td><td>CAS</td><td>短时间操作，无锁自旋高效</td></tr>
+<tr><td>设置头节点</td><td>CAS</td><td>短时间操作，只有一个线程能成功</td></tr>
+<tr><td>遍历链表/红黑树</td><td>synchronized</td><td>长时间操作，加锁避免自旋浪费 CPU</td></tr>
+<tr><td>扩容迁移</td><td>CAS + synchronized</td><td>多线程协助迁移，每个桶独立加锁</td></tr>
+</tbody></table>
+<p><strong>为什么不同操作用不同方式保证线程安全？</strong></p>
+<ul>
+<li><strong>CAS 适合短时间任务</strong>（初始化数组、设置头节点）：无锁自旋，性能高。但如果自旋时间过长，会过度占用 CPU</li>
+<li><strong>synchronized 适合长时间、高竞争任务</strong>（遍历桶、插入节点）：加锁后其余线程休眠不占用 CPU，避免无效自旋</li>
+<li>体现了&quot;<strong>无锁优先，锁为补充</strong>&quot;的并发编程思想</li>
+</ul>
+<p><strong>JDK1.8 相比 JDK1.7 的优势</strong>：</p>
+<ol>
+<li>锁粒度从<strong>段</strong>细化到<strong>单个桶</strong>，减少锁竞争</li>
+<li>数据结构与 HashMap 一致（数组+链表+红黑树），查询效率高</li>
+<li>支持多线程协助扩容，提高扩容效率</li>
+<li>size() 计算更高效（基于 baseCount + CounterCell[]）</li>
+</ol>
+<h2 id="相关笔记">相关笔记</h2>
+<ul>
+<li><a class="internal-link" href="/单机系统并发提升方案/">单机系统并发提升方案</a></li>
+<li><a class="internal-link" href="/AQS 公平锁与非公平锁实现/">AQS 公平锁与非公平锁实现</a></li>
+<li><a class="internal-link" href="/CAS 与 JMM 内存模型/">CAS 与 JMM 内存模型</a></li>
+</ul>
+<h2 id="来源">来源</h2>
+<p>来源：Java八股文PDF</p></div>
+  </article></div>
+  </section></section>
+    <aside class="right-rail"><section class="panel search-panel">
+      <div class="panel-title"><span>全站搜索</span><kbd>Ctrl K</kbd></div>
+      <input class="search-box" data-search-input type="search" placeholder="搜索笔记、标签、摘要">
+      <div class="search-results" data-search-results></div>
+    </section>
+    <section class="panel"><h2>本页目录</h2><a class="list-link toc-level-2" href="#问题"><strong>问题</strong></a><a class="list-link toc-level-2" href="#答案"><strong>答案</strong></a><a class="list-link toc-level-3" href="#集合的分类"><strong>集合的分类</strong></a><a class="list-link toc-level-3" href="#arraylist-底层结构"><strong>ArrayList 底层结构</strong></a><a class="list-link toc-level-4" href="#为什么-new-arraylist-时建议指定初始化容量值"><strong>为什么 new ArrayList&lt;&gt;() 时建议指定初始化容量值？</strong></a><a class="list-link toc-level-4" href="#为什么默认扩容为-15-倍"><strong>为什么默认扩容为 1.5 倍？</strong></a><a class="list-link toc-level-4" href="#arraylist-是线程安全的吗"><strong>ArrayList 是线程安全的吗？</strong></a><a class="list-link toc-level-4" href="#copyonwritearraylist-实现原理"><strong>CopyOnWriteArrayList 实现原理</strong></a><a class="list-link toc-level-3" href="#hashmap-底层结构"><strong>HashMap 底层结构</strong></a><a class="list-link toc-level-4" href="#hashmap-添加元素完整流程"><strong>HashMap 添加元素完整流程</strong></a><a class="list-link toc-level-4" href="#hashmap-扩容加载因子为什么是-075"><strong>HashMap 扩容加载因子为什么是 0.75？</strong></a><a class="list-link toc-level-4" href="#hashmap-扩容为什么是-2-倍"><strong>HashMap 扩容为什么是 2 倍？</strong></a><a class="list-link toc-level-4" href="#hashmap-是线程安全的吗"><strong>HashMap 是线程安全的吗？</strong></a><a class="list-link toc-level-3" href="#concurrenthashmap-实现原理"><strong>ConcurrentHashMap 实现原理</strong></a><a class="list-link toc-level-4" href="#jdk17分段锁segment"><strong>JDK1.7：分段锁（Segment）</strong></a><a class="list-link toc-level-4" href="#jdk18cas-synchronized"><strong>JDK1.8：CAS + synchronized</strong></a><a class="list-link toc-level-2" href="#相关笔记"><strong>相关笔记</strong></a><a class="list-link toc-level-2" href="#来源"><strong>来源</strong></a></section>
+    <section class="panel"><h2>最新内容</h2><a class="list-link" href="/"><strong>首页</strong><span>2026-05-17</span></a><a class="list-link" href="/notes/obsidian-publish-flow/"><strong>Obsidian 发布流程</strong><span>2026-05-17</span></a><a class="list-link" href="/posts/quartz-research/"><strong>个人技术博客脚手架调研</strong><span>2026-05-17</span></a><a class="list-link" href="/projects/hermes-architecture/"><strong>Hermes 架构说明</strong><span>2026-05-17</span></a><a class="list-link" href="/imported/Docker 入门与核心概念/"><strong>Docker 入门与核心概念</strong><span></span></a><a class="list-link" href="/imported/GitHub Actions Docker 部署流程/"><strong>GitHub Actions Docker 部署流程</strong><span></span></a></section>
+    <section class="panel"><h2>相关内容</h2><p class="empty-state">暂无相关内容。</p></section>
+    <section class="panel"><h2>反链</h2><p class="empty-state">暂无反链。写作时用 [[页面名]] 连接笔记。</p></section>
+    <section class="panel graph-panel"><h2>局部图谱</h2><svg class="graph-map" viewBox="0 0 240 204" role="img" aria-label="笔记关系图"><line x1="206.30910467548426" y1="119.16794833741929" x2="201.30139886099323" y2="135.6761420481279" /><line x1="206.30910467548426" y1="119.16794833741929" x2="193.16932588262398" y2="150.890180505725" /><line x1="206.30910467548426" y1="119.16794833741929" x2="182.22539674441617" y2="164.22539674441617" /><line x1="201.30139886099323" y1="135.6761420481279" x2="193.16932588262398" y2="150.890180505725" /><a href="/imported/八股文/Java基础/集合框架基础 — ArrayList 与 HashMap/"><circle class="active" cx="208" cy="102" r="8"><title>集合框架基础 — ArrayList 与 HashMap</title></circle></a><a href="/"><circle class="" cx="206.30910467548426" cy="119.16794833741929" r="6"><title>首页</title></circle></a><a href="/notes/obsidian-publish-flow/"><circle class="" cx="201.30139886099323" cy="135.6761420481279" r="6"><title>Obsidian 发布流程</title></circle></a><a href="/posts/quartz-research/"><circle class="" cx="193.16932588262398" cy="150.890180505725" r="6"><title>个人技术博客脚手架调研</title></circle></a><a href="/projects/hermes-architecture/"><circle class="" cx="182.22539674441617" cy="164.22539674441617" r="6"><title>Hermes 架构说明</title></circle></a><a href="/imported/Docker 入门与核心概念/"><circle class="" cx="168.890180505725" cy="175.16932588262398" r="6"><title>Docker 入门与核心概念</title></circle></a><a href="/imported/GitHub Actions Docker 部署流程/"><circle class="" cx="153.6761420481279" cy="183.30139886099323" r="6"><title>GitHub Actions Docker 部署流程</title></circle></a><a href="/imported/MOC/八股文索引/"><circle class="" cx="137.1679483374193" cy="188.30910467548426" r="6"><title>imported/MOC/八股文索引</title></circle></a><a href="/imported/MOC/场景题索引/"><circle class="" cx="120" cy="190" r="6"><title>imported/MOC/场景题索引</title></circle></a><a href="/imported/MOC/面试自查表/"><circle class="" cx="102.83205166258071" cy="188.30910467548426" r="6"><title>imported/MOC/面试自查表</title></circle></a><a href="/imported/八股文/AI大模型/FunctionCall 和 MCP 的区别/"><circle class="" cx="86.3238579518721" cy="183.30139886099323" r="6"><title>FunctionCall 和 MCP 的区别</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 使用中的问题及解决方案/"><circle class="" cx="71.10981949427503" cy="175.16932588262398" r="6"><title>ES 使用中的问题及解决方案</title></circle></a><a href="/imported/八股文/Elasticsearch/ES 倒排索引详解/"><circle class="" cx="57.77460325558383" cy="164.22539674441617" r="6"><title>ES 倒排索引详解</title></circle></a><a href="/imported/八股文/Java基础/BIO NIO AIO 对比/"><circle class="" cx="46.830674117376006" cy="150.890180505725" r="6"><title>BIO NIO AIO 对比</title></circle></a><a href="/imported/八股文/Java基础/Java 反射与动态代理/"><circle class="" cx="38.69860113900677" cy="135.6761420481279" r="6"><title>Java 反射与动态代理</title></circle></a><a href="/imported/八股文/Java基础/JDK 新特性概览/"><circle class="" cx="33.69089532451572" cy="119.16794833741932" r="6"><title>JDK 新特性概览</title></circle></a><a href="/imported/八股文/Java基础/String 为什么设计为不可变类型/"><circle class="" cx="32" cy="102.00000000000001" r="6"><title>String 为什么设计为不可变类型？</title></circle></a><a href="/imported/八股文/Java基础/异常体系 — Error 与 Exception/"><circle class="" cx="33.69089532451572" cy="84.83205166258071" r="6"><title>异常体系 — Error 与 Exception</title></circle></a><a href="/imported/八股文/Java基础/泛型与类型擦除/"><circle class="" cx="38.698601139006755" cy="68.3238579518721" r="6"><title>泛型与类型擦除</title></circle></a><a href="/imported/八股文/Java基础/深拷贝与浅拷贝/"><circle class="" cx="46.830674117376006" cy="53.10981949427503" r="6"><title>深拷贝与浅拷贝</title></circle></a><a href="/imported/八股文/Java基础/迭代器的实现原理/"><circle class="" cx="57.774603255583806" cy="39.77460325558383" r="6"><title>迭代器的实现原理</title></circle></a><a href="/imported/八股文/Java并发/AQS 公平锁与非公平锁实现/"><circle class="" cx="71.109819494275" cy="28.83067411737602" r="6"><title>AQS 如何实现公平锁和非公平锁</title></circle></a><a href="/imported/八股文/Java并发/CAS 与 JMM 内存模型/"><circle class="" cx="86.32385795187204" cy="20.698601139006783" r="6"><title>CAS 与 JMM 内存模型</title></circle></a><a href="/imported/八股文/Java并发/Java 同步机制分层/"><circle class="" cx="102.83205166258068" cy="15.690895324515736" r="6"><title>Java 同步机制分层</title></circle></a><a href="/imported/八股文/Java并发/Spring Boot 自定义线程池/"><circle class="" cx="119.99999999999999" cy="14" r="6"><title>Spring Boot 自定义线程池</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 与 synchronized 作用及设计思想/"><circle class="" cx="137.1679483374193" cy="15.690895324515722" r="6"><title>ThreadLocal 和 synchronized 的作用及设计思想？</title></circle></a><a href="/imported/八股文/Java并发/ThreadLocal 底层原理与内存泄漏/"><circle class="" cx="153.67614204812793" cy="20.698601139006783" r="6"><title>ThreadLocal 底层原理与内存泄漏</title></circle></a><a href="/imported/八股文/Java并发/volatile 内存屏障机制/"><circle class="" cx="168.89018050572497" cy="28.830674117376006" r="6"><title>volatile 内存屏障机制</title></circle></a><a href="/imported/八股文/Java并发/乐观锁与悲观锁/"><circle class="" cx="182.22539674441617" cy="39.774603255583806" r="6"><title>乐观锁与悲观锁</title></circle></a><a href="/imported/八股文/Java并发/单机系统并发提升方案/"><circle class="" cx="193.16932588262398" cy="53.10981949427501" r="6"><title>如何提升单机系统的并发？</title></circle></a><a href="/imported/八股文/Java并发/原子类与 Unsafe 类/"><circle class="" cx="201.30139886099323" cy="68.32385795187204" r="6"><title>原子类与 Unsafe 类</title></circle></a><a href="/imported/八股文/Java并发/多线程上下文切换/"><circle class="" cx="206.30910467548426" cy="84.83205166258067" r="6"><title>多线程上下文切换</title></circle></a></svg><p class="graph-note">显示 32/256 个节点，避免大 vault 页面卡顿。</p></section></aside>
+  </main>
+  <nav class="reading-tools" aria-label="阅读工具">
+    <button type="button" data-scroll-top title="回到顶部" aria-label="回到顶部">↑</button>
+    <button type="button" data-scroll-bottom title="跳到底部" aria-label="跳到底部">↓</button>
+  </nav>
+  <footer class="site-footer">Quartz-ready local prototype · Git push to publish · private notes stay outside content/</footer>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
