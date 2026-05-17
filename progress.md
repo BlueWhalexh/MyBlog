@@ -1,6 +1,14 @@
 # Progress Log
 
-## 2026-05-17
+## 2026-05-17 (Session 2 — 清理与修复)
+
+- 移除旧原型构建系统：删除 `scripts/build.mjs`、`scripts/serve.mjs`、`dist/`，Quartz 4 为唯一构建工具。
+- 更新 `.gitignore`：添加 `.claude/worktrees/` 防止 worktree 目录误提交。
+- 修复 SCSS：custom.scss 中覆写侧栏 `position: sticky` → `position: relative`，与性能优化文档一致。
+- 统一 Quartz 色彩：调整 light/dark 模式色板，降低对比度、更柔和。
+- `npm run build` 通过 (257 文件 → 599 产物)，`npm run verify` 通过 (330 HTML，257 sitemap URL)。
+
+## 2026-05-17 (Session 1)
 
 - 启动本地执行阶段。
 - 确认当前目录只有 `.git`，暂无项目文件。

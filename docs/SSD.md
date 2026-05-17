@@ -55,3 +55,14 @@ Obsidian 私人 vault
 - 中文标题、代码块、表格和双链正常渲染。
 - `search-index.json` 生成并可用于搜索。
 - 文档明确服务器端口和 PaiFlow 数据卷约束。
+
+## 构建与验证 (2026-05-17 更新)
+
+```powershell
+npm.cmd run build    # Quartz 4 构建 → public/
+npm.cmd run verify   # 构建产物验证 (HTML、sitemap、RSS)
+npm.cmd run serve    # 本地预览 (含热重载)
+```
+
+- Renderer 层已从本地原型迁移到 Quartz 4。
+- 旧原型脚本 (`scripts/build.mjs`、`scripts/serve.mjs`、`dist/`) 已移除。

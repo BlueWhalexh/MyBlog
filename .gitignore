@@ -9,3 +9,4 @@ server.err.log
 Thumbs.db
 tsconfig.tsbuildinfo
 prof/
+.claude/worktrees/
