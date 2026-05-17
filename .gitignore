@@ -10,3 +10,4 @@ Thumbs.db
 tsconfig.tsbuildinfo
 prof/
 .claude/worktrees/
+.claude/settings.local.json

@@ -46,3 +46,13 @@
 - 左侧 Finder 改为按 `content/imported` 原始目录树动态展示，保留目录结构并对超大目录做裁剪，避免每页 DOM 过大。
 - 新增阅读体验增强：代码复制、阅读进度条、回到顶部、跳到底部。
 - 验证 `npm.cmd run build` 与 `npm.cmd run verify` 通过；`原子类与 Unsafe 类` 中 `#### 3.5 Unsafe 在 JDK 中的应用` 已渲染为 `<h4>`。
+
+## 2026-05-17 (Session 2 — 清理与修复)
+
+- 移除旧原型构建系统：删除 `scripts/build.mjs`、`scripts/serve.mjs`、`dist/`。
+- `.gitignore` 添加 `.claude/worktrees/`。
+- SCSS 修复：custom.scss 覆写侧栏 `position: sticky` → `position: relative`，与性能优化文档一致。
+- Quartz 色板刷新：light/dark 模式颜色调整为更柔和的灰阶。
+- **修复图谱滚轮缩放 Bug**：局部图谱禁用 D3 zoom（`zoom: false`），防止滚轮事件被 canvas 拦截导致页面异常缩放。全局图谱仍保留 zoom。
+- 移除全局图谱 `backdrop-filter`，添加 canvas CSS 约束防止溢出。
+- 更新 SSD、Hermes、progress 文档反映 Renderer 迁移完成。
