@@ -6,23 +6,35 @@ const svgCheck =
 document.addEventListener("nav", () => {
   const els = document.getElementsByTagName("pre")
   for (let i = 0; i < els.length; i++) {
+    els[i].querySelectorAll(":scope > .clipboard-button, :scope > .code-language").forEach((el) => el.remove())
     const codeBlock = els[i].getElementsByTagName("code")[0]
     if (codeBlock) {
       const source = (
         codeBlock.dataset.clipboard ? JSON.parse(codeBlock.dataset.clipboard) : codeBlock.innerText
       ).replace(/\n\n/g, "\n")
+      const language = [...codeBlock.classList]
+        .find((name) => name.startsWith("language-"))
+        ?.replace("language-", "")
+      if (language) {
+        const label = document.createElement("span")
+        label.className = "code-language"
+        label.textContent = language
+        els[i].prepend(label)
+      }
       const button = document.createElement("button")
       button.className = "clipboard-button"
       button.type = "button"
       button.innerHTML = svgCopy
-      button.ariaLabel = "Copy source"
+      button.ariaLabel = "复制代码"
       function onClick() {
         navigator.clipboard.writeText(source).then(
           () => {
             button.blur()
             button.innerHTML = svgCheck
+            button.ariaLabel = "已复制"
             setTimeout(() => {
               button.innerHTML = svgCopy
+              button.ariaLabel = "复制代码"
               button.style.borderColor = ""
             }, 2000)
           },

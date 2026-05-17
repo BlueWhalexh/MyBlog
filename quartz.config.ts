@@ -9,7 +9,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "zh-CN",
-    baseUrl: "xuehang.tech",
+    baseUrl: "hjhxh.site",
     ignorePatterns: [
       "private",
       "Private",

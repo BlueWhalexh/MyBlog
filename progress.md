@@ -1,5 +1,23 @@
 # Progress Log
 
+## 2026-05-17 (Session 4 — hjhxh.site 反代接入)
+
+- 根据用户反馈重做首页 UI：移除四个割裂专题卡片，改为统一 macOS Finder/Workspace 面板，专题入口收束为同一条 Dock/分段入口。
+- 修正正文贴边问题：为 `.center > .page-header` 和 `.center > article` 增加统一内边距，首页单独保持透明工作台布局。
+- 新增两篇技术博客：`Obsidian + Claude 构建自我知识库`、`AI Coding 实战：从 Prompt 到 SSD 和 Hermes 架构`，放入 `content/posts/` 并接入首页内容地图。
+- 更新发布流程：以后采用本地验证 → Git commit/push → 服务器 git pull/build/verify，不再手工散传文件到服务器。
+- 将 Quartz `baseUrl` 从 `xuehang.tech` 调整为 `hjhxh.site`，确保 canonical、OG、RSS 链接匹配当前域名。
+- 本地 `npm.cmd run build` 通过：257 文件 → 599 产物；`npm.cmd run verify` 已通过。
+- 服务器新增 nginx 独立配置 `/etc/nginx/sites-available/tech-blog`，`hjhxh.site` 与 `www.hjhxh.site` 反代到 `127.0.0.1:3010`，不修改 `work.hjhxh.site` 和 `paiflow.hjhxh.site`。
+- 服务器 `/opt/tech-blog` 重新构建并运行 `node scripts/verify.mjs` 通过。
+- 使用 `curl --resolve hjhxh.site:80:146.190.97.62` 验证反代 200；当前真实 DNS 仍未指向 `146.190.97.62`，需在 DNS 侧补 A 记录。
+- 修复线上文章索引 404：`scripts/serve.mjs` 增加 Quartz pretty URL 映射，支持无扩展名路径解析到 `.html` 或目录 `index.html`。
+- 修复线上中文 URL 404：静态服务对请求路径执行 `decodeURIComponent`，确保 sitemap 中的中文路径能匹配磁盘文件名。
+- 已重启 `screen -dmS blog node scripts/serve.mjs 3010 0.0.0.0`，抽样验证首页、RSS、sitemap、`static/contentIndex.json`、英文文章、中文 MOC、中文 JVM 页面、标签页均返回 200。
+- UI/UX 第一轮增强：基于 Quartz 原生 clipboard 机制增强代码块复制按钮和语言标签，保持 `addCleanup` SPA 安全。
+- 首页升级为知识工作台：新增 Java 后端、AI 大模型、分布式系统、面试路线四个专题入口，并补齐 `content/topics/` 专题页。
+- 新增 `templates/post.md`、`templates/note.md`、`templates/interview.md`、`templates/project-review.md`，规范 frontmatter 和正文结构。
+
 ## 2026-05-17 (Session 2 — 清理与修复)
 
 - 移除旧原型构建系统：删除 `scripts/build.mjs`、`scripts/serve.mjs`、`dist/`，Quartz 4 为唯一构建工具。
