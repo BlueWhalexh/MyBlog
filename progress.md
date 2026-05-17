@@ -54,5 +54,7 @@
 - SCSS 修复：custom.scss 覆写侧栏 `position: sticky` → `position: relative`，与性能优化文档一致。
 - Quartz 色板刷新：light/dark 模式颜色调整为更柔和的灰阶。
 - **修复首次 SPA 访问页面缩放**：移除 custom.scss 中对侧栏 `position: relative; height: auto;` 的覆盖，恢复 base.scss 的 `position: sticky; height: 100vh;`。SPA micromorph 后 grid 重算依赖侧栏有稳定高度，否则首次布局异常。
-- **修复右侧栏 TOC 重叠**：TOC 链接添加 `overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%`。
+- **修复右侧栏 TOC 重叠**：TOC 链接添加 `overflow: hidden; text-overflow: ellipsis;`，TOC 容器添加 `max-height: 40vh; overflow-y: auto`。
+- **重写 UXTweaks 为幂等**：进度条、工具按钮、代码复制均添加 DOM 查询守卫，防止 SPA 导航后重复创建。进度条改用 `requestAnimationFrame` 降低重绘成本。
+- **缩小 macOS 窗口标题点**：box-shadow spread 从 5.5px 缩小到 4px，间距从 18px/36px 缩小到 14px/28px。
 - 更新 SSD、Hermes、progress 文档反映 Renderer 迁移完成。
