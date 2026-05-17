@@ -47,6 +47,12 @@
 - 新增阅读体验增强：代码复制、阅读进度条、回到顶部、跳到底部。
 - 验证 `npm.cmd run build` 与 `npm.cmd run verify` 通过；`原子类与 Unsafe 类` 中 `#### 3.5 Unsafe 在 JDK 中的应用` 已渲染为 `<h4>`。
 
+## 2026-05-17 (Session 3 — 重置为纯净 Quartz 基础)
+
+- **彻底移除 UXTweaks 自定义 JS**：进度条、回顶按钮、代码复制等所有自定义 DOM 操作全部删除。UXTweaks 组件从布局移除，`uxtweaks.inline.ts` 清空。这些 JS 在 SPA micromorph 导航后产生重复元素和 scroll 监听器，是页面滚轮缩放问题的根因。
+- **重写 custom.scss**：从 500+ 行简化到 ~200 行，纯 CSS 视觉增强。只修改颜色变量、圆角、阴影、macOS 窗口点等装饰，不修改任何布局属性。侧栏/Grid 完全交给 Quartz base.scss 控制。
+- `npm run build` 通过 (257→599)，`npm run verify` 通过 (330 HTML)。**编译后 JS 中 reading-progress/reading-tools/copy-code 全部归零**。
+
 ## 2026-05-17 (Session 2 — 清理与修复)
 
 - 移除旧原型构建系统：删除 `scripts/build.mjs`、`scripts/serve.mjs`、`dist/`。
