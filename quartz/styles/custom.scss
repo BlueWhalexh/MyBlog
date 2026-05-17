@@ -81,10 +81,18 @@
   border-top: 3px solid var(--secondary);
 }
 
-// --- 移动端 ---
-@media (max-width: 600px) {
-  .home-zones {
-    grid-template-columns: 1fr;
+// --- 文章页 macOS 窗口 ---
+article {
+  h1 {
+    font-size: 1.75rem;
+    margin-top: 0;
+  }
+
+  .article-kicker,
+  .content-meta {
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -97,7 +105,9 @@
   width: 100%;
   height: 3px;
   background: var(--tertiary);
+  transform: scaleX(0);
   transform-origin: left center;
+  transition: transform 0.1s linear;
 }
 
 // --- 代码块 ---
@@ -117,6 +127,7 @@
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.2s;
+    z-index: 5;
   }
 
   &:hover .copy-code {
@@ -154,9 +165,156 @@
   }
 }
 
-// --- 适应 Quartz 的 explorer 分组 ---
-.explorer {
-  .folder-container {
+// --- Callout / Admonition 美化 ---
+.callout {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border-left: 4px solid var(--tertiary);
+  background: var(--highlight);
+
+  &[data-callout="note"] {
+    border-left-color: var(--tertiary);
+    background: var(--highlight);
+  }
+
+  &[data-callout="warning"] {
+    border-left-color: var(--secondary);
+    background: rgba(183, 121, 31, 0.08);
+  }
+
+  &[data-callout="tip"] {
+    border-left-color: #4fb36b;
+    background: rgba(79, 179, 107, 0.08);
+  }
+
+  &[data-callout="danger"],
+  &[data-callout="error"] {
+    border-left-color: #ef6a7a;
+    background: rgba(239, 106, 122, 0.08);
+  }
+
+  &[data-callout="info"] {
+    border-left-color: #5b9bd5;
+    background: rgba(91, 155, 213, 0.08);
+  }
+
+  &[data-callout="interview"] {
+    border-left-color: var(--secondary);
+    background: rgba(183, 121, 31, 0.06);
+  }
+
+  .callout-title {
+    font-weight: 700;
     margin-bottom: 0.25rem;
+  }
+}
+
+// --- 标签列表 ---
+.tag-row {
+  margin: 0.75rem 0;
+
+  .tag {
+    display: inline-block;
+    margin: 0.15rem 0.3rem 0.15rem 0;
+    padding: 0.15rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    background: var(--highlight);
+    color: var(--tertiary);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--tertiary);
+      color: var(--light);
+    }
+  }
+}
+
+// --- 文章内链美化 ---
+.internal-link {
+  text-decoration: underline;
+  text-decoration-color: var(--tertiary);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+// --- 表格 ---
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+
+  th, td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--lightgray);
+    text-align: left;
+  }
+
+  th {
+    background: var(--highlight);
+    font-weight: 600;
+  }
+}
+
+// --- 图片 ---
+.note-image,
+article img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+// --- blockquote ---
+blockquote {
+  border-left: 3px solid var(--tertiary);
+  padding-left: 1rem;
+  color: var(--gray);
+  margin-left: 0;
+}
+
+// --- 首页 - 知识库分类网格 ---
+.kb-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+
+  a {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--lightgray);
+    background: var(--light);
+    text-decoration: none;
+    color: var(--dark);
+
+    &:hover {
+      border-color: var(--secondary);
+    }
+  }
+}
+
+// --- 移动端 ---
+@media (max-width: 600px) {
+  .home-zones {
+    grid-template-columns: 1fr;
+  }
+
+  .reading-tools {
+    bottom: 1rem;
+    right: 0.75rem;
+  }
+
+  .kb-categories {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// --- 减少动画 ---
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

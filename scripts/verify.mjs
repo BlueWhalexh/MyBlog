@@ -14,7 +14,7 @@ const requiredFiles = [
   "favicon.ico",
 ]
 
-async function exists(file) {
+async function fileExists(file) {
   try {
     const info = await stat(join(outDir, file))
     return info.isFile()
@@ -28,8 +28,15 @@ async function collectHtml(dir = outDir) {
   const files = []
   for (const entry of entries) {
     const full = join(dir, entry.name)
-    if (entry.isDirectory() && entry.name !== "static") files.push(...await collectHtml(full))
-    if (entry.isFile() && entry.name.endsWith(".html")) files.push(full)
+    // Use stat (not entry.isDirectory) because Quartz SPA uses symlinks
+    let info
+    try { info = await stat(full) } catch { continue }
+    if (info.isDirectory() && entry.name !== "static") {
+      files.push(...await collectHtml(full))
+    }
+    if (info.isFile() && entry.name.endsWith(".html")) {
+      files.push(full)
+    }
   }
   return files
 }
@@ -40,7 +47,7 @@ function fail(message) {
 }
 
 for (const file of requiredFiles) {
-  if (!(await exists(file))) fail(`missing ${file}`)
+  if (!(await fileExists(file))) fail(`missing ${file}`)
 }
 
 const htmlFiles = await collectHtml()
