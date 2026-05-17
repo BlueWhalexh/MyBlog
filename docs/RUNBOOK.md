@@ -6,7 +6,7 @@
 npm.cmd run build
 ```
 
-构建产物输出到 `dist/`。
+构建产物输出到 `public/`（Quartz 4 默认目录）。
 
 ## 本地功能验证
 

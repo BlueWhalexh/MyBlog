@@ -52,6 +52,7 @@
 - **彻底移除 UXTweaks 自定义 JS**：进度条、回顶按钮、代码复制等所有自定义 DOM 操作全部删除。UXTweaks 组件从布局移除，`uxtweaks.inline.ts` 清空。这些 JS 在 SPA micromorph 导航后产生重复元素和 scroll 监听器，是页面滚轮缩放问题的根因。
 - **重写 custom.scss**：从 500+ 行简化到 ~200 行，纯 CSS 视觉增强。只修改颜色变量、圆角、阴影、macOS 窗口点等装饰，不修改任何布局属性。侧栏/Grid 完全交给 Quartz base.scss 控制。
 - `npm run build` 通过 (257→599)，`npm run verify` 通过 (330 HTML)。**编译后 JS 中 reading-progress/reading-tools/copy-code 全部归零**。
+- 文档同步更新：FUNCTIONAL_VERIFICATION、RUNBOOK、PROJECT_CONTEXT、COLLABORATION、UI_DECORATION_RESEARCH 全部刷新为当前状态。
 
 ## 2026-05-17 (Session 2 — 清理与修复)
 

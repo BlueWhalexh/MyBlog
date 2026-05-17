@@ -29,7 +29,7 @@
 
 ## 当前易冲突文件
 
-- `scripts/build.mjs`
-- `public/styles.css`
-- `public/app.js`
-- `docs/UI_DECORATION_RESEARCH.md`
+- `quartz/styles/custom.scss` — 自定义视觉增强
+- `quartz.layout.ts` — 页面布局
+- `quartz.config.ts` — 站点配置
+- `docs/UI_DECORATION_RESEARCH.md` — UI 设计决策

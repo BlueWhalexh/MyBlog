@@ -17,15 +17,13 @@ Astro/Starlight、Docusaurus 可作为后续产品化文档站备选。Ghost、F
 
 ## 本地实现说明
 
-GitHub 下载 Quartz 模板时，本地网络多次超时或连接重置。本轮为了先跑通计划，建立了一个无依赖的 Quartz 兼容本地原型：
+Renderer 层已于 2026-05-17 从本地原型迁移到 Quartz 4。当前构建系统：
 
-- `scripts/build.mjs`：构建 Markdown 到 `dist/`。
-- `scripts/serve.mjs`：本地静态预览。
-- `scripts/verify.mjs`：本地功能验证。
+- `npx quartz build`：Markdown 构建为静态站点 → `public/`。
+- `scripts/verify.mjs`：构建产物验证。
+- `scripts/sync.mjs`：从 Obsidian vault 增量同步 Markdown 到 `content/imported`。
 - `content/`：公开笔记目录。
-- `public/`：样式和搜索脚本。
-
-后续网络恢复后，Renderer 层替换为 Quartz 4。
+- 旧原型脚本 (`scripts/build.mjs`、`scripts/serve.mjs`、`dist/`) 已移除。
 
 ## 已补齐的博客基础功能
 

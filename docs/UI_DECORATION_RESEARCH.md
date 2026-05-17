@@ -60,11 +60,14 @@ Digital Garden 信息结构
 
 ## 当前实施
 
-- 使用三栏 Digital Garden 布局。
-- 首页加入 Mac 风格 Hero 和站点统计。
-- 文章区包裹为 macOS 窗口。
-- 顶栏加入 Paper / Dusk 主题切换。
-- 保留 RSS、sitemap、文章列表。
+- 使用 Quartz 4 原生三栏 Digital Garden 布局（侧栏 sticky）。
+- 纯 CSS 视觉增强（`custom.scss` ~200 行）：颜色变量、macOS 窗口卡、圆角、阴影。
+- 首页 Macro 风格 Hero + 双区卡片（博客 / 知识库）。
+- macOS 窗口三色标题点（box-shadow 实现）。
+- Quartz 原生暗色/亮色主题切换、阅读模式。
+- 左侧 Explorer（按 `content/imported` 原始目录树展示）。
+- 右侧局部图谱 + 全屏全局图谱。
+- **无自定义 JS**（UXTweaks 已移除，避免 SPA micromorph 兼容问题）。
 - 图谱 hover 使用 `r/stroke-width/fill`，避免 `transform: scale()` 造成节点跳动。
 
 ## 性能取舍
@@ -75,14 +78,15 @@ Digital Garden 信息结构
 
 - 移除所有 `backdrop-filter`。
 - 移除多层 `radial-gradient` 背景。
-- 顶栏和左右栏取消 sticky。
-- 阴影减轻。
-- 图谱 hover 只变 `fill/stroke-width`，不改变坐标和 transform。
+- 阴影减轻（`box-shadow: 0 1px 2px`）。
+- 图谱 hover 只变 `fill/stroke-width`。
+- 局部图谱禁用 D3 zoom（全局图谱全屏 overlay 保留）。
+- 侧栏保持 sticky（Quartz 原生行为，已测试不会造成性能问题）。
 - 增加 `prefers-reduced-motion` 兜底。
 
 原则：保留 macOS 的窗口、圆角、层次和主题切换，但避免实时模糊和大面积重绘。
 
-后续所有 UI 美化默认遵守这个原则：**先保证滚动、搜索、hover 和移动端流畅，再增加装饰**。
+**关键教训**：自定义 JS（进度条、回顶按钮、代码复制等）在 Quartz SPA micromorph 导航后会创建重复 DOM 和 scroll 监听器，导致严重的滚轮缩放 bug。后续所有交互增强必须通过 Quartz 组件机制（`afterDOMLoaded` + `addCleanup`）实现，确保 SPA 导航后正确清理和重建。
 
 ## 后续装修优先级
 

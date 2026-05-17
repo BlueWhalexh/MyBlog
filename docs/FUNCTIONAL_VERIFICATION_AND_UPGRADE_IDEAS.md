@@ -11,10 +11,10 @@ npm.cmd run verify
 
 结果：
 
-- 构建成功，生成 4 个内容页。
-- 验证通过 17 个 HTML 文件。
-- `search-index.json` 包含 4 条内容记录。
-- 首页、文章聚合页、标签页、图谱页、搜索索引、RSS、sitemap、robots 均已生成。
+- 构建成功，生成 257 个内容页（252 篇导入笔记 + 5 篇博客文章）。
+- 验证通过 330 个 HTML 文件，257 个 sitemap URL。
+- `search-index.json` 包含 257 条内容记录。
+- 首页、文章聚合页、标签页、图谱页、搜索索引、RSS、sitemap、robots、404 均已生成。
 
 ## 已补齐的常见功能
 
@@ -80,10 +80,23 @@ npm.cmd run verify
 
 ## 下一步建议
 
-短期优先级：
+## 当前进度 (2026-05-17 更新)
 
-1. 增加代码块复制按钮。
-2. 增加 `templates/post.md`、`templates/note.md`。
-3. 增加 `draft: true` 构建校验和发布前检查。
-4. 确认 GitHub 仓库后接 Giscus 评论。
-5. 网络稳定后，把 Renderer 替换为 Quartz 4。
+✅ 已完成：
+- Renderer 迁移到 Quartz 4
+- Obsidian 增量同步 (`scripts/sync.mjs`)
+- 双区首页（博客 + 知识库）
+- Mac 风格视觉增强（纯 CSS，无自定义 JS）
+- 局部图谱 + 全局图谱（全屏 overlay）
+- RSS、sitemap、robots、404、OG 图片
+- 暗色/亮色主题切换、阅读模式
+- 左侧 Finder 目录树（按 `content/imported` 原始结构）
+- 搜索（Ctrl+K 聚焦）、标签聚合
+
+🔲 短期优先级：
+
+1. 代码块复制按钮 — 需要以 SPA-safe 方式实现（不能像 UXTweaks 那样在 scroll/nav 上建 DOM）
+2. 增加 `templates/post.md`、`templates/note.md`
+3. 接 Giscus 评论系统
+4. 站内专题页（Java 后端 / AI 大模型 / 分布式 / 面试路线）
+5. 服务器部署
