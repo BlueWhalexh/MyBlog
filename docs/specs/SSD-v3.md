@@ -1,200 +1,282 @@
-# SSD v3: 智能化与多端
+# SSD v3: 技术社区平台
 
 ## 定位
 
-V2 完成自动化发布 + 评论 + 统计基础设施。V3 聚焦从"被动展示"到"主动服务"的跨越：
-- 让读者用语义检索找到需要的内容（而非关键词匹配）
-- 让用户能问"X 怎么实现的"并得到基于本站内容的答案
-- 让作者能从手机/Web 写作（脱离桌面 Obsidian 限制）
+从"个人静态知识库"演进为"个人驱动的技术社区平台"。
+
+作者（hxue）维护知识库和博客，访客可注册、讨论、提问；平台本质是作者的公开技术空间，而非多人协作 Wiki。
+
+**核心用途（不变）**：
+1. 维护个人知识库（Obsidian → Quartz 静态渲染，这套保持不动）
+2. 个人博客
+
+**V3 新增**：
+3. 论坛 / 讨论区（用户注册、发帖、回复、点赞）
+4. 问答（访客可对博客文章提问，作者回复）
+
+---
+
+## 架构决策
+
+### 不替换 Quartz，引入后端
+
+Quartz 静态渲染已经稳定、SEO 友好、CJK 完善。V3 不重写渲染层，而是在同一 repo 里增加后端服务：
+
+```
+MyBlog/
+├── content/             ← Obsidian 同步来的 Markdown（不变）
+├── public/              ← Quartz 构建产物（不变）
+├── quartz/              ← Quartz 核心（不变）
+├── server/              ← 新增：后端服务
+│   ├── src/
+│   │   ├── routes/      ← API 路由
+│   │   ├── models/      ← 数据模型
+│   │   ├── middleware/  ← auth、rate limit
+│   │   └── index.ts     ← 服务入口
+│   ├── prisma/          ← 数据库 schema（Prisma ORM）
+│   └── package.json
+└── scripts/             ← 构建和部署脚本（已有，扩展）
+```
+
+### 服务分离
+
+| 服务 | 技术 | 端口 | 职责 |
+|------|------|------|------|
+| 静态博客 | scripts/serve.mjs（已有） | 3010 | Quartz 静态文件 |
+| API 后端 | Hono + Node.js | 3011 | 论坛 CRUD、用户 auth |
+| 数据库 | PostgreSQL | 5432（内网） | 用户、帖子、回复 |
+
+nginx 统一入口：
+- `hjhxh.site/*` → 静态博客（3010，已有）
+- `hjhxh.site/api/*` → API 后端（3011，新增）
+- `hjhxh.site/forum` → 前端入口（静态 SPA，由 API 驱动）
+
+### 前端策略
+
+论坛前端是轻量 SPA，**编译后放进 `public/forum/`**，由 Quartz 静态服务一同 serve。技术栈：Preact + Vite，不引入 Next.js 等重框架。
+
+---
 
 ## 阶段划分
 
-| 阶段 | 主题 | 依赖 |
-|------|------|------|
-| P1 | 语义搜索 | 无 |
-| P2 | AI 问答（RAG） | P1 的 embedding 索引 |
-| P3 | 多端写作（独立项目） | 与博客架构正交 |
+| 阶段 | 主题 | 估计工作量 |
+|------|------|-----------|
+| P1 | 后端基础设施（DB + Auth + 基础 CRUD API） | 中 |
+| P2 | 论坛前端 + 集成到博客站 | 中 |
+| P3 | 问答功能（文章关联提问） | 小 |
+| P4 | AI 小工具（可选，延后） | 待定 |
 
 ---
 
-## P1: 语义搜索
+## P1: 后端基础设施
 
-### 目标
+### 技术选型
 
-读者输入自然语言查询（"分布式事务如何处理"），返回最相关的笔记，而非依赖关键词字面匹配。
-
-### 范围
-
-- 构建时生成内容 embedding 索引
-- 客户端加载索引，做余弦相似度检索
-- 与现有 flexsearch 共存：默认仍用 flexsearch（更快），增加"语义搜索"切换按钮
-
-### 技术方案
-
-**Embedding 来源（择一）**：
-
-| 方案 | 优点 | 缺点 |
+| 组件 | 选型 | 理由 |
 |------|------|------|
-| OpenAI `text-embedding-3-small` | 质量好，便宜 | 需 API key，每次 build 调 API |
-| 本地模型 (`@xenova/transformers` + `all-MiniLM-L6-v2`) | 零外部依赖 | 模型体积大，build 慢 |
-| BGE 中文模型（HuggingFace inference API） | CJK 友好 | 需 token，速率限制 |
+| 框架 | Hono (Node.js) | 轻量、TypeScript 原生、比 Express 更现代 |
+| ORM | Prisma | 类型安全、migration 方便 |
+| 数据库 | PostgreSQL | 单服务器 Docker 部署，比 SQLite 更利于后期扩展 |
+| Auth | JWT（access + refresh token） | 无状态，符合 API 优先设计 |
+| 密码 | bcrypt | 标准 |
 
-**推荐**：OpenAI text-embedding-3-small（中英双语都好，$0.02/1M tokens，264 篇笔记估算 $0.05/次 build）。
+### 数据模型（初版）
 
-**索引格式**：
+```prisma
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(MEMBER)
+  createdAt    DateTime @default(now())
+  posts        Post[]
+  replies      Reply[]
+}
 
-```json
-{
-  "version": 1,
-  "model": "text-embedding-3-small",
-  "dimension": 1536,
-  "items": [
-    {
-      "slug": "imported/Docker入门",
-      "title": "Docker 入门与核心概念",
-      "vector": [0.0123, -0.0456, ...]
-    }
-  ]
+enum Role { ADMIN MEMBER }
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    String
+  authorId   Int
+  author     User     @relation(fields: [authorId], references: [id])
+  category   String
+  tags       String[]
+  pinned     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  replies    Reply[]
+  likes      Int      @default(0)
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  content   String
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  likes     Int      @default(0)
 }
 ```
 
-**客户端加载策略**：
-- 索引 JSON 文件压缩 + gzip，264 项 × 1536 维 × 4 字节 ≈ 1.6 MB（可接受）
-- 仅在用户点击"语义搜索"切换按钮时按需加载（`<link rel="prefetch">`）
-- 查询时本地用 OpenAI embedding（需用户填 API key）或调用代理 endpoint
+### API 端点（P1）
 
-**风险**：客户端持有 OpenAI API key 不可行。需要：
-- 后端代理 endpoint（小型 serverless function：Vercel/Cloudflare Workers）
-- 或退化到"基于关键词扩展"的方案（用 LLM 生成同义词，然后用 flexsearch 查）
+```
+POST   /api/auth/register
+POST   /api/auth/login
+POST   /api/auth/refresh
+DELETE /api/auth/logout
 
-### 验收标准
+GET    /api/posts
+POST   /api/posts          (需登录)
+GET    /api/posts/:id
+PATCH  /api/posts/:id      (作者 or ADMIN)
+DELETE /api/posts/:id      (作者 or ADMIN)
 
-- [ ] Build 时生成 `static/embeddings.json`
-- [ ] 用户切换到"语义搜索"模式，输入查询后返回 top 10 相关笔记
-- [ ] 中文查询效果显著优于 flexsearch（人工对比 5 个 query）
-- [ ] 索引大小 ≤ 3 MB（gzip 后）
-- [ ] 不影响默认搜索性能（lazy load）
+GET    /api/posts/:id/replies
+POST   /api/posts/:id/replies   (需登录)
+DELETE /api/replies/:id         (作者 or ADMIN)
 
-### 实施步骤
+POST   /api/posts/:id/like      (需登录)
+```
 
-1. 决定 embedding 提供方（建议 OpenAI）
-2. `scripts/build-embeddings.mjs`：读 content/imported/*.md → 切片 → embed → JSON
-3. CI: 在 `npm run build` 后追加 `npm run build-embeddings`，secret 配 `OPENAI_API_KEY`
-4. `quartz/components/SemanticSearch.tsx`：新组件，UI 切换按钮 + 加载索引 + 计算相似度
-5. 后端代理 endpoint（Cloudflare Workers）：接收 query → 调 OpenAI embedding → 返回向量
-6. 客户端用代理返回的向量，本地与索引做相似度计算
+### 验收标准（P1）
 
----
-
-## P2: AI 问答（RAG）
-
-### 目标
-
-用户提问，系统检索本站相关笔记作为上下文，调用 LLM 生成答案并附引用链接。
-
-### 范围
-
-- 复用 P1 的 embedding 索引
-- 加 `/ask` 页面：单输入框 + 流式回答
-- 答案带 footnote 链接到源笔记
-
-### 技术方案
-
-- **检索**：query → embed → top-5 笔记
-- **生成**：拼 system prompt + 5 篇笔记 → Claude/GPT-4o-mini 流式响应
-- **后端**：Cloudflare Workers / Vercel Edge Function
-- **限流**：单 IP 每分钟 5 次（防滥用）
-
-### 验收标准
-
-- [ ] `/ask` 页可访问，输入问题流式返回答案
-- [ ] 答案中有 footnote 链接，点击跳到源笔记
-- [ ] 5 个示例问题人工评估：答案准确率 ≥ 80%
-- [ ] 单次回答成本 ≤ $0.005
-- [ ] 限流生效
-
-### 风险
-
-- API 成本可能超预算，需限流 + 监控
-- 答案可能误导，需 disclaimer
-- 隐私：用户 query 不应被永久存储
+- [ ] `server/` 目录结构清晰，TypeScript 无报错
+- [ ] `prisma migrate dev` 成功建表
+- [ ] `npm run dev:server` 在 3011 起服务
+- [ ] 注册 → 登录 → 获取 JWT → 发帖 → 回复全链路 curl 测试通过
+- [ ] 未登录请求受保护端点返回 401
+- [ ] 非作者修改他人帖子返回 403
+- [ ] 密码 bcrypt hash，不明文存储
+- [ ] Rate limit 生效（注册/登录 endpoint）
 
 ---
 
-## P3: 多端写作（独立项目）
+## P2: 论坛前端
 
-### 定位
+### 页面
 
-**这不是博客 repo 内的功能**，而是一个独立项目（建议名 `BlueWhalexh/blog-editor`），通过 API 与 knowledge-base repo 交互。
+| 路由 | 说明 |
+|------|------|
+| `/forum` | 帖子列表（分类、排序） |
+| `/forum/post/:id` | 帖子详情 + 回复 |
+| `/forum/new` | 发帖（需登录） |
+| `/forum/login` | 登录/注册 |
+| `/forum/profile` | 个人资料 |
 
-### 目标
+### 技术细节
 
-- 移动端 / Web 端可创建/编辑 Markdown 文章
-- 通过 API 提交到 knowledge-base repo（自动 commit + push）
-- 触发现有的 V2 自动部署链路
+- Preact + Vite，构建产物输出到 `public/forum/`
+- Markdown 渲染：marked 或 unified（与 Quartz 风格一致）
+- 暗色/亮色跟随博客主题（读 `document.documentElement[saved-theme]`）
+- 无 SSR，纯 SPA（对 SEO 要求不高，论坛内容主要靠登录用户产生）
 
-### 范围
+### 验收标准（P2）
 
-**编辑器**：
-- 轻量 SPA（Preact/React + CodeMirror）
-- Markdown 实时预览
-- 支持 frontmatter 编辑
-
-**后端 API**：
-- `POST /api/posts` — 创建/更新文章
-- `GET /api/posts` — 列表
-- `DELETE /api/posts/:slug` — 删除
-- 后端用 GitHub API 操作 knowledge-base repo
-
-**认证**：
-- 单用户，简单 token-based auth
-- Token 存 localStorage，每次请求带上
-- 后端验证后调 GitHub API（用 fine-grained PAT）
-
-### 技术栈
-
-- 前端：Preact + CodeMirror 6 + Vite
-- 后端：Cloudflare Workers / Hono
-- 部署：Cloudflare Pages 或独立服务器
-
-### 验收标准
-
-- [ ] 移动端浏览器可流畅编辑（中文输入法不卡顿）
-- [ ] 提交后 5 分钟内线上博客显示新文章
-- [ ] Token 认证生效，未授权请求返回 401
-- [ ] 不影响 Obsidian 桌面端写作流程
-
-### 风险与注意事项
-
-- 与 Obsidian 同步可能冲突（Obsidian → knowledge-base 与 Web 编辑器 → knowledge-base 双向写）
-  - 解决：编辑器先 pull，再 push，冲突时让用户选
-- Token 泄露风险：限制 token 仅能写 knowledge-base repo
-- 移动端富文本输入体验需要测试
+- [ ] 帖子列表、详情、发帖、回复全功能可用
+- [ ] 暗色/亮色主题与主站一致
+- [ ] 移动端布局正常（最小 375px 宽度）
+- [ ] 未登录只能读，登录后可写
+- [ ] 发帖支持 Markdown，预览正常
+- [ ] 页面与主站风格一致（字体/颜色沿用 Quartz 主题变量）
 
 ---
 
-## 不在 V3 范围
+## P3: 问答功能
 
-- 多用户协作（单用户够用）
-- 富文本所见即所得（保持 Markdown）
-- Obsidian 插件开发（用 Obsidian 自身同步即可）
-- 完整的 CMS（覆盖范围太大）
+博客文章关联提问：每篇文章页底部有一个"对本文提问"入口，进入论坛发帖时自动关联 `sourceSlug`（文章路径）。文章页展示该文章关联的未回答问题数量。
+
+### 数据模型扩展
+
+```prisma
+model Post {
+  // ...
+  sourceSlug  String?   // 关联的博客文章 slug，null 表示独立帖子
+  type        PostType  @default(DISCUSSION)
+}
+
+enum PostType { DISCUSSION QUESTION }
+```
+
+### 验收标准（P3）
+
+- [ ] Quartz 文章页（通过 Quartz 组件）展示关联问题数
+- [ ] 点击进入论坛能筛选出该文章的问题
+- [ ] 问答与普通讨论在列表中有区分显示
+
+---
+
+## P4: AI 小工具（可选，V3 后期）
+
+在论坛/博客功能稳定后按需加入，每个工具独立评估，不影响主干：
+
+| 工具 | 功能 | 实现复杂度 |
+|------|------|-----------|
+| 回复草稿辅助 | 输入问题/帖子内容，AI 给出回复草稿 | 低（调 Claude API，client-side） |
+| 内容摘要 | 长帖子自动生成 TL;DR | 低 |
+| 标签推荐 | 发帖时 AI 建议 tags | 低 |
+| 论坛内 RAG 问答 | 基于帖子+博客内容回答问题 | 高（需 embedding 索引） |
+
+原则：每个工具独立开关，不影响核心论坛功能；API 成本可控后再上线。
+
+---
+
+## 非目标（V3 明确不做）
+
+- 独立语义搜索系统（成本高，Quartz 自带 flexsearch 够用）
+- 多用户协作编辑（单作者博客不需要）
+- 商业化（付费会员、广告）
+- 全功能社区（Stack Overflow 规模）
+- Obsidian 同步流程改变（V2 已经稳定）
+
+---
+
+## 服务器部署规划
+
+当前服务器 `146.190.97.62`：
+- 3010: 静态博客（已有）
+- 3001: mypersonweb（不动）
+- 新增 3011: API 后端
+- 新增 PostgreSQL: Docker 容器（内网 5432）
+
+nginx 扩展配置：`/etc/nginx/sites-available/tech-blog`
+```nginx
+# 已有：静态博客
+location / { proxy_pass http://127.0.0.1:3010; }
+
+# 新增：API
+location /api/ { proxy_pass http://127.0.0.1:3011; }
+
+# 新增：论坛 SPA fallback（SPA 路由需 try_files）
+location /forum/ {
+    try_files $uri $uri/ /forum/index.html;
+}
+```
+
+---
+
+## 开发顺序建议
+
+1. `server/` 目录搭架子（Hono + Prisma + PostgreSQL Docker）
+2. Auth 端点 + 单元测试
+3. Post/Reply CRUD + 集成测试
+4. 论坛前端（Preact + Vite）
+5. 接入主站（nginx 配置 + Quartz 侧导航链接）
+6. P3 问答功能
+7. 按需评估 P4
 
 ---
 
 ## 里程碑
 
-- **M1 (P1)**：语义搜索上线，flexsearch + 语义双模式
-- **M2 (P2)**：AI 问答 MVP，5 个 demo query 验证
-- **M3 (P3)**：blog-editor 独立项目 v0.1，移动端可发布
-
----
-
-## 决策记录（来自 V2 回顾）
-
-| 议题 | 决策 | 原因 |
-|------|------|------|
-| P1 V2 写过的"语义搜索" | 移到 V3 P1 单独立项 | 实现复杂度需要单独迭代周期 |
-| P4 V2 写过的"多端写作" | 移到 V3 P3，独立 repo | 与静态博客架构正交，不应在博客 repo 内 |
-| 评论与统计在 V2 完成 | 保留 | 简单且独立，无后续依赖 |
-| 自动化发布在 V2 完成 | 保留 | V3 所有阶段都依赖此基础设施 |
+| 里程碑 | 交付物 |
+|--------|--------|
+| M1 | API 服务可运行，auth + post CRUD 通过测试 |
+| M2 | 论坛前端上线，hjhxh.site/forum 可访问 |
+| M3 | 问答功能与博客文章联通 |
+| M4 | 至少 1 个 AI 小工具上线（可选） |
