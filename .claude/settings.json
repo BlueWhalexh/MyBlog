@@ -16,7 +16,8 @@
       "Bash(echo \"PID: $!\")",
       "Bash(cat /tmp/quartz-serve.log)",
       "Read(//private/tmp/**)",
-      "Bash(curl -s -4 -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3010/)"
+      "Bash(curl -s -4 -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3010/)",
+      "Bash(git push *)"
     ]
   }
 }
