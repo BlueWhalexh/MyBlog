@@ -10,15 +10,16 @@
 
 新 Agent 先按这个顺序读：
 
-1. `AGENTS.md`：项目级协作约束。
-2. `docs/AGENT_HANDOFF.md`：本文件，快速接手入口。
-3. `docs/PROJECT_CONTEXT.md`：项目定位、架构和风险。
-4. `docs/RUNBOOK.md`：构建、同步、部署、回滚。
-5. `docs/OBSIDIAN_SYNC.md`：Obsidian-first 写作和同步规则。
-6. `docs/HERMES_ARCHITECTURE.md`：Horizon / Editor / Renderer / Middleware / Estate / Safeguards 分层。
-7. `docs/SSD.md`：第一版需求边界和非目标。
-8. `docs/COLLABORATION.md`：多会话协作边界。
-9. `progress.md`：最近改动和踩坑记录。
+1. `AGENTS.md`：项目级协作约束和 Hard Rules。
+2. `docs/canonical/AGENT_HANDOFF.md`：本文件，快速接手入口。
+3. `docs/canonical/PROJECT_CONTEXT.md`：项目定位、架构和风险。
+4. `docs/canonical/RUNBOOK.md`：构建、同步、部署、回滚。
+5. `docs/canonical/OBSIDIAN_SYNC.md`：Obsidian-first 写作和同步规则。
+6. `docs/canonical/HERMES_ARCHITECTURE.md`：Horizon / Editor / Renderer / Middleware / Estate / Safeguards 分层。
+7. `docs/specs/SSD.md`：第一版需求边界和非目标。
+8. `docs/specs/EXIT_GATES.md`：任务退出门槛定义。
+9. `docs/canonical/COLLABORATION.md`：多会话协作边界。
+10. `progress.md`：最近改动和踩坑记录。
 
 ## 本地事实
 
