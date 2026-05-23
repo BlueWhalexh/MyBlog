@@ -108,6 +108,59 @@ ssh -i C:\Users\xuehang\.ssh\do_digitalocean_ed25519 xuehang@146.190.97.62 "df -
 
 如果普通用户看不到 80 端口进程，使用 sudo 前先确认权限和影响。
 
+## GitHub 到服务器上线流程
+
+项目上线以 GitHub 为源，不手工散传文件到服务器。推荐路径是：
+
+```text
+本地修改 / Obsidian 同步
+  -> npm.cmd run check
+  -> npm.cmd run build
+  -> npm.cmd run verify
+  -> git commit
+  -> git push origin HEAD:main
+  -> 服务器 git pull origin main
+  -> 服务器 build / verify
+  -> curl 抽查线上页面
+```
+
+本地推送：
+
+```powershell
+git status --short
+git diff --stat
+git add <files>
+git commit -m "描述本次变更"
+git push origin HEAD:main
+```
+
+如果 HTTPS 到 GitHub 失败，可改用 SSH：
+
+```powershell
+git push git@github.com:BlueWhalexh/MyBlog.git HEAD:main
+```
+
+服务器更新一条命令：
+
+```powershell
+ssh -i C:\Users\xuehang\.ssh\do_digitalocean_ed25519 xuehang@146.190.97.62 "cd /opt/tech-blog && git pull origin main && node quartz/bootstrap-cli.mjs build && node scripts/verify.mjs"
+```
+
+如果这条命令超时，分层确认：
+
+```powershell
+ssh -i C:\Users\xuehang\.ssh\do_digitalocean_ed25519 xuehang@146.190.97.62 "cd /opt/tech-blog && git rev-parse --short HEAD"
+ssh -i C:\Users\xuehang\.ssh\do_digitalocean_ed25519 xuehang@146.190.97.62 "cd /opt/tech-blog && node scripts/verify.mjs"
+```
+
+线上抽查：
+
+```powershell
+curl.exe -I http://hjhxh.site
+curl.exe -I http://hjhxh.site/sitemap.xml
+curl.exe -I http://hjhxh.site/static/contentIndex.json
+```
+
 ## 部署草案 ✅ 已上线
 
 - **访问地址**：`http://146.190.97.62:3010/`

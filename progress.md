@@ -1,5 +1,12 @@
 # Progress Log
 
+## 2026-05-23 (Session 6 - Agent 交接与发布流程文档)
+
+- 新增 `docs/AGENT_HANDOFF.md`，将项目定位、本地事实、Obsidian-first 内容规则、GitHub 发布、SSH 上线、服务器边界、UI 改动入口和常见坑整理为新 Agent 接手入口。
+- 更新 `AGENTS.md`，把 `docs/AGENT_HANDOFF.md` 放到接手先读首位。
+- 更新 `docs/RUNBOOK.md`，补充 GitHub 到服务器的上线流程、SSH 命令、超时分层检查和线上 curl 验证命令。
+- 更新 `docs/PROJECT_CONTEXT.md`，记录代码复制按钮和低成本阅读体验增强的当前状态。
+
 ## 2026-05-17 (Session 5 - Obsidian-first 写作规则)
 
 - 固化用户新增长期规则：技术博客和公开笔记必须先写入 Obsidian 笔记库 `D:\Document\Notes`，按 vault 规则整理后再同步到项目。

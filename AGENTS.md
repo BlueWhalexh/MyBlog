@@ -6,14 +6,15 @@
 
 ## 接手先读
 
-1. `docs/PROJECT_CONTEXT.md`
-2. `docs/SSD.md`
-3. `docs/HERMES_ARCHITECTURE.md`
-4. `docs/RUNBOOK.md`
-5. `docs/UI_DECORATION_RESEARCH.md`
-6. `docs/COLLABORATION.md`
-7. `docs/OBSIDIAN_SYNC.md`
-8. `task_plan.md`、`findings.md`、`progress.md`
+1. `docs/AGENT_HANDOFF.md`
+2. `docs/PROJECT_CONTEXT.md`
+3. `docs/SSD.md`
+4. `docs/HERMES_ARCHITECTURE.md`
+5. `docs/RUNBOOK.md`
+6. `docs/UI_DECORATION_RESEARCH.md`
+7. `docs/COLLABORATION.md`
+8. `docs/OBSIDIAN_SYNC.md`
+9. `task_plan.md`、`findings.md`、`progress.md`
 
 ## 本地命令
 
