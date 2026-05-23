@@ -1,5 +1,14 @@
-import { QuartzConfig } from "./quartz/cfg"
+import { Analytics, QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+
+const umamiWebsiteId = process.env.UMAMI_WEBSITE_ID
+const umamiAnalytics: Analytics = umamiWebsiteId
+  ? {
+      provider: "umami",
+      websiteId: umamiWebsiteId,
+      host: process.env.UMAMI_HOST,
+    }
+  : null
 
 const config: QuartzConfig = {
   configuration: {
@@ -7,7 +16,7 @@ const config: QuartzConfig = {
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
-    analytics: null,
+    analytics: umamiAnalytics,
     locale: "zh-CN",
     baseUrl: "hjhxh.site",
     ignorePatterns: [

@@ -9,6 +9,7 @@
     "dev": "npx quartz build --watch",
     "serve": "npx quartz build --serve",
     "sync": "node scripts/sync.mjs",
+    "pull-content": "bash scripts/pull-content.sh",
     "verify": "node scripts/verify.mjs",
     "preview": "npx quartz build && npx quartz build --serve",
     "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy.ps1",

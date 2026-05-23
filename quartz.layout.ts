@@ -1,14 +1,36 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
-// components shared across all pages
+const giscusRepoId = process.env.GISCUS_REPO_ID
+const giscusCategoryId = process.env.GISCUS_CATEGORY_ID
+const giscusEnabled = Boolean(giscusRepoId && giscusCategoryId)
+
+const giscusComponents = giscusEnabled
+  ? [
+      Component.Comments({
+        provider: "giscus",
+        options: {
+          repo: (process.env.GISCUS_REPO ?? "BlueWhalexh/MyBlog") as `${string}/${string}`,
+          repoId: giscusRepoId!,
+          category: process.env.GISCUS_CATEGORY ?? "Comments",
+          categoryId: giscusCategoryId!,
+          mapping: "pathname",
+          strict: true,
+          reactionsEnabled: true,
+          inputPosition: "bottom",
+          lang: "zh-CN",
+        },
+      }),
+    ]
+  : []
+
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: giscusComponents,
   footer: Component.Footer({
     links: {
-      "RSS": "/feed.xml",
+      "RSS": "/index.xml",
       "Sitemap": "/sitemap.xml",
     },
   }),

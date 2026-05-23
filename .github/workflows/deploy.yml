@@ -1,0 +1,70 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [knowledge-base-updated]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+
+      - name: Checkout knowledge-base into content/imported
+        uses: actions/checkout@v4
+        with:
+          repository: BlueWhalexh/knowledge-base
+          path: content/imported
+          token: ${{ secrets.KB_REPO_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build site
+        env:
+          GISCUS_REPO: ${{ secrets.GISCUS_REPO }}
+          GISCUS_REPO_ID: ${{ secrets.GISCUS_REPO_ID }}
+          GISCUS_CATEGORY: ${{ secrets.GISCUS_CATEGORY }}
+          GISCUS_CATEGORY_ID: ${{ secrets.GISCUS_CATEGORY_ID }}
+          UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+          UMAMI_HOST: ${{ secrets.UMAMI_HOST }}
+        run: npm run build
+
+      - name: Verify build
+        run: npm run verify
+
+      - name: Setup SSH for deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 146.190.97.62 >> ~/.ssh/known_hosts
+
+      - name: Deploy public/ via rsync
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            public/ \
+            xuehang@146.190.97.62:/opt/tech-blog/public/
+
+      - name: Smoke test
+        run: |
+          curl -fsSI http://hjhxh.site > /dev/null && echo "Homepage OK"
+          curl -fsSI http://hjhxh.site/sitemap.xml > /dev/null && echo "Sitemap OK"
